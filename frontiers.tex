@@ -94,6 +94,10 @@ After the audio-quality filter, the analyzable set consists of 1{,}337{,}131 vis
 
 The analytic sample comprises 514{,}381 visits from 379{,}227 unique patients, all adult. Median patient age at the time of visit is 38 years, with an interquartile range of 28 to 55 years and a mean of 42.7 years. The age range spans 18 to 106 years. The distribution is right-skewed (Figure~\ref{fig_demographics}A), peaking in the 25 to 29 bin and decaying monotonically thereafter. Sex distribution is 63.5\% female (326{,}412 visits) and 36.5\% male (187{,}884 visits), with 72 visits recorded as Unknown and 9 as Other. The female skew is consistent with primary care utilization patterns reported in US ambulatory care surveys [TODO: CITE source, e.g., CDC NAMCS] and is not a recruitment artifact of this work. Patient-level deduplication (n=379{,}227) yields the same median age (38), an interquartile range of 28 to 55, and a sex distribution within 0.1\% of the visit-level numbers, indicating that the visit-level view is not distorted by a small number of high-frequency patients. The longitudinal structure of the sample is sparse (Figure~\ref{fig_demographics}B): 77.1\% of patients (n=292{,}422) contributed a single visit, 15.4\% (n=58{,}322) contributed two, 6.9\% (n=26{,}328) contributed three to five, and 0.5\% (n=2{,}064) contributed six to ten. A small tail of 89 patients (0.02\%) contributed between 11 and 25 visits, and no patient in the sample exceeded 25 visits.
 
+\subsubsection{Geographic distribution}
+
+Geographic information is recorded at the patient level as the state and city of the patient's address. The analytic sample spans all 50 US states, the District of Columbia, and four US territories (Puerto Rico, the US Virgin Islands, Guam, and the Northern Mariana Islands), with a small number of visits also recorded from US military addresses and from international jurisdictions where the network's patients were temporarily resident. State and city fields were normalized prior to the analysis below: full-name spellings of states were merged into their two-letter codes, and visits with unparseable state values (single characters, punctuation, numeric sentinels, and similar artifacts, totaling approximately 0.17\% of the sample) were excluded from the geographic counts but retained in all other analyses. The resulting distribution is heavily concentrated in California and the Northeast (Figure~\ref{fig_geography}A): California alone accounts for 58.4\% of visits (n=300{,}229), followed by New Jersey at 15.6\% (n=80{,}350), Arizona at 5.3\% (n=27{,}383), Washington at 4.2\% (n=21{,}348), and Massachusetts at 3.4\% (n=17{,}571). These five states together account for 86.9\% of the sample, and the top ten states account for 95.3\%. At the city level, the sample spans 9{,}251 unique cities, with the most heavily represented being Los Angeles, San Francisco, Tucson, San Jose, and Simi Valley (Figure~\ref{fig_geography}B). The long tail is substantial: 3{,}800 cities (41\% of unique cities) contributed a single visit each. This skew reflects the geographic footprint of the originating network rather than any acoustic property of the data, and we revisit its implications for external validity in the city-stratified confounder analysis (Section~\ref{sec:confounder-analysis}) and in the Discussion.
+
 \section{Article types}
 
 For requirements for a specific article type please refer to the Article Types on any Frontiers journal page. Please also refer to  \href{http://home.frontiersin.org/about/author-guidelines#Sections}{Author Guidelines} for further information on how to organize your manuscript in the required sections or their equivalents for your field
@@ -185,6 +189,24 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 
 \begin{figure}[h!]
 \begin{center}
+\includegraphics[width=\linewidth]{fig_demographics}
+\end{center}
+\caption{Demographic distribution of the analytic sample (n=514{,}381 visits from 379{,}227 unique patients). \textbf{(A)} Patient age distribution at the time of visit, binned in 5-year intervals; the distribution is right-skewed and peaks in the 25 to 29 bin. \textbf{(B)} Visits-per-patient distribution; 77.1\% of patients contributed a single visit and no patient contributed more than 25.}
+\label{fig_demographics}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=\linewidth]{fig_geography}
+\end{center}
+\caption{Geographic distribution of the analytic sample (n=514{,}381 visits from 379{,}227 unique patients). \textbf{(A)} State-level visit counts; California accounts for 58.4\% of visits and the top five states (California, New Jersey, Arizona, Washington, Massachusetts) account for 86.9\%. \textbf{(B)} City-level visit distribution across 9{,}251 unique cities; the long tail comprises 3{,}800 cities (41\%) that contribute a single visit each.}
+\label{fig_geography}
+\end{figure}
+
+% --- Template example figure blocks below, kept for reference and commented out. ---
+\iffalse
+\begin{figure}[h!]
+\begin{center}
 \includegraphics[width=10cm]{logo1}% This is a *.eps file
 \end{center}
 \caption{ Enter the caption for your figure here.  Repeat as  necessary for each of your figures}\label{fig:1}
@@ -215,6 +237,7 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
     \caption{Enter the caption for your subfigure here. \textbf{(A)} This is the caption for Subfigure 1. \textbf{(B)} This is the caption for Subfigure 2.}
     \label{fig: subfigures}
 \end{subfigure}
+\fi
 
 %%% If you don't add the figures in the LaTeX files, please upload them when submitting the article.
 %%% Frontiers will add the figures at the end of the provisional pdf automatically
