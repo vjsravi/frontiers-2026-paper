@@ -106,6 +106,10 @@ At the individual-code level (Figure~\ref{fig_clinical}B), the analytic sample i
 
 Patient-level documentation of chronic conditions and comorbidities is available for the analytic sample through the full ICD-10 code arrays attached to each patient's visit history. Documented prevalences across the analytic sample of 379{,}227 patients are 4.69\% for chronic respiratory disease (defined as any occurrence of J44, J45, J47, J84, or E84), 1.35\% for anxiety (F41), 0.93\% for gastroesophageal reflux disease (K21), 0.59\% for depression (F32 or F33), 0.33\% for obesity (E66), 0.12\% for tobacco use or dependence (F17, Z72.0, or Z87.891), 0.09\% for obstructive sleep apnea (G47.3x), and 0.04\% for heart failure (I50). These prevalences are computed against the full denominator of 379{,}227 patients, treating absence of the code as absence of the condition. They are therefore documentation prevalences rather than true population prevalences, and they undercount by construction: a condition that exists but has not been coded during any visit in the observation window does not contribute. The tobacco use figure of 0.12\% is the clearest example, since US adult tobacco use prevalence is approximately 14\% [TODO: CITE source, e.g., CDC NHIS or BRFSS], and the present figure is best read as a coding-rate floor rather than a true-prevalence estimate. We do not use these covariates as features, labels, or stratifiers in any of the analyses reported in this paper; they are presented to characterize the population.
 
+\subsubsection{Audio duration distribution}
+
+Patient audio duration is the length of the patient-channel signal extracted from each recording by the diarization pipeline (Section~\ref{sec:methods-diarization}); it is the input length to the feature extractor for that visit. Across the 514{,}381 visits in the analytic sample, the median duration is 27.8 seconds with an interquartile range of 15.4 to 47.2 seconds, the mean is 36.8 $\pm$ 34.1 seconds, and the range is 0.7 to 776 seconds (Figure~\ref{fig_duration}). The distribution is unimodal and right-skewed on a linear scale; on the log scale of Figure~\ref{fig_duration} it appears roughly symmetric. A small accumulation near the one-second boundary corresponds to a minor leak in the audio-quality filter, where 3{,}542 visits (0.7\%) recorded a duration below the nominal one-second floor; this leak is too small to bias any downstream analysis but we note it for transparency. The total measured patient audio across the analytic sample is 5{,}033 hours, representing the largest collection of real-world conversational primary care audio reported to date for the purpose of acoustic respiratory triage.
+
 \section{Article types}
 
 For requirements for a specific article type please refer to the Article Types on any Frontiers journal page. Please also refer to  \href{http://home.frontiersin.org/about/author-guidelines#Sections}{Author Guidelines} for further information on how to organize your manuscript in the required sections or their equivalents for your field
@@ -217,6 +221,14 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 \end{center}
 \caption{Clinical distribution of primary ICD-10 codes across the analytic sample (n=514{,}381 visits from 379{,}227 unique patients). \textbf{(A)} ICD-10 chapter distribution; the respiratory chapter (J) accounts for 52.3\% of primary diagnoses, followed by symptoms and signs (R, 12.74\%), musculoskeletal (M, 10.64\%), genitourinary (N, 8.49\%), and skin (L, 6.20\%). \textbf{(B)} Top primary ICD-10 codes; the top 20 codes account for 71.07\% of visits, led by J06.9 (acute upper respiratory infection, unspecified) at 19.74\% and J02.9 (acute pharyngitis, unspecified) at 9.33\%.}
 \label{fig_clinical}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=\linewidth]{fig_duration}
+\end{center}
+\caption{Patient-channel audio duration across the analytic sample (n=514{,}381 visits). The distribution is unimodal and right-skewed on a linear scale (median 27.8 s, interquartile range 15.4 to 47.2 s, mean 36.8 $\pm$ 34.1 s, range 0.7 to 776 s); on the log scale shown here it appears roughly symmetric. The total measured patient audio is 5{,}033 hours.}
+\label{fig_duration}
 \end{figure}
 
 % --- Template example figure blocks below, kept for reference and commented out. ---
