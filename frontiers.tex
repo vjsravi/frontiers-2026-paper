@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
-% This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.   
+% This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.
 %                                              %
 %                                                                                                                                                         %
 % When submitting your files, remember to upload this *tex file, the pdf generated with it, the *bib file (if bibliography is not within the *tex) and all the figures.
@@ -13,9 +13,9 @@
 
 \documentclass[utf8]{FrontiersinHarvard} % for articles in journals using the Harvard Referencing Style (Author-Date), for Frontiers Reference Styles by Journal: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
 %\documentclass[utf8]{FrontiersinVancouver} % for articles in journals using the Vancouver Reference Style (Numbered), for Frontiers Reference Styles by Journal: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
-%\documentclass[utf8]{frontiersinFPHY_FAMS} % Vancouver Reference Style (Numbered) for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
+%\documentclass[utf8]{frontiersinFPHY_FAMS} % Vancouver Reference Style (Numbered) for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics"
 
-%\setcitestyle{square} % for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics" 
+%\setcitestyle{square} % for articles in the journals "Frontiers in Physics" and "Frontiers in Applied Mathematics and Statistics"
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 
@@ -64,7 +64,7 @@ $^{2}$Laboratory X, Institute X, Department X, Organization X, City X , State XX
 \section{}
 For full guidelines regarding your manuscript please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines}{Author Guidelines}.
 
-As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership. References should not be cited in the abstract. Leave the Abstract empty if your article does not require one, please see \href{http://www.frontiersin.org/about/AuthorGuidelines#SummaryTable}{Summary Table} for details according to article type. 
+As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership. References should not be cited in the abstract. Leave the Abstract empty if your article does not require one, please see \href{http://www.frontiersin.org/about/AuthorGuidelines#SummaryTable}{Summary Table} for details according to article type.
 
 
 \tiny
@@ -76,6 +76,14 @@ As a primary goal, the abstract should render the general significance and conce
 For Original Research Articles \citep{conference}, Clinical Trial Articles \citep{article}, and Technology Reports \citep{patent}, the introduction should be succinct, with no subheadings \citep{book}. For Case Reports the Introduction should include symptoms at presentation \citep{chapter}, physical exams and lab results \citep{dataset}.
 
 
+
+\section{Our Dataset}
+\label{sec:dataset}
+
+\subsection{Data collection, audio, and consent}
+\label{sec:data-collection}
+
+The dataset comprises ambient-scribed audio of routine adult primary care visits, that is, in-room recordings of natural conversations between patients and clinicians captured by an ambient clinical-documentation system, with no headworn microphone, no scripted protocol, and no prompted speech task. The recordings come from a US primary care clinic network operating across multiple sites. Audio was collected during the ordinary course of clinical care, and the resulting acoustic data reflect the variability any deployed triage system would encounter at the point of care: background noise, overlapping speech, interruptions, accents, conversational disfluencies, and the full range of patient affect and presentation severity seen in primary care. Patients provided consent for their audio to be used for research purposes prior to recording, and identifying information was removed from the visit metadata before the data were made available for analysis. This work is a secondary analysis of those recordings conducted under the data-use terms of the originating network. The source extract for this work covers 1{,}734{,}936 visits from 1{,}008{,}836 unique adult patients, with recording dates spanning 2024-01-01 to 2026-02-18, a window of 779 days. Each visit corresponds to a single audio file of the full patient-clinician encounter, and the analyses in this paper use only the patient-speech portion of each recording, isolated through the diarization pipeline described in Section~\ref{sec:methods-diarization}.
 
 \section{Article types}
 
@@ -110,11 +118,11 @@ Figures, tables, and images will be published under a Creative Commons CC-BY lic
 %%Figures, tables, and images will be published under a Creative Commons CC-BY licence and permission must be obtained for use of copyrighted material from other sources (including re-published/adapted/modified/partial figures and images from the internet). It is the responsibility of the authors to acquire the licenses, to follow any citation instructions requested by third-party rights holders, and cover any supplementary charges.
 
 \subsection{Tables}
-Tables should be inserted at the end of the manuscript. Please build your table directly in LaTeX.Tables provided as jpeg/tiff files will not be accepted. Please note that very large tables (covering several pages) cannot be included in the final PDF for reasons of space. These tables will be published as \href{http://home.frontiersin.org/about/author-guidelines#SupplementaryMaterial}{Supplementary Material} on the online article page at the time of acceptance. The author will be notified during the typesetting of the final article if this is the case. 
+Tables should be inserted at the end of the manuscript. Please build your table directly in LaTeX.Tables provided as jpeg/tiff files will not be accepted. Please note that very large tables (covering several pages) cannot be included in the final PDF for reasons of space. These tables will be published as \href{http://home.frontiersin.org/about/author-guidelines#SupplementaryMaterial}{Supplementary Material} on the online article page at the time of acceptance. The author will be notified during the typesetting of the final article if this is the case.
 
 \subsection{International Phonetic Alphabet}
 To include international phonetic alphabet (IPA) symbols, please include the following functions:
-Under useful packages, include:\begin{verbatim}\usepackage{tipa}\end{verbatim} 
+Under useful packages, include:\begin{verbatim}\usepackage{tipa}\end{verbatim}
 In the main text, when inputting symbols, use the following format:\begin{verbatim}\text[symbolname]\end{verbatim}e.g.\begin{verbatim}\textgamma\end{verbatim}
 
 \section{Nomenclature}
@@ -131,7 +139,7 @@ Life Science Identifiers (LSIDs) for ZOOBANK registered names or nomenclatural a
 For additional requirements for specific article types and further information please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines#AdditionalRequirements}{Author Guidelines}.
 
 \section*{Conflict of Interest Statement}
-%All financial, commercial or other relationships that might be perceived by the academic community as representing a potential conflict of interest must be disclosed. If no such relationship exists, authors will be asked to confirm the following statement: 
+%All financial, commercial or other relationships that might be perceived by the academic community as representing a potential conflict of interest must be disclosed. If no such relationship exists, authors will be asked to confirm the following statement:
 
 The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
 
@@ -152,7 +160,7 @@ This is a short text to acknowledge the contributions of specific colleagues, in
 The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF REPOSITORY] [LINK].
 % Please see the availability of data guidelines for more information, at https://www.frontiersin.org/about/author-guidelines#AvailabilityofData
 
-\bibliographystyle{Frontiers-Harvard} %  Many Frontiers journals use the Harvard referencing system (Author-date), to find the style and resources for the journal you are submitting to: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal. For Humanities and Social Sciences articles please include page numbers in the in-text citations 
+\bibliographystyle{Frontiers-Harvard} %  Many Frontiers journals use the Harvard referencing system (Author-date), to find the style and resources for the journal you are submitting to: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal. For Humanities and Social Sciences articles please include page numbers in the in-text citations
 %\bibliographystyle{Frontiers-Vancouver} % Many Frontiers journals use the numbered referencing system, to find the style and resources for the journal you are submitting to: https://zendesk.frontiersin.org/hc/en-us/articles/360017860337-Frontiers-Reference-Styles-by-Journal
 \bibliography{test}
 
@@ -164,7 +172,6 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 %%% Please be aware that for original research articles we only permit a combined number of 15 figures and tables, one figure with multiple subfigures will count as only one figure.
 %%% Use this if adding the figures directly in the mansucript, if so, please remember to also upload the files when submitting your article
 %%% There is no need for adding the file termination, as long as you indicate where the file is saved. In the examples below the files (logo1.eps and logos.eps) are in the Frontiers LaTeX folder
-%%% If using *.tif files convert them to .jpg or .png
 %%%  NB logo1.eps is required in the path in order to correctly compile front page header %%%
 
 \begin{figure}[h!]
@@ -184,8 +191,8 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
         \includegraphics[width=\linewidth]{logo1.eps}
         \caption{This is Subfigure 1.}
         \label{fig:Subfigure 1}
-    \end{minipage}  
-   
+    \end{minipage}
+
 \setcounter{figure}{2}
 \setcounter{subfigure}{1}
     \begin{minipage}[b]{0.5\textwidth}
