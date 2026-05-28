@@ -119,43 +119,6 @@ Voice and cough datasets in published respiratory research span three regimes: c
 
 On scale, the comparison is also informative. The largest crowdsourced collection by unique subjects is COVID-19 Sounds at 36{,}116 participants [CITE: Xia et al. 2021 NeurIPS]; the present work covers 379{,}225 unique patients, an order of magnitude larger. The largest clinical-cough collection by total recording count is CODA TB DREAM at 733{,}756 cough events [CITE: CODA TB DREAM 2024 Scientific Data], but the cough events are short solicited bursts (five coughs per subject in the training set, with a 565-subject sub-cohort contributing two weeks of longitudinal community-setting coughs), drawn from 2{,}143 subjects. The present work yields 514{,}381 patient-clinician conversational recordings averaging 28 seconds of patient speech per visit, totaling 5{,}033 hours of conversational acoustic content. The dataset is therefore positioned at the unoccupied intersection of three properties: large scale (order of magnitude above prior unique-subject counts), conversational and unscripted speech (not present in any prior public dataset), and clinical breadth across the 11 respiratory contrasts of the triage panel rather than a single condition. This positioning is the empirical basis on which the analyses in the rest of this paper rest.
 
-% Comparison of voice/cough datasets in respiratory disease research.
-% Place inside a table* float for two-column layout, or table for single-column.
-% Requires: \usepackage{booktabs, array}
-\begin{table*}[t]
-\centering
-\caption{Voice and cough datasets used for respiratory disease research in the published literature, compared with the present work. n/r = not reported in primary source.}
-\label{tab:dataset_comparison}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{@{}l c r r l l l c@{}}
-\toprule
-\textbf{Dataset} & \textbf{Year} & \textbf{Subjects} & \textbf{Recordings} & \textbf{Recording task} & \textbf{Setting} & \textbf{Conditions} & \textbf{Public} \\
-\midrule
-Botha TB cough [CITE] & 2018 & 38 & n/r & Voluntary cough & Clinic & TB & No \\
-Coswara [CITE] & 2020 & 2{,}635 & 23{,}715 & Vowel, cough, breath, count & Crowdsourced web/app & COVID-19 & Yes \\
-COUGHVID [CITE] & 2020 & n/r & $\sim$30{,}000 & Voluntary cough & Crowdsourced web/app & COVID-19 & Yes \\
-COVID-19 Sounds, Cambridge [CITE] & 2020 & 36{,}116 & 53{,}449 & Read sentence, cough, breath & Crowdsourced web/app & COVID-19, asthma & On request \\
-NoCoCoDa [CITE] & 2020 & 10 & 73 & Cough from media interviews & Media (no participation) & COVID-19 & On request \\
-Virufy open cough [CITE] & 2020 & 16 & 121 & Voluntary cough & Clinic + smartphone & COVID-19 & Yes \\
-DiCOVA-1 [CITE] & 2021 & 1{,}040 & n/r & Cough, breath, vowel, count & Crowdsourced web/app & COVID-19 & Yes \\
-Pahar TB cough [CITE] & 2021 & 51 & 1{,}358 & Voluntary cough, count, breath & Clinic & TB & No \\
-DiCOVA-2 [CITE] & 2022 & 1{,}436 & n/r & Cough, count, breath & Crowdsourced web/app & COVID-19 & Yes \\
-Sonde RRVB [CITE] & 2023 & $\sim$5{,}000 & n/r & Sustained vowel & Mixed (smartphone) & Asthma, COPD, ILD, COVID-19 & No \\
-CODA TB DREAM [CITE] & 2024 & 2{,}143 & 733{,}756 coughs & Solicited cough x 5 & Clinic & TB & On request \\
-TBscreen [CITE] & 2024 & 195 & 34{,}600 coughs & Passive + forced cough & Clinic & TB, other respiratory & Yes \\
-\midrule
-\textbf{This work} & 2026 & 379{,}225 & 514{,}381 visits & Conversational primary care visit & Clinic (ambient) & 11 respiratory contrasts (panel) & No \\
-\bottomrule
-\end{tabular}
-\begin{flushleft}
-\footnotesize
-\textit{Notes.} Recordings counts mix visit-level recordings and per-event extractions across datasets and are not directly comparable in isolation; they should be read alongside recording task and setting. AICovidVN 115M, ComParE CCS, and ComParE CSS are excluded because they are derived from or are subsets of datasets already listed. Citation placeholders \texttt{[CITE]} are to be filled in from the bibliography.
-\end{flushleft}
-\end{table*}
-
-
 \section{Classification task design}
 \label{sec:cohort-design}
 
@@ -276,6 +239,46 @@ The datasets [GENERATED/ANALYZED] for this study can be found in the [NAME OF RE
 
 %%% Make sure to upload the bib file along with the tex file and PDF
 %%% Please see the test.bib file for some examples of references
+
+\section*{Tables}
+
+% Comparison of voice/cough datasets in respiratory disease research.
+% Requires: \usepackage{booktabs}
+\begin{table*}[t]
+\centering
+\caption{Voice and cough datasets used for respiratory disease research in the published literature, compared with the present work. n/r = not reported in primary source.}
+\label{tab:dataset_comparison}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l c r r l l l c@{}}
+\toprule
+\textbf{Dataset} & \textbf{Year} & \textbf{Subjects} & \textbf{Recordings} & \textbf{Recording task} & \textbf{Setting} & \textbf{Conditions} & \textbf{Public} \\
+\midrule
+Botha TB cough [CITE] & 2018 & 38 & n/r & Voluntary cough & Clinic & TB & No \\
+Coswara [CITE] & 2020 & 2{,}635 & 23{,}715 & Vowel, cough, breath, count & Crowdsourced web/app & COVID-19 & Yes \\
+COUGHVID [CITE] & 2020 & n/r & $\sim$30{,}000 & Voluntary cough & Crowdsourced web/app & COVID-19 & Yes \\
+COVID-19 Sounds, Cambridge [CITE] & 2020 & 36{,}116 & 53{,}449 & Read sentence, cough, breath & Crowdsourced web/app & COVID-19, asthma & On request \\
+NoCoCoDa [CITE] & 2020 & 10 & 73 & Cough from media interviews & Media (no participation) & COVID-19 & On request \\
+Virufy open cough [CITE] & 2020 & 16 & 121 & Voluntary cough & Clinic + smartphone & COVID-19 & Yes \\
+DiCOVA-1 [CITE] & 2021 & 1{,}040 & n/r & Cough, breath, vowel, count & Crowdsourced web/app & COVID-19 & Yes \\
+Pahar TB cough [CITE] & 2021 & 51 & 1{,}358 & Voluntary cough, count, breath & Clinic & TB & No \\
+DiCOVA-2 [CITE] & 2022 & 1{,}436 & n/r & Cough, count, breath & Crowdsourced web/app & COVID-19 & Yes \\
+Sonde RRVB [CITE] & 2023 & $\sim$5{,}000 & n/r & Sustained vowel & Mixed (smartphone) & Asthma, COPD, ILD, COVID-19 & No \\
+CODA TB DREAM [CITE] & 2024 & 2{,}143 & 733{,}756 coughs & Solicited cough x 5 & Clinic & TB & On request \\
+TBscreen [CITE] & 2024 & 195 & 34{,}600 coughs & Passive + forced cough & Clinic & TB, other respiratory & Yes \\
+\midrule
+\textbf{This work} & 2026 & 379{,}225 & 514{,}381 visits & Conversational primary care visit & Clinic (ambient) & 11 respiratory contrasts (panel) & No \\
+\bottomrule
+\end{tabular}%
+}
+\begin{flushleft}
+\footnotesize
+\textit{Notes.} Recordings counts mix visit-level recordings and per-event extractions across datasets and are not directly comparable in isolation; they should be read alongside recording task and setting. AICovidVN 115M, ComParE CCS, and ComParE CSS are excluded because they are derived from or are subsets of datasets already listed. Citation placeholders \texttt{[CITE]} are to be filled in from the bibliography.
+\end{flushleft}
+\end{table*}
+
 
 \section*{Figure captions}
 
