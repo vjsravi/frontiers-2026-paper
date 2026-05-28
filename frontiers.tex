@@ -371,6 +371,33 @@ TBscreen [CITE] & 2024 & 195 & 34{,}600 coughs & Passive + forced cough & Clinic
 \end{flushleft}
 \end{table*}
 
+% Detailed per-binary metrics. Requires booktabs.
+\begin{table*}[t]
+\centering
+\caption{Per-binary discrimination, calibration, and operating-point metrics on the held-out test set. AUC = area under the ROC curve with 95\% percentile bootstrap CI (1{,}000 resamples). AUPRC = area under the precision-recall curve. F1, sensitivity (Sens.), and specificity (Spec.) reported at the per-binary decision threshold selected by Youden's J on the development partition. ECE (ef) and ECE (ew) = expected calibration error under equal-frequency and equal-width binning (10 bins each).}
+\label{tab:results_metrics}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l c c c c c c c@{}}
+\toprule
+\textbf{Binary} & \textbf{AUC [95\% CI]} & \textbf{AUPRC} & \textbf{F1} & \textbf{Sens.} & \textbf{Spec.} & \textbf{ECE (ef)} & \textbf{ECE (ew)} & \textbf{Threshold} \\
+\midrule
+B00 & 0.745 [0.742, 0.748] & 0.745 & 0.698 & 0.722 & 0.635 & 0.008 & 0.007 & 0.491 \\
+B01 & 0.642 [0.630, 0.655] & 0.633 & 0.635 & 0.680 & 0.522 & 0.026 & 0.026 & 0.503 \\
+B02 & 0.623 [0.616, 0.631] & 0.618 & 0.583 & 0.567 & 0.606 & 0.014 & 0.009 & 0.516 \\
+B03 & 0.657 [0.649, 0.664] & 0.638 & 0.591 & 0.564 & 0.658 & 0.017 & 0.014 & 0.517 \\
+B04 & 0.615 [0.600, 0.630] & 0.596 & 0.602 & 0.642 & 0.512 & 0.020 & 0.011 & 0.489 \\
+B05 & 0.629 [0.615, 0.641] & 0.604 & 0.583 & 0.585 & 0.585 & 0.022 & 0.019 & 0.498 \\
+B06 & 0.651 [0.644, 0.658] & 0.627 & 0.546 & 0.484 & 0.722 & 0.020 & 0.021 & 0.558 \\
+B07 & 0.602 [0.588, 0.614] & 0.589 & 0.617 & 0.694 & 0.440 & 0.019 & 0.015 & 0.457 \\
+B08 & 0.658 [0.646, 0.669] & 0.625 & 0.634 & 0.679 & 0.557 & 0.011 & 0.006 & 0.478 \\
+B09 & 0.694 [0.683, 0.704] & 0.680 & 0.651 & 0.664 & 0.622 & 0.016 & 0.014 & 0.501 \\
+B10 & 0.703 [0.692, 0.714] & 0.679 & 0.643 & 0.646 & 0.652 & 0.021 & 0.021 & 0.510 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 
 \section*{Figure captions}
 
@@ -383,7 +410,7 @@ TBscreen [CITE] & 2024 & 195 & 34{,}600 coughs & Passive + forced cough & Clinic
 \begin{center}
 \includegraphics[width=\linewidth]{frontiers-diagram}
 \end{center}
-\caption{[TODO: caption for the respiratory triage cascade diagram.]}
+\caption{Respiratory triage cascade. The 11 binary classification tasks (B00 through B10) populate decision nodes along the cascade, beginning at the respiratory-versus-non-respiratory gate (B00) and progressively narrowing through acute-versus-chronic, infectious-versus-non-infectious, anatomical (upper versus lower tract), pneumonia and bronchitis contrasts, upper-tract antibiotic decisions, and pathogen-specific differentiations for influenza, SARS-CoV-2, Group A streptococcus, and bacterial versus viral etiology.}
 \label{frontiers-diagram}
 \end{figure}
 
@@ -431,7 +458,7 @@ TBscreen [CITE] & 2024 & 195 & 34{,}600 coughs & Passive + forced cough & Clinic
 \begin{center}
 \includegraphics[width=\linewidth]{fig_results_main}
 \end{center}
-\caption{[TODO: caption for the main results figure.]}
+\caption{Per-binary discrimination on the held-out test set across the 11 binary classification tasks. AUC values are shown with 95\% percentile bootstrap confidence intervals (1000 resamples). Detailed per-binary metrics including AUPRC, F1, sensitivity, specificity, calibration error, and operating-point thresholds are reported in Table~\ref{tab:results_metrics}.}
 \label{fig_results_main}
 \end{figure}
 
