@@ -74,8 +74,10 @@ As a primary goal, the abstract should render the general significance and conce
 
 \section{Introduction}
 
+% Template placeholder body commented out; Introduction content to be drafted.
+\iffalse
 For Original Research Articles \citep{conference}, Clinical Trial Articles \citep{article}, and Technology Reports \citep{patent}, the introduction should be succinct, with no subheadings \citep{book}. For Case Reports the Introduction should include symptoms at presentation \citep{chapter}, physical exams and lab results \citep{dataset}.
-
+\fi
 
 
 \section{Dataset}
@@ -190,6 +192,8 @@ Each cohort carries eight patient-level covariate flags derived from any-positio
 
 The source-pool cohort sizes for each of the 11 binary classification tasks are shown in Figure~\ref{fig:cohort_sizes}. Cohort sizes range from approximately 10{,}000 to 280{,}000 visits per class, and within each binary the positive and negative cohorts differ in size by factors that range from near unity (B04, 1.24 to 1) to more than 20 (B08, B09). These ratios reflect the natural prevalence of each clinical contrast in the source primary care population rather than any experimental choice; for example, influenza and COVID-19 confirmed primary diagnoses appear in roughly 1 of every 20 acute respiratory visits in the source extract, which is the structural reason B08 and B09 are highly imbalanced. Class balancing is applied prior to model training and is described in Section~\ref{sec:methods-training}. Summary statistics for age, sex, geography, and audio duration stratified by cohort and class are reported in the supplementary material.
 
+% Template scaffolding sections (Article types, Manuscript Formatting, Nomenclature, Additional Requirements) commented out.
+\iffalse
 \section{Article types}
 
 For requirements for a specific article type please refer to the Article Types on any Frontiers journal page. Please also refer to  \href{http://home.frontiersin.org/about/author-guidelines#Sections}{Author Guidelines} for further information on how to organize your manuscript in the required sections or their equivalents for your field
@@ -242,6 +246,7 @@ Life Science Identifiers (LSIDs) for ZOOBANK registered names or nomenclatural a
 \section{Additional Requirements}
 
 For additional requirements for specific article types and further information please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines#AdditionalRequirements}{Author Guidelines}.
+\fi
 
 \section*{Conflict of Interest Statement}
 %All financial, commercial or other relationships that might be perceived by the academic community as representing a potential conflict of interest must be disclosed. If no such relationship exists, authors will be asked to confirm the following statement:
