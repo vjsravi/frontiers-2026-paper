@@ -233,3 +233,21 @@ Each B-binary's task description ends with a single citation that supports the b
 - **Hints:** 2024 TB / respiratory cough screening paper, possibly in clinical or computational health journal.
 
 ---
+
+## Section 4: Discussion
+
+### `ics-dysphonia-laryngeal-deposition`
+- **Claim:** Inhaled corticosteroid (ICS) therapy is known to produce dysphonia and voice quality changes through laryngeal deposition.
+- **Location:** Section 4.4 (Limitations), B01 confound paragraph.
+- **Hints:** Otolaryngology / pulmonology literature on ICS-induced dysphonia. Anchor refs include Williamson et al. (Eur Respir J on ICS local side effects), Galvan et al. (laryngeal deposition mechanism), or systematic reviews of ICS adverse effects on voice (jitter / shimmer / HNR changes).
+
+### Candidate additional Discussion citations (not yet inserted)
+
+The following claims in Discussion are substantive enough that a reviewer may flag them. Listed here for Vijay's review before insertion:
+
+- **Line 245 (Summary):** "Prior voice-based respiratory work has predominantly used scripted speech ... or solicited cough produced on demand in controlled or semi-controlled settings." Already cited in Introduction (`covid-voice-cough-review`, `tb-cough-acoustic-screening`); may re-cite here for emphasis.
+- **Line 256 (Confounder interpretation):** "Influenza is overwhelmingly concentrated in the winter months" — CDC FluView surveillance data.
+- **Line 276 (Limitations):** "ICD coding fidelity varies by code and by setting" — ICD coding accuracy / validation literature.
+- **Line 276 (Limitations):** "J18 pneumonia is typically coded after imaging confirmation; J02.0 streptococcal pharyngitis after rapid antigen or culture confirmation" — clinical practice; may be considered common knowledge.
+
+---
