@@ -249,7 +249,7 @@ Within the panel, three patterns are visible. The gate task (B00) achieves the s
 \subsection{Interpreting the confounder analysis}
 \label{sec:discussion-confounder}
 
-The panel-level confounder analysis reported in Section~\ref{sec:results-confounder} found that 5 of the 11 binaries failed at least one axis at FDR $q \leq 0.05$. The five failures fall into three distinct categories, and their interpretation requires more than the panel-level pass-or-fail verdict. Table~\ref{tab:within_stratum} summarizes the headline AUC, the failing baseline AUC, and the within-stratum median voice-model AUC for each failing binary.
+The panel-level confounder analysis reported in Section~\ref{sec:results-confounder} found that 5 of the 11 binaries failed at least one axis at FDR $q \leq 0.05$. The five failures fall into three distinct categories, and their interpretation requires more than the panel-level pass-or-fail verdict. Table~\ref{tab:within_stratum} summarizes the acoustic-model AUC, the failing confounder-model AUC, and the within-stratum median acoustic-model AUC for each failing binary.
 
 The first category is structural demographic leakage. B03 (lower versus upper respiratory infection) fails on age and on age-by-sex because the underlying clinical contrast is itself age-stratified in primary care: pediatric exclusion notwithstanding, upper respiratory infections are diagnostically more common among younger adults while lower respiratory infections become relatively more common with age, and an age-only prevalence lookup picks up much of this signal. When the analysis is restricted to within-age-bin discrimination, the voice model still achieves median AUC 0.615 across 5-year age bins from 18 to 82 years, with within-bin AUCs largely concentrated in the 0.59 to 0.63 range. A genuine acoustic signal therefore persists once the demographic prior is removed, and the headline AUC of 0.657 should be read as a combination of that genuine within-stratum signal and the age prior the cohort carries. The age prior is also clinically informative and is not a confound that any deployed system would have reason to ignore.
 
@@ -452,12 +452,12 @@ B10 & 0.703 [0.692, 0.714] & 0.679 & 0.643 & 0.646 & 0.652 & 0.021 & 0.021 & 0.5
 
 \begin{table*}[t]
 \centering
-\caption{Headline AUC, failing baseline AUC, and within-stratum median voice-model AUC for the five binaries that fail at least one confounder axis. Within-stratum median is the median across strata of the failing axis (age decile bins for B03, calendar months for B08, B09, B10, and patient city for B05).}
+\caption{Per-binary AUC of the acoustic model, the failing confounder-baseline model, and the within-stratum median acoustic-model AUC, for the five binaries that fail at least one confounder axis. ``Acoustic-model AUC'' is the panel-headline AUC for the binary; ``Confounder-model AUC'' is the AUC of the non-acoustic prevalence lookup along the failing axis; ``Within-stratum median AUC'' is the median across strata of the failing axis (age decile bins for B03, calendar months for B08, B09, B10, and patient city for B05) of the acoustic model's AUC computed within each stratum.}
 \label{tab:within_stratum}
 \footnotesize
 \begin{tabular}{@{}l l c c c@{}}
 \toprule
-\textbf{Binary} & \textbf{Failing axis} & \textbf{Headline AUC} & \textbf{Baseline AUC} & \textbf{Within-stratum median AUC} \\
+\textbf{Binary} & \textbf{Failing axis} & \textbf{Acoustic-model AUC} & \textbf{Confounder-model AUC} & \textbf{Within-stratum median AUC} \\
 \midrule
 B03 & age & 0.657 & 0.650 & 0.615 \\
 B05 & city, state $\times$ city & 0.629 & 0.678 & --- \\
