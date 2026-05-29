@@ -93,16 +93,12 @@ The contributions of this paper are as follows:
 
 (5) Illustrative cascade case studies: Selected test-set patients are routed through the 11 trained classifiers in the order of the cascade to demonstrate end-to-end traversal on real clinical encounters; we report a small set of successful traversals as case studies, not as a validated end-to-end triage system.
 
-The remainder of this paper is organized as follows: Section~\ref{sec:related} reviews prior voice and cough work on respiratory disease, with attention to the structural gaps in scale, naturalness, and clinical breadth that this work addresses. Section~\ref{sec:dataset} describes the primary care audio dataset, its demographic, geographic, and clinical distribution, and its comparison with prior datasets in the field. Section~\ref{sec:cohort-design} formalizes the panel of 11 binary classification tasks, including the ICD-10-based cohort definitions, clinical motivation, and biological grounding for each task. Section~\ref{sec:methods} describes the audio preprocessing, feature extraction, model architecture, training protocol, evaluation metrics, and confounder analysis. Section~\ref{sec:results} reports per-task discrimination, calibration, and threshold-dependent results, together with the panel-level confounder analysis. Section~\ref{sec:hierarchical-screening} demonstrates the trained classifiers operating as a cascade on selected test-set patients. Section~\ref{sec:discussion} discusses the implications, limitations, and open questions raised by these results, and Section~\ref{sec:conclusion} concludes.
+The remainder of this paper is organized as follows: Section~\ref{sec:dataset} describes the primary care audio dataset, its demographic, geographic, and clinical distribution, and its comparison with prior datasets in the field. Section~\ref{sec:cohort-design} formalizes the panel of 11 binary classification tasks, including the ICD-10-based cohort definitions, clinical motivation, and biological grounding for each task. Section~\ref{sec:methods} describes the audio preprocessing, feature extraction, model architecture, training protocol, evaluation metrics, and confounder analysis. Section~\ref{sec:results} reports per-task discrimination, calibration, and threshold-dependent results, together with the panel-level confounder analysis. Section~\ref{sec:hierarchical-screening} demonstrates the trained classifiers operating as a cascade on selected test-set patients. Section~\ref{sec:discussion} discusses the implications, limitations, and open questions raised by these results, and Section~\ref{sec:conclusion} concludes.
 
 % Template placeholder body commented out; Introduction content to be drafted.
 \iffalse
 For Original Research Articles \citep{conference}, Clinical Trial Articles \citep{article}, and Technology Reports \citep{patent}, the introduction should be succinct, with no subheadings \citep{book}. For Case Reports the Introduction should include symptoms at presentation \citep{chapter}, physical exams and lab results \citep{dataset}.
 \fi
-
-
-\section{Prior work}
-\label{sec:related}
 
 
 \section{Dataset}
