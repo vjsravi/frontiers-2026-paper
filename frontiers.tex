@@ -526,7 +526,7 @@ B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 \begin{center}
 \includegraphics[width=\linewidth]{frontiers-pipeline}
 \end{center}
-\caption{[TODO: caption for the full methods pipeline figure.]}
+\caption{End-to-end methods pipeline. The full-visit audio is diarized to extract a patient-only channel, which is processed through nine acoustic feature streams to produce a 412-dimensional feature vector per visit. The feature vector is the input to a per-binary feed-forward classifier, trained independently for each of the 11 classification tasks under patient-stratified five-fold cross-validation. Each trained classifier is evaluated on a held-out test set, compared against six non-acoustic confounder baselines, and composed into a hierarchical screening cascade.}
 \label{frontiers-pipeline}
 \end{figure}
 
@@ -540,9 +540,18 @@ B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=\linewidth]{fig_results_main}
+\begin{minipage}[t]{0.48\linewidth}
+\centering
+\textbf{(A)}\\
+\includegraphics[width=\linewidth]{fig_results_auc_forest}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\centering
+\textbf{(B)}\\
+\includegraphics[width=\linewidth]{fig_results_confounder_heatmap}
+\end{minipage}
 \end{center}
-\caption{Per-binary discrimination on the held-out test set across the 11 binary classification tasks. AUC values are shown with 95\% percentile bootstrap confidence intervals (1000 resamples). Detailed per-binary metrics including AUPRC, F1, sensitivity, specificity, calibration error, and operating-point thresholds are reported in Table~\ref{tab:results_metrics}.}
+\caption{Per-binary discrimination and panel-level confounder analysis on the held-out test set. \textbf{(A)} Per-binary AUC across the 11 binary classification tasks, with 95\% percentile bootstrap confidence intervals (1000 resamples). \textbf{(B)} Heatmap of the panel of six non-acoustic confounder baselines per binary. Detailed per-binary metrics including AUPRC, F1, sensitivity, specificity, calibration error, and operating-point thresholds are reported in Table~\ref{tab:results_metrics}.}
 \label{fig_results_main}
 \end{figure}
 
@@ -550,7 +559,7 @@ B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 \begin{center}
 \includegraphics[width=\linewidth]{fig_case_studies}
 \end{center}
-\caption{[TODO: caption for the cascade case studies figure.]}
+\caption{Worked examples of cascade traversal on test-set patients. In C1, a community-acquired pneumonia visit is routed through five anatomical gates to a pneumonia terminal with bacterial etiology. In C2, a streptococcal pharyngitis visit is routed through the upper respiratory branch to a Group A streptococcal terminal also with bacterial etiology. In C4, a non-respiratory presentation is correctly rejected at the gate task without further routing. These cases were drawn from the subset of patients for which the cascade traverses end-to-end without misrouting and illustrate behavior on the easier end of the operating distribution; they are not representative of average cascade performance.}
 \label{fig_case_studies}
 \end{figure}
 
