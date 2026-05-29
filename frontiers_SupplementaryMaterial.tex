@@ -148,4 +148,628 @@ Each model is trained for up to 50 epochs with AdamW (weight decay 0.001), a cos
 
 The learning rate and the hidden-layer topology are chosen per binary by a grid search over four learning rates (1e-4, 3e-4, 1e-3, 3e-3) and four candidate topologies (two-block at 128 and 64; three-block at 256, 128, 64; four-block at 256, 128, 64, 32; three-block at 512, 256, 128), yielding 16 combinations per binary. Each combination is trained once on a single development split of the balanced cohort, and the combination achieving the lowest development loss is selected. The selected combination is then retrained under five-fold cross-validation, producing five fold-specific models.
 
+
+% =====================================================================
+% Supplementary cohort design --- companion to \S\ref{sec:cohort-design}.
+% =====================================================================
+
+\section{Detailed cohort design for the 11-binary panel}
+\label{sec:supp-cohort-design}
+
+Each binary in the panel was specified by a clinical brief, audited
+against the published ICD-10 / acoustic biomarker literature, and
+reduced to a SQL predicate. Predicates were finalised under a single
+\emph{real-world cohort principle}: a visit's class membership is
+determined by the ICD-10 codes recorded on that visit, and is not
+extrapolated from clinical history. Patient-history exclusions were
+applied only where a pre-existing condition is known to shift the
+acoustic baseline at every subsequent visit (acute respiratory
+failure, neurological speech disease, post-intubation laryngeal
+injury). Codes were neither added to inflate a class size nor removed
+to maximise discriminability.
+
+The same seven patient-level covariate flags are carried through every
+binary's manifest output --- heart failure, obesity, obstructive sleep
+apnoea, depression, anxiety, gastro-oesophageal reflux disease, and
+smoking history --- for downstream matching and subgroup AUROC. These
+are carried as metadata only and are not used as exclusion criteria.
+
+Per-binary specifications, the final review decisions that shaped the
+SQL predicate, and pre-registered sensitivity analyses are summarised
+below.
+
+% ---------------------------------------------------------------------
+\subsection{B00 --- Acute respiratory illness vs acute non-respiratory illness}
+\label{sec:supp-b00}
+
+B00 is the panel's clinical-triage anchor. The contrast was reformulated
+during review from its original form (``acute respiratory infection
+vs healthy non-illness visit'') to its final form (``acute respiratory
+illness vs acute non-respiratory illness'') so that three structural
+confounds --- sick-affect envelope, conversation-length, and audio-quality
+/ recording-context skew --- cancel by construction. Both arms are
+acute primary-care visits; any above-chance separation is therefore,
+by design, respiratory-mechanism specific rather than generic-sick-voice.
+The price of this reformulation is a lower attainable AUROC ceiling
+(estimated 0.72--0.80 versus the original framing's 0.85--0.92), accepted
+for the stronger respiratory-specificity claim.
+
+\paragraph{Class definitions (final).} The positive class is
+defined by a primary ICD-10 code in J00, J01, J02, J03, J06 (with J04
+and J05 deliberately excluded for consistency with B03), J09--J11,
+J12--J22 with J12.81/J12.82/J18.2 removed, pneumonia sequelae
+(J85, J86, J90, J91.8, J98.11), and acute COVID-19 (U07.1, J12.81,
+J12.82). The negative class is defined by a primary ICD-10 code in
+acute gastrointestinal (A09, K52, K30, K59.0, K57, K35--K38, R10, R11),
+acute genitourinary (N30, N39.0, N20, N23), musculoskeletal (M54,
+M25.5, M79 excluding M79.7 fibromyalgia), headache (R51, G43, G44),
+acute skin (L02, L03), acute mental-health (F32, F41, F43.0), and
+acute symptom codes (R52, R50.9, R53.1), with the additional rule
+that the visit must carry no respiratory code at all. A patient-level
+exclusion drops anyone with a chronic respiratory diagnosis in history
+(J44, J45, J47, J84, E84). Final cohort: 265{,}210 positive and
+188{,}663 negative visits (class ratio 1.41:1).
+
+\paragraph{Key review decisions.} The visit-level respiratory-anywhere
+exclusion was widened to include R07.1 (painful respiration), which
+encodes a directly respiratory mechanic, dropping 27 visits from the
+negative class. F32 and F41 episode-codes were retained in the
+negative class despite their non-strictly-acute character: measured
+prevalence was 1.3\% of the negative class, judged insufficient to
+warrant special handling, and consistent with a real-world clinical
+distribution. Seasonality matching was deferred to the fairness and
+robustness audit (which stratifies performance by month) rather than
+encoded in SQL, on the basis that the concern is theoretical for
+within-clinic audio inputs. A 90-day per-patient washout from prior
+respiratory visits was declined under the real-world cohort principle.
+A set of acute-by-ICD-definition negative sub-codes was added during
+review, growing the negative class by 12\% (+20{,}210 visits); paired
+chronic-by-definition codes (F43.1 PTSD, F43.2 adjustment disorders,
+M79.7 fibromyalgia, chronic-fatigue R53.81--.83) were excluded to
+preserve the acute-vs-acute symmetry.
+
+\paragraph{Acknowledged limitations.} Depression somatisation
+(undiagnosed depression presenting with somatic complaints coded
+under back pain or fatigue) imports a depression-prosody signal into
+the negative arm that cannot be ICD-isolated; this is reported as a
+methods limitation. Voice-quality stream overlap between acute
+laryngitis (positive) and dehydration / muscle tension (negative) is
+addressed via a pre-registered feature-family ablation in which the
+voice-quality stream is removed and AUROC is reported.
+
+% ---------------------------------------------------------------------
+\subsection{B01 --- Acute respiratory infection vs chronic respiratory management}
+\label{sec:supp-b01}
+
+B01 contrasts an acute infectious presentation against a chronic
+respiratory management visit. The negative arm pools obstructive
+(J44 COPD, J45 asthma), bronchiectatic (J47), interstitial (J84),
+and cystic-fibrosis (E84) chronic disease.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code in URI (J00--J06), LRI (J12--J22), influenza
+(J09--J11), or COVID-19 (U07.1, U09, J12.81, J12.82). The negative
+class is defined by a primary ICD-10 code in J44, J45, J47, J84, E84,
+J67 (hypersensitivity pneumonitis, added during review), or J70
+(drug- or external-agent-induced lung disease, added during review),
+covering all subtypes including compound acute-on-chronic codes.
+A patient-level exclusion drops both arms when J96.x (acute respiratory
+failure) appears anywhere in history. A visit-level exclusion drops
+visits with both acute and chronic primary codes. Final cohort:
+280{,}471 positive and 11{,}530 negative visits (class ratio 24.3:1,
+handled by focal loss in training).
+
+\paragraph{Key review decisions.} The dominant residual limitation is
+inhaled-corticosteroid (ICS) dysphonia in the negative arm: long-term
+ICS produces chronic vocal-fold edema (elevated jitter and shimmer,
+reduced harmonics-to-noise ratio) at high prevalence in the chronic-asthma
+and chronic-COPD population, and an exposure proxy (Z79.51) is coded
+in only four patients in the entire dataset. The ICS confound is
+accepted as a primary limitation of B01 rather than mitigated, and is
+explicitly documented in the methods. J04.0 (acute laryngitis) and
+J06.0 (acute laryngopharyngitis) were retained in the positive arm
+despite producing the same acoustic signature as the chronic ICS
+dysphonia in the negative arm, under the real-world principle that
+they are genuine acute respiratory infections.
+
+The negative-class compound acute-on-chronic problem was addressed by
+pre-registering two analysis paths. In Path A the pooled negative
+class (compound acute-on-chronic plus pure stable chronic) is reported
+as the primary endpoint; in Path B the negative class is restricted
+to \texttt{pure\_stable\_chronic} visits only ($n=3{,}457$), and the
+AUROC is reported alongside Path A. The interpretation is pre-specified:
+similar AUROC across paths indicates a true respiratory-mechanism
+contrast independent of acute symptoms, whereas a substantially higher
+Path A AUROC indicates that the contrast is being carried by the
+acute-event signature (cough, dyspnoea) shared between pure acute
+infections and acute exacerbations.
+
+Patient-level chronic-respiratory history was kept in the positive
+arm (with stratified subgroup AUROC by \texttt{pat\_has\_chronic\_resp})
+rather than excluded, both to preserve real-world prevalence and
+because cross-arm ICS exposure weakens the ICS-shortcut. Stratified
+AUROC by \texttt{chronic\_resp\_subclass} (J44 / J45 / J47 / J84+E84
+/ J67+J70) is pre-registered as a secondary endpoint.
+
+\paragraph{Acknowledged limitations.} Smoking-status under-coding,
+and ICS-exposure unobservability, are documented as primary
+limitations.
+
+% ---------------------------------------------------------------------
+\subsection{B02 --- Acute respiratory infection vs sick-but-no-infection}
+\label{sec:supp-b02}
+
+B02 contrasts an acute respiratory infection against a respiratory
+or non-respiratory complaint that is coded as non-infectious. The
+negative arm pools allergic rhinitis, chronic structural sinus disease,
+and respiratory symptom codes without an infection diagnosis.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code in J00--J06, J12--J22, J09--J11, or acute
+COVID-19 (U07.1, J12.81, J12.82). The negative class is defined by
+a primary ICD-10 code in J30 (allergic rhinitis), J32 (chronic
+sinusitis), J33 (nasal polyp), R05 (cough family), R06 excluding
+R06.03 (dyspnoea, wheeze, stridor; acute respiratory distress R06.03
+excluded as a severe acute state), or R07.0 (throat pain), with the
+additional rule that no acute respiratory infection code appears
+anywhere on the visit. Final cohort: 282{,}057 positive and 32{,}414
+negative visits (class ratio 8.7:1).
+
+\paragraph{Key review decisions.} Two implementation bugs flagged
+during review were corrected: U09.x (post-COVID condition, a chronic
+or post-acute sequela rather than acute infection) was removed from
+the positive predicate, dropping 587 net visits from the positive arm
+and ensuring U09.x visits are excluded from B02 entirely; and R06.03
+(acute respiratory distress) was excluded from the negative predicate,
+dropping 28 visits, since it encodes a severe acute respiratory state
+rather than a non-infection symptom complaint. The negative class is
+explicitly heterogeneous (R05 cough $\sim$50\%, J30 allergic rhinitis
+$\sim$18\%, R06+R07.0 $\sim$24\%, J32+J33 $\sim$11\%), and four-by-four
+sub-cell AUROCs (four negative subclasses by four positive subclasses)
+are pre-registered alongside the pooled headline. R05.3 (chronic
+cough) was retained in the negative class under the real-world
+principle, despite the possibility that some R05.3 visits represent
+post-infectious cough.
+
+\paragraph{Acknowledged limitations.} Symptom-only R-code visits
+empirically include some under-coded infection (with documented
+under-coding precedent of $\sim$26\% laboratory-confirmed-influenza
+ICD-coding sensitivity); the negative class is therefore stated as
+``coded as non-infectious'' rather than ``confirmed non-infectious.''
+Post-COVID dysphonia carryover from U09.x history is acknowledged but
+not mitigated beyond the same-visit U09.x rule.
+
+% ---------------------------------------------------------------------
+\subsection{B03 --- Upper vs lower respiratory infection}
+\label{sec:supp-b03}
+
+B03 separates upper respiratory infection from lower respiratory
+infection within the acute-infection cohort. The contrast targets
+breath-support and cough-event differences associated with parenchymal
+or large-airway involvement.
+
+\paragraph{Class definitions (final).} The positive (LRI) class is
+defined by a primary ICD-10 code in pneumonia (J12 excluding J12.81
+and J12.82, J13--J17, J18 excluding J18.2), acute bronchitis (J20),
+bronchiolitis (J21), unspecified acute LRI (J22), influenza with
+pneumonia (J09.X1, J10.00/.01/.08, J11.00/.08), or pneumonia sequelae
+(J85, J86, J90, J91.8, J98.11). The negative (URI) class is defined
+by a primary ICD-10 code in J00, J01, J02, J03, or J06. Final cohort:
+30{,}400 LRI and 190{,}003 URI visits (class ratio 1:6.25).
+
+\paragraph{Key review decisions.} J04.0 (acute laryngitis) was
+removed from the URI inclusion list, since it is a vocal-fold disease
+whose acoustic signature confounds an LRI-vs-URI separation built on
+breath-support and cough features. J22 (unspecified acute LRI) was
+retained in the LRI arm despite its known heterogeneity, with the
+caveat reported in the discussion; excluding it would have lost a
+large fraction of LRI volume that is real to primary-care coding
+practice. J06.9 (unspecified URI) primary visits were dropped from
+the URI arm when either R06.0x (dyspnoea) or R09.0x (hypoxaemia /
+asphyxia) was co-coded, since the combination signals an LRI workup
+in progress; this removed 571 visits ($\sim$0.26\%).
+
+An asymmetric per-patient washout was applied: the LRI arm rejects
+any visit when the patient had a primary URI code in the prior 90
+days, and the URI arm rejects any visit when the patient had a primary
+LRI code in the prior 180 days. The asymmetry reflects the longer
+duration of post-LRI respiratory residuals (cough and altered breath
+support persist 12+ weeks after pneumonia) compared to post-URI
+residuals (median 7--10 days, residual under 30 days). The washouts
+removed 3{,}215 LRI visits ($\sim$9.0\%) and 2{,}957 URI visits
+($\sim$1.4\%).
+
+A patient-level exclusion was applied symmetrically to both arms for
+J96.x (acute respiratory failure) in history, removing nine visits
+across 18 patients with altered respiratory-mechanic baselines. A
+second patient-level symmetric exclusion was applied for chronic
+upper-airway disease (J30--J35, J37--J39) which produces a stable
+resonance baseline shift, removing 1{,}888 LRI ($\sim$5.26\%) and
+18{,}585 URI ($\sim$8.6\%) visits and resolving a prior asymmetry
+where only the URI arm carried this exclusion. A third patient-level
+symmetric exclusion was applied for neurological speech disease
+(G20 Parkinson's, G30 Alzheimer's, F03 dementia, I63 / I69 stroke
+and sequelae, G12.21 ALS, G35 MS, G70 myasthenia gravis) and
+post-intubation laryngeal injury (J95.0, J95.5); 49 visits across
+236 patients were removed.
+
+Five pneumonia-sequela codes (J85, J86, J90, J91.8, J98.11) were
+added to the LRI primary inclusion list, contributing 91 visits
+($\sim$0.3\%), with equivalent codes propagated into the washout-window
+CTE. J40 and J42 (unspecified and chronic bronchitis) were added to
+the chronic-respiratory covariate flag rather than treated as
+exclusions, re-tagging 6{,}308 patients (2{,}020 LRI / 3{,}133 URI
+visits).
+
+\paragraph{Pre-registered analyses.} Subgroup AUROC by J22 versus
+specified-LRI; subgroup AUROC by J06.9-primary versus specified-URI;
+and the seven covariate-flag subgroup analyses are reported in the
+supplementary results.
+
+% ---------------------------------------------------------------------
+\subsection{B04 --- Pneumonia vs acute bronchitis}
+\label{sec:supp-b04}
+
+B04 separates pneumonia from acute bronchitis, the two most common
+LRI presentations in primary care. This is the most balanced binary
+in the panel.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code in J12--J18 (any pneumonia). The negative
+class is defined by a primary ICD-10 code in J20 (acute bronchitis).
+A visit-level exclusion drops both arms when COVID-19 (U07.1, U09,
+J12.81, J12.82) or influenza (J09--J11) is primary, since those
+visits are handled by B09 and B08 respectively; visits with both
+pneumonia and acute bronchitis in primary are also dropped as
+ambiguous. Final cohort: 11{,}254 pneumonia and 9{,}076 acute
+bronchitis visits (class ratio 1.24:1).
+
+\paragraph{Key review decisions.} J69 (aspiration pneumonia) and
+J68.0 (chemical pneumonitis) were already outside the positive
+predicate; patient-history exclusion for these (and for J95.851
+ventilator-associated pneumonia history) was declined under the
+real-world cohort principle. J18.9 (unspecified pneumonia) was
+measured at 87\% of the positive class, raising the concern that
+imaging-unconfirmed clinical-suspicion pneumonia contaminates the
+positive arm. Rather than exclude J18.9, a J18.0/.1/.8-only sensitivity
+AUROC was pre-registered alongside the headline; a difference of
+$\geq 0.05$ AUROC between the strata is interpreted as evidence that
+J18.9 carries the contamination. Mycoplasma cross-coding between J20.0
+and J15.7 across a single episode was declined as a patient-history
+mitigation under the same principle.
+
+The chronic opioid confound (cough-reflex suppression and shallow
+breathing) was acknowledged as a methods limitation rather than
+addressed via a B04-only covariate, since F11.x captures only opioid
+use disorder rather than chronic exposure --- the same coding-fidelity
+limitation that applies to smoking. J85.1 (lung abscess with pneumonia)
+and J18.2 (hypostatic pneumonia) were measured at zero visits in the
+feature-available cohort and required no action.
+
+\paragraph{Pre-registered analyses.} J18.0/.1/.8-only sensitivity
+AUROC; cough-pipeline pre-flight check verifying cough-event features
+are present in B04 manifest output before training.
+
+% ---------------------------------------------------------------------
+\subsection{B05 --- Pneumonia vs non-pneumonia lower respiratory infection}
+\label{sec:supp-b05}
+
+B05 extends B04's contrast to the full non-pneumonia LRI population,
+adding bronchiolitis and unspecified acute LRI to the negative arm.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code in J12--J18 (any pneumonia). The negative
+class is defined by a primary ICD-10 code in J20 (acute bronchitis),
+J21 (bronchiolitis, adult only after the v0.1.0 feature-available
+filter), or J22 (unspecified acute LRI). The same COVID-19 and
+influenza visit-level exclusions as B04 apply, along with the
+dual-class exclusion. Final cohort: 10{,}968 pneumonia and 26{,}524
+non-pneumonia LRI visits (class ratio 1:2.4), with the negative arm
+composed of 34\% J20, $<1$\% J21, and 66\% J22.
+
+\paragraph{Key review decisions.} The dominant issue is J22 label
+noise. J22 (unspecified acute LRI) is less specific than J18.9, and
+literature on ancestor ICD-9 code 486 reports as low as 14.2\%
+sensitivity for laboratory-confirmed pneumococcal pneumonia. With
+J22 at 66\% of the B05 negative class, an estimated 2{,}600--5{,}275
+visits in the negative arm may be unrecognised pneumonia. A
+J22-excluded sensitivity AUROC (pneumonia vs J20+J21 only,
+$\sim$9{,}169 negatives) was pre-registered alongside the
+J22-included headline; a difference of $\geq 0.05$ AUROC is interpreted
+as evidence that J22 is the dominant label-noise source. The B04 and
+B05 results are reported side-by-side: B04 is the cleaner pneumonia
+vs J20-only contrast, and the B04--B05 AUROC gap quantifies the J22
+noise impact.
+
+J17 (pneumonia in diseases classified elsewhere), J18.2 (hypostatic
+pneumonia), J95.851 (ventilator-associated pneumonia history), and
+J69 (aspiration pneumonia history) were either measured at zero
+visits in the feature-available cohort or declined under the real-world
+cohort principle. Adult J21 (n=93) cleared the $\geq 30$-cell threshold
+for stratified reporting and is included in the supplementary results
+as a J21-only stratum AUROC.
+
+\paragraph{Pre-registered analyses.} J22-excluded sensitivity AUROC;
+B04 versus B05 side-by-side comparison; age-stratified AUROC to
+quantify age-correlated label-noise drift (since geriatric pneumonia
+is more often miscoded as J22).
+
+% ---------------------------------------------------------------------
+\subsection{B06 --- Acute sinusitis vs other upper respiratory infection}
+\label{sec:supp-b06}
+
+B06 separates J01-coded acute sinusitis from other coded URI. It is
+explicitly reported as a secondary binary with a primary labelling-bias
+caveat.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code starting with J01. The negative class is
+defined by a primary ICD-10 code starting with J00, J02, J03, J04,
+J05, or J06. A visit-level exclusion drops any LRI, COVID-19, or
+influenza primary code, holding the binary scope to URI only. Final
+cohort: 46{,}460 J01 and 166{,}037 other-URI visits (class ratio 1:3.6).
+
+\paragraph{Critical framing.} Approximately 10--15\% of primary-care
+J01-coded visits represent true acute bacterial sinusitis; the
+remaining $\sim$85\% are viral URI with sinus-symptom predominance
+that are clinically indistinguishable from a regular cold at the
+bedside. The contrast measured by B06 is therefore ``ICD-coded acute
+sinusitis (predominantly viral URI with sinus-symptom presentation)
+vs other ICD-coded URI,'' not ``bacterial sinusitis vs cold.'' An
+AUROC near chance (0.55--0.65) is reported as a meaningful empirical
+negative result demonstrating that ICD-coded acute sinusitis is not
+acoustically separable from other ICD-coded URI in spontaneous
+primary-care conversation.
+
+\paragraph{Key review decisions.} The cohort was kept as the
+real-world J01-coded distribution and the manuscript framing was
+re-aligned to the labelling-bias caveat above. Hyponasality acoustic
+evidence used in the brief was downgraded from \texttt{grounded} to
+\texttt{plausible} where the cited paper studied chronic rhinosinusitis
+(J32) or nasal polyps (J33) after surgical intervention rather than
+acute J01; the manuscript states this evidence-translation gap
+explicitly. The 12-month look-back exclusion for chronic J32 history
+was declined under the real-world cohort principle; chronic-respiratory
+baseline shift is acknowledged as a methods limitation rather than
+a cohort exclusion. The odontogenic-maxillary-sinusitis sub-population
+($\sim$10--30\% of unilateral J01.00/.01) has no separate ICD code
+and is reported as residual variance.
+
+A phone-class-conditioned feature analysis (nasal-consonant-windowed
+acoustic features) is pre-registered as a secondary investigation
+if per-visit feature aggregates underperform, since published
+nasometry and hyponasality literature uses standardised prompted
+stimuli rather than spontaneous conversation.
+
+\paragraph{Pre-registered sub-strata.} Three sub-strata are reported:
+J01 vs J04.0 (acute laryngitis, the easier source/resonance contrast,
+treated as the primary headline candidate); J01 vs J00 (common cold,
+the hardest mechanism-fidelity probe); and J01 vs the pooled
+J02+J03+J04+J05+J06 negative.
+
+% ---------------------------------------------------------------------
+\subsection{B07 --- GAS pharyngitis vs other pharyngitis}
+\label{sec:supp-b07}
+
+B07 separates Group A streptococcal pharyngitis (\textit{Streptococcus
+pyogenes}) from other coded pharyngitis. The contrast is framed as
+``GAS vs non-GAS pharyngitis,'' not ``bacterial vs viral pharyngitis.''
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code of J02.0 (acute streptococcal pharyngitis).
+The negative class is defined by a primary ICD-10 code starting with
+J02 and not equal to J02.0 (i.e.\ J02.8 other specified and J02.9
+unspecified). Visits with both J02.0 and other J02.x in primary are
+dropped as ambiguous. Final cohort: 12{,}094 J02.0 and 50{,}802
+other-J02 visits (class ratio 1:4.2). A pre-specified go/no-go gate
+of $\geq 50$ J02.0 visits was cleared by a large margin.
+
+\paragraph{Critical framing.} The negative arm contains most viral
+pharyngitis (rhinovirus, adenovirus, parainfluenza), under-coded
+infectious mononucleosis (EBV) miscoded as J02.9, \textit{Fusobacterium
+necrophorum} and other non-GAS bacterial causes (rarely tested in
+primary care), \textit{Mycoplasma pneumoniae}, and \textit{Chlamydophila
+pneumoniae}. The clinically more useful binary (bacterial vs viral
+pharyngitis) is not implementable with available ICD coding. The
+expected performance ceiling against a hypothetical RADT- or
+culture-confirmed gold standard is AUROC 0.65--0.70 per the brief's
+self-audit; an AUROC closer to chance is reported as a meaningful
+empirical result rather than a model failure.
+
+\paragraph{Key review decisions.} The manuscript explicitly states
+that B07 targets the \emph{milder} pharyngeal-cavity mass-effect
+signature (small F2 / F3 reductions on back vowels), not ``hot potato
+voice,'' which is severe-end only (peritonsillar abscess, severe
+tonsillitis) and is not in the Centor or McIsaac clinical scoring
+criteria. A J02.9-without-J04.x sensitivity AUROC is pre-registered:
+if AUROC drops substantially when J04.x-co-coded cases are excluded
+from the negative arm, the model is detecting viral co-laryngitis
+rather than the intended pharyngitis contrast. B27.x (mononucleosis)
+patient-history exclusion was reaffirmed, and under-coded mononucleosis
+within J02.9 is acknowledged as irreducible contamination of the
+negative arm.
+
+\paragraph{Pre-registered sub-strata.} J02.9-without-J04.x sensitivity
+AUROC; J02.0-with-A38.x (scarlet fever co-code) higher-fidelity GAS
+sub-stratum; J02.0-with-B95.0 (S. pyogenes etiologic confirmation)
+higher-fidelity sub-stratum.
+
+\paragraph{Acknowledged limitations.} J02.0 label fidelity in adult
+primary care without RADT or culture confirmation (20--40\% may be
+clinical-only); under-coded mononucleosis in the negative arm; and
+non-GAS bacterial pharyngitis (\textit{F. necrophorum},
+\textit{Mycoplasma}, \textit{Chlamydophila}) in the negative arm
+complicating any downstream antibiotic-decision framing.
+
+% ---------------------------------------------------------------------
+\subsection{B08 --- Influenza vs other acute respiratory infection}
+\label{sec:supp-b08}
+
+B08 separates ICD-coded influenza from other acute respiratory
+infection. It is the most imbalanced binary in the panel.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code starting with J09, J10, or J11. The negative
+class is defined by a primary ICD-10 code in URI (J00--J06), LRI
+(J12--J22), or COVID-19 (U07.1, U09, J12.81, J12.82), with the
+additional rule that no flu code appears anywhere on the visit. Final
+cohort: 13{,}248 influenza and 268{,}314 other-acute-respiratory
+visits (class ratio 1:20.3, handled by focal loss).
+
+\paragraph{Expected performance ceiling.} AUROC approximately
+0.70--0.75 against a hypothetical laboratory-confirmed gold standard.
+Documented primary-care flu coding shows 61\% under-coding of
+laboratory-confirmed cases and a clinical-criteria positive predictive
+value of 60\% (peak-season 68.5\%) against RT-PCR confirmation. Adult
+respiratory syncytial virus (RSV) produces a flu-like syndrome that
+is acoustically near-indistinguishable from influenza.
+
+\paragraph{Key review decisions.} J11.1 (unidentified influenza with
+other respiratory manifestations) is expected to dominate the positive
+arm ($\sim$60--70\% of primary-care flu) and is the lowest-fidelity
+flu label. A laboratory-confirmed-only sensitivity AUROC (positives
+restricted to J09 and J10 codes) is pre-registered alongside the
+all-flu headline; equivalence between the two indicates that J11.1
+is not the dominant noise source, while a substantial gap indicates
+that label noise is the bottleneck. Adult RSV in the negative arm is
+identifiable from J12.1, J20.5, J21.0, and the etiologic B97.4 code;
+a flu-vs-non-RSV-ARI sensitivity AUROC is pre-registered. J04.0
+co-coded cases in the negative arm are similarly pre-registered as
+a sub-stratum.
+
+A within-season pathogen-substitution effect (RSV peaking November--December,
+flu peaking January--February, COVID having its own winter wave)
+remains uncontrolled at the weekly level even after monthly matching
+and is reported as a methods limitation. Vaccination metadata is not
+available and the residual mild-systemic-symptoms-after-vaccination
+effect is reported as a methods limitation; Z23 (vaccination encounter)
+exclusion does not catch the illness-visit-after-Z23-encounter case.
+
+\paragraph{Pre-registered analyses.} Laboratory-confirmed-positive
+AUROC (J09 + J10 only); flu-vs-non-RSV-ARI AUROC; flu-vs-J04.0 AUROC;
+out-of-season AUROC (April--September window) as a critical
+falsification test (an out-of-season AUROC below 0.65 invalidates an
+``acoustic biomarker of flu'' claim); month-stratified AUROC.
+
+% ---------------------------------------------------------------------
+\subsection{B09 --- COVID-19 vs other acute respiratory infection}
+\label{sec:supp-b09}
+
+B09 separates ICD-coded acute COVID-19 from other acute respiratory
+infection. Performance is expected to be era-bimodal.
+
+\paragraph{Class definitions (final).} The positive class is defined
+by a primary ICD-10 code in U07.1 (COVID-19, virus identified) or
+J12.82 (pneumonia due to COVID-19). The negative class is defined
+by a primary ICD-10 code in URI (J00--J06), LRI (J12 excluding J12.81
+and J12.82, J13--J22), or influenza (J09--J11), with the additional
+rule that no COVID code (U07.1, U09, J12.81, J12.82) appears anywhere
+on the visit. Final cohort: $\sim$15{,}750 COVID and $\sim$264{,}933
+non-COVID-acute-respiratory visits (class ratio $\sim$1:16.8, handled
+by focal loss).
+
+\paragraph{Key review decisions.} An ICD-10 taxonomic correction was
+applied: J12.81 (``pneumonia due to SARS-associated coronavirus'') is,
+in the ICD-10-CM 2026 taxonomy, the code for SARS-CoV-1 (the 2003
+SARS outbreak) and not for COVID-19; J12.82 is the actual COVID-19
+pneumonia code. J12.81 was therefore removed from the positive
+predicate (a documentation correction; zero visits were affected in
+the feature-available cohort). U09.x (``post-COVID-19 condition'') was
+removed from the positive predicate as a chronic or post-acute
+sequela rather than acute infection, dropping 666 visits ($\sim$4\%)
+from the positive arm; U09.x visits are still excluded from the
+negative arm via the visit-level COVID-anywhere rule and therefore
+drop from B09 entirely. R43.0 (anosmia) era-conditional exclusion
+was declined under the real-world cohort principle.
+
+Long-COVID baseline contamination in the negative arm ($\sim$60--80\%
+of US adults have prior COVID exposure by 2026, $\sim$5--17\% with
+persistent voice alterations) is reported as an irreducible methods
+limitation without serology data. Provider-level coding heterogeneity
+(U07.1 positive predictive value 77.7--93.8\% across clinical
+settings) is deferred to the fairness and robustness audit, where
+provider-stratified cross-validation is reported.
+
+\paragraph{Pre-registered analyses.} Era-stratified AUROC (pre-omicron,
+omicron-era, pre-pandemic-sensitivity-only). Pre-omicron AUROC is
+expected to be stronger; omicron-era AUROC is expected to be near
+chance (0.55--0.65) and is reported as a meaningful empirical result
+consistent with the loss of distinctive COVID acoustic features in
+the omicron era, rather than as a model failure.
+
+% ---------------------------------------------------------------------
+\subsection{B10 --- Definite bacterial vs definite viral respiratory infection}
+\label{sec:supp-b10}
+
+B10 is the panel's hardest binary by design. A literature check
+during review found no published pooled bacterial-vs-viral voice or
+cough signature in adult primary-care spontaneous speech. The binary
+collapses seven mechanistically distinct phenotypes under a single
+etiologic label and is reported with explicit anatomy-mix caveats.
+
+\paragraph{Class definitions (final).} The positive (definite
+bacterial) class is defined by a primary ICD-10 code in J13
+(\textit{Streptococcus pneumoniae} pneumonia), J14 (\textit{Haemophilus
+influenzae} pneumonia), J15 (other bacterial pneumonia, including
+J15.7 Mycoplasma), J02.0 (GAS pharyngitis), J03.00 / J03.01 (GAS
+tonsillitis, acute and recurrent), A37 (pertussis), or A15
+(pulmonary tuberculosis). The negative (definite viral) class is
+defined by a primary ICD-10 code in J12 excluding J12.81 and J12.82
+(viral pneumonia, excluding COVID variants), J00 (common cold), or
+J09--J11 (influenza). Ambiguous codes (J06 unspecified URI, J20
+acute bronchitis, J01 acute sinusitis, J03.8 / J03.9 other or
+unspecified tonsillitis, J02.8 / J02.9 other or unspecified
+pharyngitis) are in neither arm. U07.1 (COVID-19) is in neither arm
+since COVID has its dedicated B09 binary. Visits with co-coded
+bacterial and viral codes are dropped. Final cohort: 15{,}256
+bacterial and $\sim$16{,}899 viral visits (class ratio $\sim$1:1.1).
+
+\paragraph{Key review decisions.} U07.1 was removed from the viral
+predicate during review, restoring internal consistency with the
+existing J12.81 and J12.82 COVID exclusions and respecting B09's
+jurisdiction over COVID-19. The change removed 15{,}723 visits from
+the viral arm (48\% of the v1 viral cohort), improving class balance
+from $\sim$1:2.1 to $\sim$1:1.1 and reframing B10 as a
+GAS-pharyngitis-versus-non-COVID-viral contrast rather than the prior
+GAS-pharyngitis-versus-COVID-plus-flu contrast. With 92\% of the
+bacterial arm being J02.0 (URI) and the viral arm spanning J00 (URI)
+plus J09--J11 (mixed) plus J12 viral pneumonia (LRI), B10 largely
+measures URI-versus-LRI anatomy mix and entity-specific signals
+(pertussis cough, J00 nasal-coupling, tonsillar mass effect) rather
+than generic bacterial-versus-viral host-response biology.
+
+A37 ($n=28$) and A15 ($n=14$) were retained under the real-world
+principle as bacterial-by-taxonomy entries, with the pre-registered
+provision that sub-classes below the $\geq 50$-cell threshold drop
+from primary stratum AUROC reporting and are reported as case-series
+or sensitivity strata only. J15.7 (Mycoplasma, $n=152$, $\sim$1\% of
+the bacterial arm) was retained despite its viral-like clinical
+phenotype (gradual onset, dry cough, low-grade fever, outpatient),
+with a J15.7-excluded sensitivity AUROC pre-registered. The expected
+$\sim$5--15\% GAS-carrier-state false-positive rate on J02.0 is
+reported as an upper bound on the bacterial-URI sub-binary AUROC.
+Adult pertussis is acknowledged to typically present as prolonged
+cough without the classic pediatric whoop, and pertussis sub-class
+AUROC is reported separately rather than pooled into the bacterial
+arm.
+
+\paragraph{Pre-registered analyses.} Bacterial-URI (J02.0 / J03.00 /
+J03.01) versus viral-URI (J00) AUROC as an anatomy-matched sub-binary;
+bacterial-LRI (J13 / J14 / J15) versus viral-LRI (J12 non-COVID)
+AUROC as an anatomy-matched sub-binary; bacterial-versus-viral with
+J15.7 excluded; pertussis (A37) sub-class AUROC separate; TB (A15)
+case series only ($n=14$, below threshold); bacterial-versus-viral
+with U07.1 re-included as a sensitivity stratum that quantifies the
+COVID-inclusion impact.
+
+\paragraph{Acknowledged limitations.} No published pooled
+bacterial-vs-viral acoustic signature in adult primary-care spontaneous
+speech; anatomy-mix dominance over host-response biology; hidden
+bacterial superinfection in the viral arm (irreducible without
+antibiotic-prescription metadata); GAS pharyngeal carrier-state
+false-positives on J02.0; uncertain pediatric-to-adult pertussis
+transfer; Mycoplasma bacterial-by-taxonomy / viral-by-phenotype. An
+AUROC near chance is reported as a meaningful empirical result
+consistent with the literature null.
+
 \end{document}
