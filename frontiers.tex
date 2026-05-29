@@ -260,11 +260,11 @@ The third category is a cohort-level confound. B05 (pneumonia versus non-pneumon
 \subsection{The cascade composition: aggregate evaluation and worked examples}
 \label{sec:discussion-cascade}
 
-The four case studies shown in Figure~\ref{fig_case_studies} were drawn from a broader cascade evaluation that aggregated the 11 trained classifiers into a single hierarchical screening pipeline and applied them to 1{,}062 test-set patients, drawn under a strict leak-safe sampling rule that excluded any patient appearing in the training or development partition of any of the 11 binaries. Across this evaluation, 18.8\% of visits reached the correct anatomical terminal in the cascade, 41.3\% had the correct etiology overlay call, and 7.9\% were fully correct on both anatomical and etiology assessment. A random-gate Monte Carlo baseline, in which each cascade decision is replaced by a coin flip at the per-step positive rate, yields 13.2\% anatomical, 24.1\% etiology, and 3.3\% fully correct, indicating that the cascade composition performs above chance on every dimension by margins of approximately 1.4-fold (anatomical), 1.7-fold (etiology), and 2.4-fold (fully correct).
+The four case studies shown in Figures~\ref{fig_case_studies} and~\ref{fig_case_studies_b} were drawn from a broader cascade evaluation that aggregated the 11 trained classifiers into a single hierarchical screening pipeline and applied them to 1{,}062 test-set patients, drawn under a strict leak-safe sampling rule that excluded any patient appearing in the training or development partition of any of the 11 binaries. Across this evaluation, 18.8\% of visits reached the correct anatomical terminal in the cascade, 41.3\% had the correct etiology overlay call, and 7.9\% were fully correct on both anatomical and etiology assessment. A random-gate Monte Carlo baseline, in which each cascade decision is replaced by a coin flip at the per-step positive rate, yields 13.2\% anatomical, 24.1\% etiology, and 3.3\% fully correct, indicating that the cascade composition performs above chance on every dimension by margins of approximately 1.4-fold (anatomical), 1.7-fold (etiology), and 2.4-fold (fully correct).
 
 Two patterns in these numbers warrant explicit comment. First, the anatomical-correct rate is meaningfully lower than the etiology-correct rate, despite the anatomical cascade using the strongest classifiers in the panel (B00, B02, B01, B03, B04) and the etiology overlay using three of the weaker ones (B08, B09, B10). The reason is structural rather than acoustic: anatomical traversal requires four to five sequential gate decisions to be jointly correct, while etiology assessment is a single-shot parallel call that does not depend on upstream routing. Per-step gate accuracies on the cascade evaluation cohort range from approximately 52\% to 69\%, and the multiplicative composition of four to five such gates lands close to the observed 18.8\% anatomical rate. This is the standard error-propagation behavior expected when independently trained classifiers are stacked into a deep decision sequence without joint training, and it is the principal methodological reason a hierarchical cascade composed from independently optimized binaries underperforms the per-binary AUCs reported in Section~\ref{sec:results-discrimination}. The 7.9\% fully-correct rate, which requires both the anatomical traversal and the etiology overlay to be correct simultaneously, is therefore best read as a lower bound on what an end-to-end voice triage system could achieve, and the gap between independent-task performance and composed cascade performance is itself the most informative methodological finding of this analysis.
 
-Second, the case studies illustrated in Figure~\ref{fig_case_studies} are worked examples drawn from the subset of patients for which the cascade traverses end-to-end without misrouting. They are not representative of average cascade behavior and should not be read as performance evidence. The cases illustrate what the cascade does when its component classifiers agree along a clinically meaningful path: in C1 the cascade routes a community-acquired pneumonia visit through the anatomical gates to a pneumonia terminal with bacterial etiology, in C2 it routes a streptococcal pharyngitis visit through the upper respiratory branch to a GAS terminal also with bacterial etiology, in C3 it routes a gastroesophageal reflux disease (GERD) presentation through the gate task and classifies it as a non-infectious respiratory mimic at B02, and in C4 it correctly rejects a non-respiratory presentation at the gate task without proceeding further. These cases give a qualitative sense of how the cascade behaves on the easier end of its operating distribution; they do not extend the quantitative claim of the aggregate evaluation.
+Second, the case studies illustrated in Figures~\ref{fig_case_studies} and~\ref{fig_case_studies_b} are worked examples drawn from the subset of patients for which the cascade traverses end-to-end without misrouting. They are not representative of average cascade behavior and should not be read as performance evidence. The cases illustrate what the cascade does when its component classifiers agree along a clinically meaningful path: in (A) the cascade routes a community-acquired pneumonia visit through the anatomical gates to a pneumonia terminal with bacterial etiology, in (B) it routes a streptococcal pharyngitis visit through the upper respiratory branch to a GAS terminal also with bacterial etiology, in (C) it routes a gastroesophageal reflux disease (GERD) presentation through the gate task and classifies it as a non-infectious respiratory mimic at B02, and in (D) it correctly rejects a non-respiratory presentation at the gate task without proceeding further. These cases give a qualitative sense of how the cascade behaves on the easier end of its operating distribution; they do not extend the quantitative claim of the aggregate evaluation.
 
 The cascade results, both the aggregate and the worked examples, motivate a clear direction for future work that we return to in Section~\ref{sec:discussion-future}: joint training of the panel as a single hierarchical model rather than as 11 independently trained binaries. The per-binary models reported here were optimized in isolation; the cascade applies them as a sequence; no part of the training procedure was aware that compositional error propagation would compound per-step accuracies in deployment. Joint training, in which the loss function reflects the cascade traversal rather than 11 independent binary losses, would allow the upstream gates to learn representations that are useful for the downstream gates and would, in principle, narrow the gap between the per-binary AUCs of Section~\ref{sec:results} and the composed cascade performance reported here.
 
@@ -521,27 +521,34 @@ B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 \begin{center}
 \begin{minipage}[t]{0.48\linewidth}
 \centering
-\textbf{(C1) Pneumonia}\\
+\textbf{(A) Pneumonia}\\
 \includegraphics[width=\linewidth]{fig_case_pneumonia}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}
 \centering
-\textbf{(C2) GAS pharyngitis}\\
+\textbf{(B) GAS pharyngitis}\\
 \includegraphics[width=\linewidth]{fig_case_gas}
-\end{minipage}\\[1em]
+\end{minipage}
+\end{center}
+\caption{Worked examples of cascade traversal on test-set patients (part 1 of 2). \textbf{(A)} A community-acquired pneumonia visit is routed through the anatomical gates to a pneumonia terminal with bacterial etiology. \textbf{(B)} A streptococcal pharyngitis visit is routed through the upper respiratory branch to a Group A streptococcal (GAS) terminal also with bacterial etiology.}
+\label{fig_case_studies}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
 \begin{minipage}[t]{0.48\linewidth}
 \centering
-\textbf{(C3) GERD}\\
+\textbf{(C) GERD}\\
 \includegraphics[width=\linewidth]{fig_case_gerd}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}
 \centering
-\textbf{(C4) Failure}\\
+\textbf{(D) Failure}\\
 \includegraphics[width=\linewidth]{fig_case_failure}
 \end{minipage}
 \end{center}
-\caption{Worked examples of cascade traversal on test-set patients. \textbf{(C1)} A community-acquired pneumonia visit is routed through the anatomical gates to a pneumonia terminal with bacterial etiology. \textbf{(C2)} A streptococcal pharyngitis visit is routed through the upper respiratory branch to a Group A streptococcal (GAS) terminal also with bacterial etiology. \textbf{(C3)} A gastroesophageal reflux disease (GERD) presentation is routed through the cascade and classified as a non-infectious respiratory mimic at B02. \textbf{(C4)} A non-respiratory presentation is correctly rejected at the gate task without further routing. These cases were drawn from the subset of patients for which the cascade traverses end-to-end without misrouting and illustrate behavior on the easier end of the operating distribution; they are not representative of average cascade performance.}
-\label{fig_case_studies}
+\caption{Worked examples of cascade traversal on test-set patients (part 2 of 2). \textbf{(C)} A gastroesophageal reflux disease (GERD) presentation is routed through the cascade and classified as a non-infectious respiratory mimic at B02. \textbf{(D)} A non-respiratory presentation is correctly rejected at the gate task without further routing. These four cases (A--D) were drawn from the subset of patients for which the cascade traverses end-to-end without misrouting and illustrate behavior on the easier end of the operating distribution; they are not representative of average cascade performance.}
+\label{fig_case_studies_b}
 \end{figure}
 
 % --- Template example figure blocks below, kept for reference and commented out. ---
