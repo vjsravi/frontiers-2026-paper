@@ -89,3 +89,147 @@ Numeric placeholders in the prose (`XXXX\%`) need actual numbers in addition to 
 - **Hints:** CODA TB DREAM (~2,143 subjects, 733,756 cough events); Pahar TB cough; clinical-cough collections in TB or pulmonary medicine.
 
 ---
+
+## Section 2: Materials and Methods
+
+### Dataset comparison (Section 2.1.3)
+
+### `sonde-rrvb-jmir-2023`
+- **Claim:** Sonde Health respiratory-responsive vocal biomarker (RRVB) work covers asthma, COPD, ILD, and COVID-19 across ~5,000 subjects using a six-second sustained vowel.
+- **Location:** Section 2.1.3 (Comparison with prior datasets) AND Table 1 row.
+- **Hints:** Larson et al., JMIR Form Res / JMIR mHealth, 2023; or Kaplan et al. Sonde Health team. Search "Sonde Health respiratory responsive vocal biomarker".
+
+### `covid-19-sounds-xia-2021`
+- **Claim:** COVID-19 Sounds dataset (Cambridge), 36,116 participants, read sentence + cough + breath.
+- **Location:** Section 2.1.3 AND Table 1 row.
+- **Hints:** Xia et al., NeurIPS 2021. Title contains "COVID-19 Sounds" dataset paper or related Cambridge group publications by Cecilia Mascolo's group.
+
+### `coda-tb-dream-2024`
+- **Claim:** CODA TB DREAM Challenge dataset: 733,756 cough events from 2,143 subjects, with a 565-subject longitudinal sub-cohort.
+- **Location:** Section 2.1.3 AND Table 1 row.
+- **Hints:** Scientific Data 2024 paper describing the CODA TB DREAM dataset and challenge. Search "CODA TB DREAM Scientific Data 2024".
+
+### Per-binary biological mechanism citations (Section 2.2.1, B00-B10)
+
+Each B-binary's task description ends with a single citation that supports the biological/acoustic mechanism for that contrast. Some keys may resolve to the same paper or a small set of papers. The reference-finder agent should propose 1-3 citations per key.
+
+### `voice-acoustics-acute-resp-mechanisms`
+- **Claim:** Acute respiratory illness alters voice production through upper-airway mucosal swelling, changed nasal coupling, and altered breath support / prosodic timing.
+- **Location:** Section 2.2.1, B00 (Acute respiratory vs acute non-respiratory illness).
+- **Hints:** Review on voice acoustics in upper respiratory infection; could overlap with `mucosal-swelling-resonance-shift` and `nasal-coupling-spectral` from the Introduction.
+
+### `copd-asthma-voice-acoustics`
+- **Claim:** Chronic respiratory disease produces persistent voice changes tied to lower-airway acoustics, breath support, and subglottal pressure (COPD, asthma, bronchiectasis, ILD).
+- **Location:** Section 2.2.1, B01.
+- **Hints:** Acoustic phenotyping of COPD; jitter / shimmer / HNR shifts under chronic asthma; reduced subglottal pressure literature in COPD.
+
+### `infection-noninfection-voice-distinction`
+- **Claim:** Acute infection and non-infectious respiratory presentations diverge in acoustic signature despite similar surface symptoms.
+- **Location:** Section 2.2.1, B02 (Acute resp infection vs sick-but-no-infection).
+- **Hints:** Voice acoustics in allergic rhinitis vs URI; voice in dyspnea/wheeze without infection. Speculative; may not have one canonical reference.
+
+### `uri-lri-voice-contrast`
+- **Claim:** Upper-tract inflammation primarily affects resonance/articulation while lower-tract inflammation primarily affects breath support, cough character, and gas exchange.
+- **Location:** Section 2.2.1, B03.
+- **Hints:** Speech-and-breath literature; voice acoustics under URI vs pneumonia comparisons.
+
+### `pneumonia-vs-bronchitis-acoustic`
+- **Claim:** Pneumonia (alveolar consolidation) versus bronchitis (airway-only inflammation) produce different voice/breath acoustic signatures.
+- **Location:** Section 2.2.1, B04.
+- **Hints:** Speech acoustics under parenchymal lung disease; cough acoustics in bronchitis vs pneumonia. May be a sparse evidence base.
+
+### `sinusitis-hyponasality-acoustic`
+- **Claim:** Sinusitis produces measurable hyponasality through paranasal resonance changes; other URIs produce more diffuse mucosal inflammation.
+- **Location:** Section 2.2.1, B06.
+- **Hints:** Hyponasality / nasometry literature; chronic rhinosinusitis voice studies; note that most published evidence is on chronic rhinosinusitis (J32) or nasal polyps (J33) with prompted stimuli, not acute J01 with spontaneous speech.
+
+### `gas-pharyngitis-voice-articulation`
+- **Claim:** Group A streptococcal pharyngitis produces tonsillar/pharyngeal inflammation altering oropharyngeal resonance, posterior-consonant articulation, and odynophagia-driven prosody.
+- **Location:** Section 2.2.1, B07.
+- **Hints:** Voice and articulation under acute pharyngeal inflammation; oropharyngeal resonance studies. Note: "hot potato voice" applies only to severe end (peritonsillar abscess); cite the milder mass-effect signature.
+
+### `influenza-systemic-voice-changes`
+- **Claim:** Influenza's systemic prodrome (fever, myalgia, fatigue) plausibly produces voice changes via reduced respiratory drive and fatigue, distinct from generic URI changes.
+- **Location:** Section 2.2.1, B08.
+- **Hints:** Voice / phonation studies under acute febrile illness; influenza-specific voice work if available.
+
+### `covid19-voice-acoustic-prior-work`
+- **Claim:** COVID-19 acoustic signature has been characterized in prior work, primarily on scripted speech and during pre-Omicron-dominant eras.
+- **Location:** Section 2.2.1, B09.
+- **Hints:** Anchor COVID-19 voice / cough detection papers (Cambridge COVID-19 Sounds, Coswara, COUGHVID studies). Overlaps with `covid-voice-cough-review` and `covid-19-sounds-xia-2021`.
+
+### `bacterial-vs-viral-voice-literature-absent`
+- **Claim:** The published literature on voice-based bacterial-versus-viral discrimination in adult primary care is essentially absent.
+- **Location:** Section 2.2.1, B10.
+- **Hints:** This citation should confirm a negative-result / literature-gap claim. The reference-finder should propose either (a) a systematic review establishing the gap, or (b) note that no such reference exists and the claim should stand without citation. Flag if the latter.
+
+### Feature extraction (Section 2.3.1)
+
+### `eyben-egemaps-2016`
+- **Claim:** eGeMAPS acoustic feature set (Geneva Minimalistic Acoustic Parameter Set).
+- **Location:** Section 2.3.1 (Audio Processing and Feature Extraction).
+- **Hints:** Eyben et al., IEEE Transactions on Affective Computing, 2016. The seminal eGeMAPS paper.
+
+### `eyben-opensmile-2010`
+- **Claim:** openSMILE feature extraction toolkit.
+- **Location:** Section 2.3.1.
+- **Hints:** Eyben et al., openSMILE: The Munich Versatile and Fast Open-Source Audio Feature Extractor, ACM Multimedia 2010. The software paper.
+
+### `librosa-mcfee-2015`
+- **Claim:** librosa Python audio analysis library.
+- **Location:** Section 2.3.1.
+- **Hints:** McFee et al., librosa: Audio and music signal analysis in Python, SciPy 2015 conference paper. Version 0.11.0 is used.
+
+### `wavlm-vad-odyssey-2024`
+- **Claim:** WavLM-VAD-Odyssey2024 valence-arousal-dominance predictor.
+- **Location:** Section 2.3.1.
+- **Hints:** Speaker Odyssey 2024 workshop paper on a WavLM-based valence-arousal-dominance predictor. Search "WavLM VAD Odyssey 2024" or "speech emotion VAD WavLM".
+
+### Table 1 additional dataset citations (Section 2.1.3, Table 1 rows)
+
+### `botha-tb-cough-2018`
+- **Claim:** Botha TB cough dataset, 38 subjects, voluntary cough in clinic, 2018.
+- **Location:** Table 1 row.
+- **Hints:** Botha et al. 2018, tuberculosis cough acoustic detection paper.
+
+### `coswara-2020`
+- **Claim:** Coswara dataset, 2,635 subjects, vowel + cough + breath + count, crowdsourced, COVID-19, 2020.
+- **Location:** Table 1 row.
+- **Hints:** Bhattacharya et al. 2020 (Indian Institute of Science), "Coswara — A Database of Breathing, Cough, and Voice Sounds for COVID-19 Diagnosis".
+
+### `coughvid-2020`
+- **Claim:** COUGHVID dataset, ~30,000 voluntary cough recordings, crowdsourced, COVID-19, 2020.
+- **Location:** Table 1 row.
+- **Hints:** Orlandic et al. 2020/2021 Scientific Data, COUGHVID dataset paper from EPFL.
+
+### `nococoda-2020`
+- **Claim:** NoCoCoDa dataset, 10 subjects / 73 cough events extracted from media interviews, COVID-19, 2020.
+- **Location:** Table 1 row.
+- **Hints:** Cohen-McFarlane et al. 2020 IEEE Access NoCoCoDa paper.
+
+### `virufy-open-cough-2020`
+- **Claim:** Virufy open cough dataset, 16 subjects / 121 voluntary cough recordings, COVID-19, 2020.
+- **Location:** Table 1 row.
+- **Hints:** Virufy / Stanford initiative; open cough dataset paper or technical report 2020.
+
+### `dicova-1-2021`
+- **Claim:** DiCOVA-1 dataset, 1,040 subjects, cough + breath + vowel + count, crowdsourced, COVID-19, 2021.
+- **Location:** Table 1 row.
+- **Hints:** Sharma et al. 2021 Interspeech / arXiv DiCOVA-1 challenge paper.
+
+### `pahar-tb-cough-2021`
+- **Claim:** Pahar TB cough dataset, 51 subjects / 1,358 cough events, voluntary cough + count + breath, clinic, 2021.
+- **Location:** Table 1 row.
+- **Hints:** Pahar et al. 2021 Computers in Biology and Medicine TB cough paper.
+
+### `dicova-2-2022`
+- **Claim:** DiCOVA-2 dataset, 1,436 subjects, cough + count + breath, crowdsourced, COVID-19, 2022.
+- **Location:** Table 1 row.
+- **Hints:** Sharma et al. 2022 Interspeech / IEEE DiCOVA-2 follow-up challenge paper.
+
+### `tbscreen-2024`
+- **Claim:** TBscreen dataset, 195 subjects / 34,600 cough events, passive + forced cough, clinic, TB + other respiratory, 2024.
+- **Location:** Table 1 row.
+- **Hints:** 2024 TB / respiratory cough screening paper, possibly in clinical or computational health journal.
+
+---
