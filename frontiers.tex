@@ -306,24 +306,6 @@ Within the panel, three patterns are visible. The gate task (B00) achieves the s
 
 The panel-level confounder analysis reported in Section~\ref{sec:results-confounder} found that 5 of the 11 binaries failed at least one axis at FDR $q \leq 0.05$. The five failures fall into three distinct categories, and their interpretation requires more than the panel-level pass-or-fail verdict. Table~\ref{tab:within_stratum} summarizes the headline AUC, the failing baseline AUC, and the within-stratum median voice-model AUC for each failing binary.
 
-\begin{table}[h]
-\centering
-\caption{Headline AUC, failing baseline AUC, and within-stratum median voice-model AUC for the five binaries that fail at least one confounder axis. Within-stratum median is the median across strata of the failing axis (age decile bins for B03, calendar months for B08, B09, B10, and patient city for B05).}
-\label{tab:within_stratum}
-\footnotesize
-\begin{tabular}{@{}l l c c c@{}}
-\toprule
-\textbf{Binary} & \textbf{Failing axis} & \textbf{Headline AUC} & \textbf{Baseline AUC} & \textbf{Within-stratum median AUC} \\
-\midrule
-B03 & age & 0.657 & 0.650 & 0.615 \\
-B05 & city, state $\times$ city & 0.629 & 0.678 & --- \\
-B08 & date (month) & 0.658 & 0.753 & 0.627 \\
-B09 & date (month) & 0.694 & 0.700 & 0.698 \\
-B10 & date (month) & 0.703 & 0.719 & 0.683 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 The first category is structural demographic leakage. B03 (lower versus upper respiratory infection) fails on age and on age-by-sex because the underlying clinical contrast is itself age-stratified in primary care: pediatric exclusion notwithstanding, upper respiratory infections are diagnostically more common among younger adults while lower respiratory infections become relatively more common with age, and an age-only prevalence lookup picks up much of this signal. When the analysis is restricted to within-age-bin discrimination, the voice model still achieves median AUC 0.615 across 5-year age bins from 18 to 82 years, with within-bin AUCs largely concentrated in the 0.59 to 0.63 range. A genuine acoustic signal therefore persists once the demographic prior is removed, and the headline AUC of 0.657 should be read as a combination of that genuine within-stratum signal and the age prior the cohort carries. The age prior is also clinically informative and is not a confound that any deployed system would have reason to ignore.
 
 The second category is seasonal and pandemic-wave temporal structure for the three pathogen-specific contrasts. B08 (influenza) fails on calendar month with a month-baseline AUC of 0.753 against the voice headline of 0.658, the largest baseline-versus-voice gap in the panel. B09 (COVID-19) and B10 (bacterial versus viral) also fail on month, with month-baseline AUCs of 0.700 and 0.719 respectively. The interpretation here is straightforward and clinically expected: influenza is overwhelmingly concentrated in the winter months, COVID-19 follows pandemic waves that are themselves temporal, and the bacterial-viral mix shifts seasonally because strep season and viral cold season do not coincide. Knowing the month is therefore strongly predictive of the diagnosis. Within-month analyses are informative: the median within-month voice-model AUC is 0.627 for B08 (range 0.545 to 0.672 across calendar months), 0.698 for B09 (range 0.669 to 0.723), and 0.683 for B10 (range 0.623 to 0.710). For B09 and B10, the within-month voice AUC is essentially indistinguishable from the headline AUC, potentially indicating that the voice model encodes the same temporal-pathogen signal that the month baseline does. For B08, the within-month AUC is meaningfully lower than the headline (0.627 versus 0.658), suggesting that the headline performance for influenza is more dependent on the seasonal prior than for B09 or B10. In all three cases some discriminatory power persists within the  voice signal when the temporal prior is conditioned out, but the temporal prior remains a clinically important and operationally available piece of information that a deployed system would likely condition on rather than exclude.
@@ -361,7 +343,7 @@ The diarization and patient-channel extraction pipeline that produces the audio 
 
 The present work sits adjacent to a body of prior literature, surveyed in detail in Section~\ref{sec:related}, that has demonstrated acoustic signal for specific respiratory diseases using scripted speech or solicited cough collected primarily in crowdsourced or controlled clinical settings. Against this prior literature the contribution here is differentiated along three axes that we set out in the Introduction. First, the speech condition is conversational rather than scripted, and the audio is acquired passively from the natural primary care encounter rather than from a structured elicitation task. Second, the contrasts tested are differential decisions among sick patients, not single-condition detections against healthy controls. Third, the evaluation operates at a scale of unique adult patients that is approximately an order of magnitude above the largest prior conversational respiratory dataset, and that approaches the operational scale at which a primary care population would actually need to be served. We do not claim novelty in the modeling architecture or in the feature extraction pipeline, which use established acoustic feature sets and standard supervised learning. The novelty is in the empirical demonstration that voice carries discriminating signal across a panel of clinically meaningful contrasts under these stricter conditions.
 
-Several directions for future work follow from the present results. Joint training of the panel as a single hierarchical model, motivated by the compositional error propagation observed in the cascade analysis in Section~\ref{sec:discussion-cascade}, is the most direct methodological extension. A model whose loss function reflects the cascade traversal would in principle allow upstream gates to learn representations that are useful for downstream gates, narrowing the gap between per-binary AUCs and composed cascade performance. External validation, on data from primary care networks not represented in this study, is the most consequential empirical extension and is a prerequisite to any operational or deployment-adjacent claim. Prospective evaluation, in which the modeling pipeline is run against incoming visits in real time rather than against a retrospective cohort, would address sources of temporal drift and population shift that retrospective evaluation cannot. Strengthening label quality, either by sampling a subset of visits for chart review or for laboratory and imaging confirmation of the ICD code, would address the coding-fidelity limitations described in Section~\ref{sec:discussion-limitations} and would establish performance ceilings that are not currently distinguishable from coding noise. Finally, the present panel covers 11 binary contrasts chosen as a proof-of-concept set; extending the panel to additional clinically relevant contrasts (chronic respiratory disease subtypes, severity stratification within pneumonia, comorbidity interactions) is a natural direction once joint training and external validation are established.
+Several directions for future work follow from the present results. Joint training of the panel as a single hierarchical model, motivated by the compositional error propagation observed in the cascade analysis in Section~\ref{sec:discussion-cascade}, is the most direct methodological extension. A model whose loss function reflects the cascade traversal would in principle allow upstream gates to learn representations that are useful for downstream gates, narrowing the gap between per-binary AUCs and composed cascade performance. External validation, on data from primary care networks not represented in this study, is the most consequential empirical extension and is a prerequisite to any operational or deployment-adjacent claim. Prospective evaluation, in which the modeling pipeline is run against incoming visits in real time rather than against a retrospective cohort, would address sources of temporal drift and population shift that retrospective evaluation cannot. Strengthening label quality, either by sampling a subset of visits for chart review or for laboratory and imaging confirmation of the ICD code, would address the coding-fidelity limitations described in Section~\ref{sec:discussion-limitations} and would establish performance ceilings that are not currently distinguishable from coding noise. Feature-level explainability and analysis, identifying which acoustic features drive each binary's discrimination and how they map to specific speech-production mechanisms, are out of scope of the present study and represent another direction for future work. Finally, the present panel covers 11 binary contrasts chosen as a proof-of-concept set; extending the panel to additional clinically relevant contrasts (chronic respiratory disease subtypes, severity stratification within pneumonia, comorbidity interactions) is a natural direction once joint training and external validation are established.
 
 
 \section{Conclusion}
@@ -519,6 +501,24 @@ B07 & 0.602 [0.588, 0.614] & 0.589 & 0.617 & 0.694 & 0.440 & 0.019 & 0.015 & 0.4
 B08 & 0.658 [0.646, 0.669] & 0.625 & 0.634 & 0.679 & 0.557 & 0.011 & 0.006 & 0.478 \\
 B09 & 0.694 [0.683, 0.704] & 0.680 & 0.651 & 0.664 & 0.622 & 0.016 & 0.014 & 0.501 \\
 B10 & 0.703 [0.692, 0.714] & 0.679 & 0.643 & 0.646 & 0.652 & 0.021 & 0.021 & 0.510 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Headline AUC, failing baseline AUC, and within-stratum median voice-model AUC for the five binaries that fail at least one confounder axis. Within-stratum median is the median across strata of the failing axis (age decile bins for B03, calendar months for B08, B09, B10, and patient city for B05).}
+\label{tab:within_stratum}
+\footnotesize
+\begin{tabular}{@{}l l c c c@{}}
+\toprule
+\textbf{Binary} & \textbf{Failing axis} & \textbf{Headline AUC} & \textbf{Baseline AUC} & \textbf{Within-stratum median AUC} \\
+\midrule
+B03 & age & 0.657 & 0.650 & 0.615 \\
+B05 & city, state $\times$ city & 0.629 & 0.678 & --- \\
+B08 & date (month) & 0.658 & 0.753 & 0.627 \\
+B09 & date (month) & 0.694 & 0.700 & 0.698 \\
+B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 \bottomrule
 \end{tabular}
 \end{table*}
