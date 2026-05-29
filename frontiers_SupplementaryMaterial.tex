@@ -772,4 +772,217 @@ transfer; Mycoplasma bacterial-by-taxonomy / viral-by-phenotype. An
 AUROC near chance is reported as a meaningful empirical result
 consistent with the literature null.
 
+
+% =====================================================================
+% Supplementary cohort demographics --- companion to \S\ref{sec:cohort-design}.
+% Summary statistics for age, sex, geography, and audio duration
+% stratified by cohort (binary) and class (positive / negative).
+% =====================================================================
+
+\section{Cohort demographics, geography, and audio duration}
+\label{sec:supp-cohort-demographics}
+
+This section reports per-binary summary statistics for age, sex,
+geography, and audio duration stratified by class. All counts are
+taken from the feature-available cohort (the joined intersection of
+the cohort SQL output and the v2 acoustic feature manifest used for
+training and evaluation), not from the raw cohort SQL row counts
+referenced in \S\ref{sec:supp-cohort-design}.
+
+Geography is summarised by the share of visits from California, the
+single largest state in the dataset across all binaries, alongside
+the count of unique US states and cities represented. Audio duration
+is the per-visit total clip duration in seconds, taken from the
+extracted feature stream. The recording window spans roughly two
+calendar years (January 2024 through January--February 2026) for
+every binary.
+
+\begin{table*}[t]
+\centering
+\caption{Summary statistics by binary and class. Age and audio
+duration are reported as mean ($\pm$SD) and median (interquartile
+range). Female / male percentages exclude a small fraction of visits
+with non-binary or missing gender. Geography is summarised by share
+of visits from California (the modal state in all binaries) and by
+the number of unique states and cities represented.}
+\label{tab:supp-cohort-demographics}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\footnotesize
+\begin{tabular}{l l r r c c r r r r}
+\toprule
+Binary & Class & Visits & Patients & Age mean\,(SD) & Age median\,(IQR) & \%F & \%CA & States & Duration s, median\,(IQR) \\
+\midrule
+B00 & pos & 255{,}516 & 206{,}145 & 41.9 (17.1) & 38 (28--53) & 62.2 & 54.6 & 109 & 24.9 (14.0--41.3) \\
+B00 & neg & 178{,}806 & 146{,}838 & 43.6 (18.3) & 39 (28--57) & 65.1 & 63.6 & 100 & 31.9 (17.3--55.0) \\
+B01 & pos & 270{,}296 & 215{,}776 & 42.0 (17.1) & 38 (28--54) & 62.6 & 54.8 & 110 & 25.1 (14.1--41.7) \\
+B01 & neg &  11{,}109 &   9{,}296 & 43.8 (18.1) & 39 (29--58) & 63.1 & 56.8 &  58 & 31.6 (17.7--52.6) \\
+B02 & pos & 271{,}849 & 216{,}801 & 42.0 (17.1) & 38 (28--54) & 62.6 & 54.8 & 110 & 25.1 (14.2--41.8) \\
+B02 & neg &  31{,}048 &  29{,}238 & 44.8 (18.5) & 41 (30--59) & 59.0 & 61.4 &  59 & 31.7 (18.4--52.4) \\
+B03 & pos &  29{,}716 &  25{,}991 & 49.8 (18.6) & 48 (35--65) & 58.4 & 55.8 &  68 & 28.3 (16.5--46.1) \\
+B03 & neg & 182{,}868 & 155{,}425 & 40.0 (16.1) & 36 (27--50) & 63.3 & 54.9 & 101 & 24.5 (13.8--40.7) \\
+B04 & pos &  10{,}971 &   9{,}279 & 50.2 (19.1) & 48 (35--66) & 57.0 & 60.0 &  60 & 29.5 (16.9--47.8) \\
+B04 & neg &   8{,}870 &   8{,}491 & 45.9 (17.2) & 43 (32--60) & 62.9 & 54.1 &  53 & 30.5 (17.6--48.9) \\
+B05 & pos &  10{,}688 &   9{,}044 & 50.2 (19.1) & 48 (35--66) & 57.1 & 60.2 &  60 & 29.5 (16.8--47.8) \\
+B05 & neg &  25{,}960 &  23{,}589 & 49.1 (18.3) & 47 (34--64) & 60.2 & 54.2 &  64 & 28.3 (16.5--46.0) \\
+B06 & pos &  45{,}093 &  40{,}334 & 44.0 (16.2) & 41 (31--56) & 66.6 & 53.8 &  71 & 29.5 (17.6--47.5) \\
+B06 & neg & 159{,}403 & 137{,}412 & 39.1 (16.1) & 35 (26--48) & 62.8 & 55.6 &  95 & 23.5 (13.2--39.3) \\
+B07 & pos &  11{,}599 &  10{,}913 & 33.3 (11.4) & 32 (24--39) & 64.6 & 54.4 &  54 & 18.7 (10.4--32.1) \\
+B07 & neg &  48{,}489 &  45{,}017 & 35.5 (13.9) & 32 (25--42) & 63.2 & 59.4 &  76 & 21.8 (12.1--36.8) \\
+B08 & pos &  12{,}593 &  12{,}276 & 39.4 (15.3) & 37 (27--48) & 58.4 & 48.6 &  58 & 20.8 (11.4--35.0) \\
+B08 & neg & 258{,}782 & 207{,}311 & 42.2 (17.2) & 38 (28--54) & 62.8 & 55.2 & 108 & 25.4 (14.3--42.1) \\
+B09 & pos &  15{,}108 &  14{,}512 & 50.7 (18.7) & 50 (35--67) & 59.5 & 52.1 &  58 & 24.7 (13.9--41.7) \\
+B09 & neg & 255{,}421 & 204{,}817 & 41.5 (16.9) & 38 (28--53) & 62.8 & 55.0 & 108 & 25.2 (14.2--41.8) \\
+B10 & pos &  14{,}638 &  13{,}681 & 33.9 (12.1) & 32 (24--40) & 64.0 & 56.0 &  58 & 19.3 (10.6--33.0) \\
+B10 & neg &  16{,}068 &  15{,}680 & 39.9 (15.9) & 37 (27--49) & 58.7 & 50.2 &  60 & 21.3 (11.7--36.4) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% ---------------------------------------------------------------------
+\subsection{B00 --- acute respiratory vs acute non-respiratory illness}
+
+The two arms are well matched on age and sex --- positive class
+mean age 41.9 years (SD 17.1) versus negative class 43.6 (SD 18.3),
+and female share 62.2\% versus 65.1\%. California contributes 54.6\%
+of positive visits and a higher 63.6\% of negative visits; New Jersey
+is correspondingly under-represented on the negative side (11.3\%
+versus 19.1\%). Both arms span 100+ states and 6{,}500+ cities,
+indicating broad geographic coverage with a California-dominant
+mode. The positive class is acoustically shorter on average --- median
+clip duration 24.9~s (IQR 14.0--41.3) versus 31.9~s (17.3--55.0) on
+the negative side --- consistent with the brevity of acute upper
+respiratory presentations relative to the heterogeneous acute
+non-respiratory complaint pool.
+
+\subsection{B01 --- acute respiratory infection vs chronic respiratory management}
+
+Age and sex are tightly matched (positive 42.0~y, 62.6\% female;
+negative 43.8~y, 63.1\% female) despite the strong cohort imbalance
+(24.3:1 by visit). The negative class spans 58 states and 1{,}471
+cities --- noticeably narrower than the positive's 110 states and
+8{,}033 cities, reflecting both the smaller sample and the
+clinic-set bias toward locations with established chronic-respiratory
+patient panels (California share rises from 54.8\% to 56.8\% with
+larger gains for Arizona, 5.3\% to 7.1\%). Median clip duration is
+again longer on the negative side (31.6~s versus 25.1~s), consistent
+with longer-format chronic-disease visits.
+
+\subsection{B02 --- acute respiratory infection vs sick-but-no-infection}
+
+The negative arm is slightly older on average (44.8 vs 42.0~y) and
+has a noticeably lower female share (59.0\% versus 62.6\%),
+reflecting the inclusion of the male-skewed musculoskeletal and
+respiratory-symptom codes in the negative class. California is
+over-represented in the negative class (61.4\% versus 54.8\%) and
+the negative arm covers a narrower geography (59 states versus 110).
+The clip-duration gap (negative median 31.7~s versus positive 25.1~s)
+matches the B00 and B01 pattern of longer recordings for non-acute
+or chronic-symptom presentations.
+
+\subsection{B03 --- upper vs lower respiratory infection}
+
+The strongest demographic gap of the panel: LRI cases (positive)
+are roughly a decade older than URI cases (mean 49.8~y vs 40.0~y;
+median 48 vs 36; IQR 35--65 vs 27--50), with a lower female share
+(58.4\% vs 63.3\%). The age confound is well-documented in primary
+care and is pre-registered for age-stratified AUROC reporting. Both
+arms have similar California share ($\sim$55\%), but New Jersey is
+over-represented on the LRI side (21.8\% versus 18.2\%). Median
+clip duration is 28.3~s for LRI and 24.5~s for URI; the LRI arm
+records slightly longer, consistent with more extensive cough-event
+content.
+
+\subsection{B04 --- pneumonia vs acute bronchitis}
+
+Pneumonia patients are 4--5 years older on average (50.2 vs 45.9~y)
+and are less female-skewed (57.0\% versus 62.9\%). California is
+over-represented on the pneumonia side (60.0\% versus 54.1\%);
+Washington also rises (7.9\% versus 6.2\%), and New Jersey halves
+(11.3\% versus 19.4\%). Audio duration is essentially identical
+across arms (median 29.5~s versus 30.5~s), reflecting the shared
+LRI character of the two presentations. This is the panel's most
+balanced binary (1.24:1 by visit) and one of the better-matched on
+demographics.
+
+\subsection{B05 --- pneumonia vs non-pneumonia LRI}
+
+Age is closely matched (50.2 vs 49.1~y, IQRs overlap heavily),
+unlike the B03 URI-vs-LRI contrast --- both arms are LRI
+populations and inherit a similar older-adult demographic. Sex is
+also more balanced (57.1\% vs 60.2\% female). California share is
+elevated on the pneumonia side (60.2\% versus 54.2\%) and New Jersey
+is elevated on the non-pneumonia LRI side (25.9\% versus 11.0\%),
+the largest single-state geographic skew in the panel; this is
+plausibly a coding-practice signature of one or more high-volume
+clinic networks. Median clip duration is 29.5~s versus 28.3~s.
+
+\subsection{B06 --- acute sinusitis vs other URI}
+
+J01-coded sinusitis patients are about 5 years older than the other
+URI pool (mean 44.0 vs 39.1~y) and have a higher female share
+(66.6\% versus 62.8\%) consistent with adult female predominance in
+chronic-and-acute rhinosinusitis presentations. California share is
+slightly lower in the positive class (53.8\% versus 55.6\%) while
+Arizona rises (7.7\% versus 4.5\%). Median clip duration is
+substantially longer in the sinusitis arm (29.5~s versus 23.5~s),
+giving more material for nasal-coupling and resonance features ---
+which, given the dominant viral-URI fraction inside the J01 class,
+does not translate to expected high AUROC (see \S\ref{sec:supp-b06}).
+
+\subsection{B07 --- GAS pharyngitis vs other pharyngitis}
+
+The pharyngitis cohort is the panel's youngest --- positive mean age
+33.3~y (SD 11.4), negative 35.5~y (SD 13.9) --- consistent with the
+young-adult skew of GAS-positive sore-throat presentations after
+pediatric exclusion. Sex is similar across arms (64.6\% vs 63.2\%
+female). California share is slightly lower on the positive side
+(54.4\% versus 59.4\%) with a small Colorado bump (4.5\% versus
+3.7\%). Median clip duration is the shortest in the panel (18.7~s
+GAS versus 21.8~s other phyngitis), consistent with brief
+sore-throat visits in younger adults.
+
+\subsection{B08 --- influenza vs other acute respiratory infection}
+
+The positive (flu) arm is slightly younger (mean 39.4 vs 42.2~y)
+and has a lower female share (58.4\% versus 62.8\%), consistent
+with the working-age and male-skewed coding pattern of clinical-flu
+diagnoses in primary care. The flu arm is notably under-represented
+in California (48.6\% versus 55.2\%) and over-represented in
+New Jersey (24.0\% versus 18.6\%), pointing to a regional / seasonal
+coding pattern that is plausibly entangled with peak-flu-season
+timing in the dataset. Median clip duration is also shorter (20.8~s
+versus 25.4~s). The 1:20.3 class imbalance is handled by focal loss
+during training.
+
+\subsection{B09 --- COVID-19 vs other acute respiratory infection}
+
+The COVID-positive arm is roughly a decade older (mean 50.7 vs
+41.5~y; median 50 vs 38, IQR 35--67 vs 28--53), reflecting the
+heavier coding of U07.1 / J12.82 in symptomatic adults with risk
+factors. Female share is slightly lower (59.5\% versus 62.8\%).
+Arizona is over-represented on the COVID side (11.0\% versus 4.9\%),
+which combined with the era-bimodal performance expectation
+(\S\ref{sec:supp-b09}) is reported through the era-stratified
+AUROC. Median clip duration is essentially identical (24.7~s versus
+25.2~s).
+
+\subsection{B10 --- definite bacterial vs definite viral respiratory infection}
+
+The bacterial arm (dominated 92\% by J02.0 GAS pharyngitis) is much
+younger than the viral arm (mean 33.9~y, IQR 24--40 vs 39.9~y, IQR
+27--49), and has a higher female share (64.0\% versus 58.7\%). This
+demographic gap is a direct consequence of the bacterial arm
+collapsing to the GAS-pharyngitis demographic, while the viral arm
+spans common cold, viral pneumonia, and influenza --- older and more
+balanced by sex. Geography is similar (California 56.0\% versus
+50.2\%; New Jersey 11.9\% versus 22.2\%, the latter again reflecting
+the influenza-clinic regional pattern from B08). Median clip duration
+is short (19.3~s versus 21.3~s) given the pharyngitis dominance of
+the bacterial arm. The anatomy-mix dominance of this binary
+(\S\ref{sec:supp-b10}) is partly visible in these demographics: any
+above-chance separation could be driven by the age and clip-length
+differences alone, which is why anatomy-matched URI-vs-URI and
+LRI-vs-LRI sub-strata are pre-registered.
+
 \end{document}
