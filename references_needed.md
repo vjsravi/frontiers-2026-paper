@@ -185,6 +185,51 @@ Each B-binary's task description ends with a single citation that supports the b
 - **Location:** Section 2.3.1.
 - **Hints:** Speaker Odyssey 2024 workshop paper on a WavLM-based valence-arousal-dominance predictor. Search "WavLM VAD Odyssey 2024" or "speech emotion VAD WavLM".
 
+### `loshchilov-adamw-2019`
+- **Claim:** AdamW optimizer (decoupled weight decay).
+- **Location:** Section 2.3.2 (Model, Training and Evaluation).
+- **Hints:** Loshchilov & Hutter, "Decoupled Weight Decay Regularization", ICLR 2019.
+
+### `loshchilov-sgdr-2017`
+- **Claim:** Cosine-annealing learning-rate schedule.
+- **Location:** Section 2.3.2 (Model, Training and Evaluation).
+- **Hints:** Loshchilov & Hutter, "SGDR: Stochastic Gradient Descent with Warm Restarts", ICLR 2017. The original cosine annealing schedule paper.
+
+### `benjamini-hochberg-1995`
+- **Claim:** Benjamini-Hochberg false discovery rate (FDR) procedure.
+- **Location:** Section 2.3.3 (Confounder analysis).
+- **Hints:** Benjamini & Hochberg, "Controlling the false discovery rate: a practical and powerful approach to multiple testing", Journal of the Royal Statistical Society Series B, 1995.
+
+---
+
+## Supplementary Material
+
+### `cdc-namcs-sex-pc-utilization`
+- **Claim:** Female skew in primary care utilization is a documented pattern in US ambulatory care surveys.
+- **Location:** Supp S1.1 (Demographic distribution).
+- **Hints:** CDC NAMCS (National Ambulatory Medical Care Survey) tabulations by sex; or AHRQ MEPS sex utilization tables. Overlaps with `cdc-namcs-respiratory-visit-fraction` and `cdc-namcs-pc-top-reasons`; the finder agent may resolve them to the same source.
+
+### `cdc-nhis-tobacco-prevalence`
+- **Claim:** US adult tobacco use prevalence is approximately 14%.
+- **Location:** Supp S1.3 (Clinical distribution).
+- **Hints:** CDC NHIS or BRFSS most-recent adult tobacco prevalence estimate (the 14% figure is approximate; the actual 2023-2024 NHIS estimate is closer to 11-13%). Reference-finder should pick the most recent and pin the exact figure.
+
+### Candidate additional Supplementary S3 citations (not yet inserted)
+
+Vijay's pasted S3 (Detailed cohort design) prose contains several literature references that would benefit from formal citations. Listed here for review before insertion:
+
+- **S3 B01:** ICS-induced vocal-fold edema and dysphonia at high prevalence among chronic-asthma/COPD ICS users. (Overlaps with `ics-dysphonia-laryngeal-deposition` in main Discussion.)
+- **S3 B02:** "documented under-coding precedent of ~26% laboratory-confirmed-influenza ICD-coding sensitivity" — needs cite for the 26% figure.
+- **S3 B05:** "literature on ancestor ICD-9 code 486 reports as low as 14.2% sensitivity for laboratory-confirmed pneumococcal pneumonia" — needs cite for the 14.2% figure.
+- **S3 B06:** "published nasometry and hyponasality literature uses standardised prompted stimuli rather than spontaneous conversation" — cite hyponasality/nasometry literature; overlaps with `sinusitis-hyponasality-acoustic` in main.
+- **S3 B06:** "Approximately 10-15% of primary-care J01-coded visits represent true acute bacterial sinusitis" — needs cite for the bacterial fraction in coded sinusitis (e.g., IDSA or EPOS guidelines).
+- **S3 B07:** "Centor or McIsaac clinical scoring criteria" — Centor (1981) and McIsaac (1998) are the seminal references.
+- **S3 B07:** "expected performance ceiling against a hypothetical RADT- or culture-confirmed gold standard is AUROC 0.65-0.70" — cite gold-standard performance bounds.
+- **S3 B08:** "Documented primary-care flu coding shows 61% under-coding of laboratory-confirmed cases and a clinical-criteria positive predictive value of 60% (peak-season 68.5%) against RT-PCR confirmation" — specific numbers, needs cite.
+- **S3 B09:** "~60-80% of US adults have prior COVID exposure by 2026, ~5-17% with persistent voice alterations" — needs cites.
+- **S3 B09:** "U07.1 positive predictive value 77.7-93.8% across clinical settings" — needs cite for U07.1 PPV literature.
+- **S3 B10:** "literature check during review found no published pooled bacterial-vs-viral voice or cough signature in adult primary-care spontaneous speech" — null result; overlaps with `bacterial-vs-viral-voice-literature-absent` in main.
+
 ### Table 1 additional dataset citations (Section 2.1.3, Table 1 rows)
 
 ### `botha-tb-cough-2018`
