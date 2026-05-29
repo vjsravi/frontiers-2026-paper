@@ -263,7 +263,7 @@ handled by focal loss in training).
 inhaled-corticosteroid (ICS) dysphonia in the negative arm: long-term
 ICS produces chronic vocal-fold edema (elevated jitter and shimmer,
 reduced harmonics-to-noise ratio) at high prevalence in the chronic-asthma
-and chronic-COPD population, and an exposure proxy (Z79.51) is coded
+and chronic-COPD population \citep{ics-dysphonia-laryngeal-deposition}, and an exposure proxy (Z79.51) is coded
 in only four patients in the entire dataset. The ICS confound is
 accepted as a primary limitation of B01 rather than mitigated, and is
 explicitly documented in the methods. J04.0 (acute laryngitis) and
@@ -334,7 +334,7 @@ post-infectious cough.
 \paragraph{Acknowledged limitations.} Symptom-only R-code visits
 empirically include some under-coded infection (with documented
 under-coding precedent of $\sim$26\% laboratory-confirmed-influenza
-ICD-coding sensitivity); the negative class is therefore stated as
+ICD-coding sensitivity \citep{flu-icd-coding-sensitivity-26pct}); the negative class is therefore stated as
 ``coded as non-infectious'' rather than ``confirmed non-infectious.''
 Post-COVID dysphonia carryover from U09.x history is acknowledged but
 not mitigated beyond the same-visit U09.x rule.
@@ -470,7 +470,7 @@ composed of 34\% J20, $<1$\% J21, and 66\% J22.
 \paragraph{Key review decisions.} The dominant issue is J22 label
 noise. J22 (unspecified acute LRI) is less specific than J18.9, and
 literature on ancestor ICD-9 code 486 reports as low as 14.2\%
-sensitivity for laboratory-confirmed pneumococcal pneumonia. With
+sensitivity for laboratory-confirmed pneumococcal pneumonia \citep{icd9-486-pneumococcal-sensitivity-14pct}. With
 J22 at 66\% of the B05 negative class, an estimated 2{,}600--5{,}275
 visits in the negative arm may be unrecognised pneumonia. A
 J22-excluded sensitivity AUROC (pneumonia vs J20+J21 only,
@@ -510,7 +510,7 @@ influenza primary code, holding the binary scope to URI only. Final
 cohort: 46{,}460 J01 and 166{,}037 other-URI visits (class ratio 1:3.6).
 
 \paragraph{Critical framing.} Approximately 10--15\% of primary-care
-J01-coded visits represent true acute bacterial sinusitis; the
+J01-coded visits represent true acute bacterial sinusitis \citep{j01-bacterial-sinusitis-fraction}; the
 remaining $\sim$85\% are viral URI with sinus-symptom predominance
 that are clinically indistinguishable from a regular cold at the
 bedside. The contrast measured by B06 is therefore ``ICD-coded acute
@@ -539,7 +539,7 @@ A phone-class-conditioned feature analysis (nasal-consonant-windowed
 acoustic features) is pre-registered as a secondary investigation
 if per-visit feature aggregates underperform, since published
 nasometry and hyponasality literature uses standardised prompted
-stimuli rather than spontaneous conversation.
+stimuli rather than spontaneous conversation \citep{sinusitis-hyponasality-acoustic}.
 
 \paragraph{Pre-registered sub-strata.} Three sub-strata are reported:
 J01 vs J04.0 (acute laryngitis, the easier source/resonance contrast,
@@ -572,7 +572,7 @@ primary care), \textit{Mycoplasma pneumoniae}, and \textit{Chlamydophila
 pneumoniae}. The clinically more useful binary (bacterial vs viral
 pharyngitis) is not implementable with available ICD coding. The
 expected performance ceiling against a hypothetical RADT- or
-culture-confirmed gold standard is AUROC 0.65--0.70 per the brief's
+culture-confirmed gold standard is AUROC 0.65--0.70 \citep{gas-clinical-criteria-ceiling} per the brief's
 self-audit; an AUROC closer to chance is reported as a meaningful
 empirical result rather than a model failure.
 
@@ -581,7 +581,7 @@ that B07 targets the \emph{milder} pharyngeal-cavity mass-effect
 signature (small F2 / F3 reductions on back vowels), not ``hot potato
 voice,'' which is severe-end only (peritonsillar abscess, severe
 tonsillitis) and is not in the Centor or McIsaac clinical scoring
-criteria. A J02.9-without-J04.x sensitivity AUROC is pre-registered:
+criteria \citep{centor-1981, mcisaac-1998}. A J02.9-without-J04.x sensitivity AUROC is pre-registered:
 if AUROC drops substantially when J04.x-co-coded cases are excluded
 from the negative arm, the model is detecting viral co-laryngitis
 rather than the intended pharyngitis contrast. B27.x (mononucleosis)
@@ -620,7 +620,7 @@ visits (class ratio 1:20.3, handled by focal loss).
 0.70--0.75 against a hypothetical laboratory-confirmed gold standard.
 Documented primary-care flu coding shows 61\% under-coding of
 laboratory-confirmed cases and a clinical-criteria positive predictive
-value of 60\% (peak-season 68.5\%) against RT-PCR confirmation. Adult
+value of 60\% (peak-season 68.5\%) against RT-PCR confirmation \citep{flu-primary-care-coding-fidelity}. Adult
 respiratory syncytial virus (RSV) produces a flu-like syndrome that
 is acoustically near-indistinguishable from influenza.
 
@@ -684,10 +684,10 @@ was declined under the real-world cohort principle.
 
 Long-COVID baseline contamination in the negative arm ($\sim$60--80\%
 of US adults have prior COVID exposure by 2026, $\sim$5--17\% with
-persistent voice alterations) is reported as an irreducible methods
+persistent voice alterations) \citep{long-covid-voice-prevalence} is reported as an irreducible methods
 limitation without serology data. Provider-level coding heterogeneity
 (U07.1 positive predictive value 77.7--93.8\% across clinical
-settings) is deferred to the fairness and robustness audit, where
+settings \citep{u071-positive-predictive-value}) is deferred to the fairness and robustness audit, where
 provider-stratified cross-validation is reported.
 
 \paragraph{Pre-registered analyses.} Era-stratified AUROC (pre-omicron,
@@ -703,7 +703,7 @@ the omicron era, rather than as a model failure.
 
 B10 is the panel's hardest binary by design. A literature check
 during review found no published pooled bacterial-vs-viral voice or
-cough signature in adult primary-care spontaneous speech. The binary
+cough signature in adult primary-care spontaneous speech \citep{bacterial-vs-viral-voice-literature-absent}. The binary
 collapses seven mechanistically distinct phenotypes under a single
 etiologic label and is reported with explicit anatomy-mix caveats.
 

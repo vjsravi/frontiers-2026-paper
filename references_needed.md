@@ -214,21 +214,50 @@ Each B-binary's task description ends with a single citation that supports the b
 - **Location:** Supp S1.3 (Clinical distribution).
 - **Hints:** CDC NHIS or BRFSS most-recent adult tobacco prevalence estimate (the 14% figure is approximate; the actual 2023-2024 NHIS estimate is closer to 11-13%). Reference-finder should pick the most recent and pin the exact figure.
 
-### Candidate additional Supplementary S3 citations (not yet inserted)
+### `flu-icd-coding-sensitivity-26pct`
+- **Claim:** Laboratory-confirmed-influenza ICD coding sensitivity in primary care is documented at approximately 26%.
+- **Location:** Supp S3 B02 (Acute respiratory infection vs sick-but-no-infection).
+- **Hints:** Validation studies of ICD-10 J09-J11 coding against laboratory-confirmed influenza (RT-PCR or rapid antigen). May overlap with `flu-primary-care-coding-fidelity`.
 
-Vijay's pasted S3 (Detailed cohort design) prose contains several literature references that would benefit from formal citations. Listed here for review before insertion:
+### `icd9-486-pneumococcal-sensitivity-14pct`
+- **Claim:** ICD-9 code 486 (pneumonia, organism unspecified, the ancestor of ICD-10 J18.9) shows as low as 14.2% sensitivity for laboratory-confirmed pneumococcal pneumonia.
+- **Location:** Supp S3 B05 (Pneumonia vs non-pneumonia LRI).
+- **Hints:** Validation study of ICD-9 486 against pneumococcal-confirmed cases. Possibly Skull et al. or similar pneumonia-coding-validation paper from the 2000s.
 
-- **S3 B01:** ICS-induced vocal-fold edema and dysphonia at high prevalence among chronic-asthma/COPD ICS users. (Overlaps with `ics-dysphonia-laryngeal-deposition` in main Discussion.)
-- **S3 B02:** "documented under-coding precedent of ~26% laboratory-confirmed-influenza ICD-coding sensitivity" — needs cite for the 26% figure.
-- **S3 B05:** "literature on ancestor ICD-9 code 486 reports as low as 14.2% sensitivity for laboratory-confirmed pneumococcal pneumonia" — needs cite for the 14.2% figure.
-- **S3 B06:** "published nasometry and hyponasality literature uses standardised prompted stimuli rather than spontaneous conversation" — cite hyponasality/nasometry literature; overlaps with `sinusitis-hyponasality-acoustic` in main.
-- **S3 B06:** "Approximately 10-15% of primary-care J01-coded visits represent true acute bacterial sinusitis" — needs cite for the bacterial fraction in coded sinusitis (e.g., IDSA or EPOS guidelines).
-- **S3 B07:** "Centor or McIsaac clinical scoring criteria" — Centor (1981) and McIsaac (1998) are the seminal references.
-- **S3 B07:** "expected performance ceiling against a hypothetical RADT- or culture-confirmed gold standard is AUROC 0.65-0.70" — cite gold-standard performance bounds.
-- **S3 B08:** "Documented primary-care flu coding shows 61% under-coding of laboratory-confirmed cases and a clinical-criteria positive predictive value of 60% (peak-season 68.5%) against RT-PCR confirmation" — specific numbers, needs cite.
-- **S3 B09:** "~60-80% of US adults have prior COVID exposure by 2026, ~5-17% with persistent voice alterations" — needs cites.
-- **S3 B09:** "U07.1 positive predictive value 77.7-93.8% across clinical settings" — needs cite for U07.1 PPV literature.
-- **S3 B10:** "literature check during review found no published pooled bacterial-vs-viral voice or cough signature in adult primary-care spontaneous speech" — null result; overlaps with `bacterial-vs-viral-voice-literature-absent` in main.
+### `j01-bacterial-sinusitis-fraction`
+- **Claim:** Approximately 10-15% of primary-care J01-coded acute sinusitis visits represent true bacterial sinusitis.
+- **Location:** Supp S3 B06 (Acute sinusitis vs other URI).
+- **Hints:** IDSA acute bacterial rhinosinusitis guideline (Chow et al.); or EPOS (European Position Paper on Rhinosinusitis); or epidemiological studies of bacterial vs viral acute sinusitis in primary care.
+
+### `gas-clinical-criteria-ceiling`
+- **Claim:** Expected AUROC ceiling of 0.65-0.70 against a hypothetical RADT- or culture-confirmed GAS pharyngitis gold standard.
+- **Location:** Supp S3 B07 (GAS pharyngitis vs other pharyngitis).
+- **Hints:** Studies on the diagnostic accuracy of Centor/McIsaac clinical prediction rules versus RADT/culture for GAS pharyngitis. The 0.65-0.70 figure is roughly the published AUC for clinical scoring rules.
+
+### `centor-1981`
+- **Claim:** Centor clinical scoring criteria for streptococcal pharyngitis.
+- **Location:** Supp S3 B07.
+- **Hints:** Centor et al., "The diagnosis of strep throat in adults in the emergency room," Med Decis Making, 1981.
+
+### `mcisaac-1998`
+- **Claim:** McIsaac modification of the Centor score for streptococcal pharyngitis (age-adjusted).
+- **Location:** Supp S3 B07.
+- **Hints:** McIsaac et al., "A clinical score to reduce unnecessary antibiotic use in patients with sore throat," CMAJ, 1998.
+
+### `flu-primary-care-coding-fidelity`
+- **Claim:** Primary-care flu coding shows 61% under-coding of laboratory-confirmed cases and a clinical-criteria PPV of 60% (peak-season 68.5%) against RT-PCR confirmation.
+- **Location:** Supp S3 B08 (Influenza vs other ARI).
+- **Hints:** Validation studies of influenza ICD coding and clinical criteria against RT-PCR. May overlap with `flu-icd-coding-sensitivity-26pct`.
+
+### `long-covid-voice-prevalence`
+- **Claim:** ~60-80% of US adults have prior COVID-19 exposure by 2026; ~5-17% experience persistent voice alterations post-COVID.
+- **Location:** Supp S3 B09 (COVID-19 vs other ARI).
+- **Hints:** CDC seroprevalence estimates for US adult COVID exposure circa 2026; long-COVID voice/dysphonia prevalence studies (e.g., Galluzzi & Garavello 2022, Cantarella et al., post-COVID voice symptoms).
+
+### `u071-positive-predictive-value`
+- **Claim:** ICD-10 U07.1 (confirmed COVID-19) positive predictive value ranges 77.7-93.8% across clinical settings.
+- **Location:** Supp S3 B09.
+- **Hints:** Validation studies of U07.1 against PCR-confirmed COVID-19 (multiple healthcare settings). Possibly Kadri et al. JAMA Network Open, or AHRQ HCUP U07.1 validation studies.
 
 ### Table 1 additional dataset citations (Section 2.1.3, Table 1 rows)
 
@@ -286,13 +315,19 @@ Vijay's pasted S3 (Detailed cohort design) prose contains several literature ref
 - **Location:** Section 4.4 (Limitations), B01 confound paragraph.
 - **Hints:** Otolaryngology / pulmonology literature on ICS-induced dysphonia. Anchor refs include Williamson et al. (Eur Respir J on ICS local side effects), Galvan et al. (laryngeal deposition mechanism), or systematic reviews of ICS adverse effects on voice (jitter / shimmer / HNR changes).
 
-### Candidate additional Discussion citations (not yet inserted)
+### `cdc-fluview-seasonal-pattern`
+- **Claim:** Influenza is overwhelmingly concentrated in the winter months.
+- **Location:** Section 4.2 (Interpreting the confounder analysis), B08 seasonality.
+- **Hints:** CDC FluView weekly surveillance reports; or systematic review of seasonal influenza patterns in temperate climates.
 
-The following claims in Discussion are substantive enough that a reviewer may flag them. Listed here for Vijay's review before insertion:
+### `icd-coding-fidelity-variation`
+- **Claim:** ICD coding fidelity varies by code and by clinical setting.
+- **Location:** Section 4.4 (Limitations).
+- **Hints:** Validation studies of ICD-10 coding accuracy (e.g., O'Malley et al. on ICD-10 validation; chart-review-based PPV studies for specific codes).
 
-- **Line 245 (Summary):** "Prior voice-based respiratory work has predominantly used scripted speech ... or solicited cough produced on demand in controlled or semi-controlled settings." Already cited in Introduction (`covid-voice-cough-review`, `tb-cough-acoustic-screening`); may re-cite here for emphasis.
-- **Line 256 (Confounder interpretation):** "Influenza is overwhelmingly concentrated in the winter months" — CDC FluView surveillance data.
-- **Line 276 (Limitations):** "ICD coding fidelity varies by code and by setting" — ICD coding accuracy / validation literature.
-- **Line 276 (Limitations):** "J18 pneumonia is typically coded after imaging confirmation; J02.0 streptococcal pharyngitis after rapid antigen or culture confirmation" — clinical practice; may be considered common knowledge.
+### `clinical-coding-practice-pneumonia-strep`
+- **Claim:** J18 pneumonia is typically coded after imaging confirmation; J02.0 streptococcal pharyngitis after rapid antigen or culture confirmation.
+- **Location:** Section 4.4 (Limitations).
+- **Hints:** Primary-care clinical coding practice references; IDSA pneumonia diagnosis guidelines; IDSA pharyngitis (GAS) guidelines.
 
 ---
