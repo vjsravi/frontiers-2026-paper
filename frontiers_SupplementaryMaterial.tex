@@ -459,7 +459,7 @@ adding bronchiolitis and unspecified acute LRI to the negative arm.
 \paragraph{Class definitions (final).} The positive class is defined
 by a primary ICD-10 code in J12--J18 (any pneumonia). The negative
 class is defined by a primary ICD-10 code in J20 (acute bronchitis),
-J21 (bronchiolitis, adult only after the v0.1.0 feature-available
+J21 (bronchiolitis, adult only after the feature-available
 filter), or J22 (unspecified acute LRI). The same COVID-19 and
 influenza visit-level exclusions as B04 apply, along with the
 dual-class exclusion. Final cohort: 10{,}968 pneumonia and 26{,}524
@@ -726,7 +726,7 @@ bacterial and $\sim$16{,}899 viral visits (class ratio $\sim$1:1.1).
 predicate during review, restoring internal consistency with the
 existing J12.81 and J12.82 COVID exclusions and respecting B09's
 jurisdiction over COVID-19. The change removed 15{,}723 visits from
-the viral arm (48\% of the v1 viral cohort), improving class balance
+the viral arm (48\%), improving class balance
 from $\sim$1:2.1 to $\sim$1:1.1 and reframing B10 as a
 GAS-pharyngitis-versus-non-COVID-viral contrast rather than the prior
 GAS-pharyngitis-versus-COVID-plus-flu contrast. With 92\% of the
@@ -783,7 +783,7 @@ consistent with the literature null.
 This section reports per-binary summary statistics for age, sex,
 geography, and audio duration stratified by class. All counts are
 taken from the feature-available cohort (the joined intersection of
-the cohort SQL output and the v2 acoustic feature manifest used for
+the cohort SQL output and the acoustic feature manifest used for
 training and evaluation), not from the raw cohort SQL row counts
 referenced in \S\ref{sec:supp-cohort-design}.
 
