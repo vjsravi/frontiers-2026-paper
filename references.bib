@@ -1,0 +1,742 @@
+% ======================================================================
+% references.bib — consolidated, verified bibliography for frontiers-2026
+% Keys match the \citep{key} calls in frontiers.tex / frontiers_SupplementaryMaterial.tex
+% (kebab-case per references_needed.md). Built from 5 reference-finder agents,
+% an adversarial verification workflow (48 citations), and targeted deep searches.
+% All DOI/year corrections from that workflow are applied here.
+% Provenance + decisions: see citation_decisions.md.
+% Some claims legitimately bundle multiple sources; secondary entries carry a
+% -2/-3 suffix and the \citep call should list them together.
+% ======================================================================
+
+% ----------------------------------------------------------------------
+% SECTION 1 — Introduction (epidemiology / motivation)
+% ----------------------------------------------------------------------
+
+@misc{cdc-namcs-respiratory-visit-fraction,
+  author       = {{National Center for Health Statistics}},
+  title        = {National Ambulatory Medical Care Survey (NAMCS): Reason-for-Visit Tabulations},
+  institution  = {Centers for Disease Control and Prevention},
+  year         = {2019},
+  howpublished = {\url{https://www.cdc.gov/nchs/namcs/publications/index.html}},
+  note         = {Respiratory reason-for-visit categories (cough, nasal congestion, throat soreness, head cold/URI, shortness of breath) sum to approximately 10--11\% of adult ambulatory visits (derived). Latest national summary tables: 2019.},
+  urldate      = {2026-05-29}
+}
+
+% cdc-namcs-pc-top-reasons reuses cdc-namcs-respiratory-visit-fraction (same NAMCS RVC source).
+
+@article{cdc-outpatient-antibiotic-inappropriate,
+  author  = {Fleming-Dutra, Katherine E. and Hersh, Adam L. and Shapiro, Daniel J. and Bartoces, Monina and Enns, Eva A. and File, Thomas M. and Finkelstein, Jonathan A. and Gerber, Jeffrey S. and Hyun, David Y. and Linder, Jeffrey A. and Lynfield, Ruth and Margolis, David J. and May, Larissa S. and Merenstein, Daniel and Metlay, Joshua P. and Newland, Jason G. and Piccirillo, Jay F. and Roberts, Rebecca M. and Sanchez, Guillermo V. and Suda, Katie J. and Thomas, Ann and Woo, Teri Moser and Zetts, Rachel M. and Hicks, Lauri A.},
+  title   = {Prevalence of Inappropriate Antibiotic Prescriptions Among {US} Ambulatory Care Visits, 2010-2011},
+  journal = {JAMA},
+  year    = {2016},
+  volume  = {315},
+  number  = {17},
+  pages   = {1864--1873},
+  doi     = {10.1001/jama.2016.4151},
+  note    = {Acute respiratory conditions = ~44\% of outpatient antibiotic prescriptions; ~50\% of antibiotics for those conditions unnecessary; ~30\% of all outpatient antibiotics inappropriate.}
+}
+
+@techreport{amr-ambulatory-driver,
+  author      = {{Centers for Disease Control and Prevention}},
+  title       = {Antibiotic Resistance Threats in the United States, 2019},
+  institution = {U.S. Department of Health and Human Services, CDC},
+  year        = {2019},
+  address     = {Atlanta, GA},
+  doi         = {10.15620/cdc:82532},
+  url         = {https://www.cdc.gov/antimicrobial-resistance/media/pdfs/2019-ar-threats-report-508.pdf},
+  urldate     = {2026-05-29}
+}
+
+@article{pneumonia-missed-pc-hospitalization,
+  author  = {Singh, Hardeep and Giardina, Traber Davis and Meyer, Ashley N. D. and Forjuoh, Samuel N. and Reis, Michael D. and Thomas, Eric J.},
+  title   = {Types and Origins of Diagnostic Errors in Primary Care Settings},
+  journal = {JAMA Internal Medicine},
+  year    = {2013},
+  volume  = {173},
+  number  = {6},
+  pages   = {418--425},
+  doi     = {10.1001/jamainternmed.2013.2777},
+  note    = {Pneumonia = most common single missed diagnosis (6.7\%) in primary-care diagnostic errors.}
+}
+
+% antiviral-window-influenza-covid: TWO sources — influenza window (IDSA) + COVID/Paxlovid window (EPIC-HR).
+@article{antiviral-window-influenza-covid,
+  author  = {Uyeki, Timothy M. and Bernstein, Henry H. and Bradley, John S. and Englund, Janet A. and File, Thomas M. and Fry, Alicia M. and Gravenstein, Stefan and Hayden, Frederick G. and Harper, Scott A. and Hirshon, Jon Mark and Ison, Michael G. and Johnston, B. Lynn and Knight, Shandra L. and McGeer, Allison and Riley, Laura E. and Wolfe, Cameron R. and Alexander, Paul E. and Pavia, Andrew T.},
+  title   = {Clinical Practice Guidelines by the Infectious Diseases Society of America: 2018 Update on Diagnosis, Treatment, Chemoprophylaxis, and Institutional Outbreak Management of Seasonal Influenza},
+  journal = {Clinical Infectious Diseases},
+  year    = {2019},
+  volume  = {68},
+  number  = {6},
+  pages   = {e1--e47},
+  doi     = {10.1093/cid/ciy866},
+  note    = {Influenza antiviral treatment most beneficial within 48 h of symptom onset.}
+}
+@article{antiviral-window-influenza-covid-2,
+  author  = {Hammond, Jennifer and Leister-Tebbe, Heidi and Gardner, Annie and Abreu, Paula and Bao, Weihang and Wisemandle, Wayne and Baniecki, MaryLynn and Hendrick, Victoria M. and Damle, Bharat and Simon-Campos, Abraham and Pypstra, Rienk and Rusnak, James M.},
+  title   = {Oral Nirmatrelvir for High-Risk, Nonhospitalized Adults with {Covid-19}},
+  journal = {New England Journal of Medicine},
+  year    = {2022},
+  volume  = {386},
+  number  = {15},
+  pages   = {1397--1408},
+  doi     = {10.1056/NEJMoa2118542},
+  note    = {EPIC-HR trial: nirmatrelvir-ritonavir (Paxlovid) started within 5 days of symptom onset.}
+}
+
+% ----------------------------------------------------------------------
+% SECTION 1 para 2 — voice-production mechanism backbone
+% ----------------------------------------------------------------------
+
+% Textbook anchor for respiratory-drive / breath-support physiology (field convention).
+@book{behrman-speech-voice-science-2023,
+  author    = {Behrman, Alison},
+  title     = {Speech and Voice Science},
+  edition   = {4th},
+  publisher = {Plural Publishing},
+  address   = {San Diego, CA},
+  year      = {2023},
+  isbn      = {9781635503227}
+}
+
+% mucosal-swelling-resonance-shift: no direct study; grounded by Behrman (physiology) +
+% nasal/sinus resonance evidence (de Boer 2015) — reuse those keys; framed as mechanism.
+
+@article{nasal-coupling-spectral,
+  author  = {de Boer, Gillian and Bressmann, Tim},
+  title   = {Application of Linear Discriminant Analysis to the Long-term Averaged Spectra of Simulated Disorders of Oral-Nasal Balance},
+  journal = {The Cleft Palate-Craniofacial Journal},
+  year    = {2015},
+  volume  = {53},
+  number  = {5},
+  pages   = {e163--e171},
+  doi     = {10.1597/14-236},
+  note    = {Hyponasal/oral-nasal-balance disorders produce distinctive long-term averaged spectra (spectral-balance change). PMID 26068387.}
+}
+
+@article{pharyngitis-laryngitis-dysphonia,
+  author  = {Pimenta, Janaina and Macedo, Julya and de Rezende Neto, Ant{\^o}nio Lobo and de Moraes Marchiori, Luciana Lozza},
+  title   = {Sensation and Repercussion of the Use of Humid Heat in the Treatment of Dysphonia due to Laryngitis in Singers},
+  journal = {Journal of Voice},
+  year    = {2022},
+  volume  = {38},
+  number  = {2},
+  pages   = {496--502},
+  doi     = {10.1016/j.jvoice.2021.09.038}
+}
+
+@article{lri-breath-support-prosody,
+  author  = {Weglarz, Karolina and Szczygiel, Elzbieta and Maslon, Agata and Blaut, Jedrzej},
+  title   = {Assessment of breathing patterns and voice of patients with {COPD} and dysphonia},
+  journal = {Respiratory Medicine},
+  year    = {2025},
+  volume  = {240},
+  pages   = {108012},
+  doi     = {10.1016/j.rmed.2025.108012}
+}
+
+% systemic-illness-voice-fatigue: NO direct study — framed as hypothesis grounded in
+% Behrman physiology (reuse behrman-speech-voice-science-2023). No dedicated entry.
+
+% ----------------------------------------------------------------------
+% SECTION 1 para 3 — prior voice/cough work (narrative; reuse dataset keys)
+% covid-voice-cough-review -> covid-19-sounds-xia-2021 / dicova-1-2021
+% tb-cough-acoustic-screening -> coda-tb-dream-2024 / pahar-tb-cough-2021
+% chronic-resp-vocal-biomarker -> sonde-rrvb-jmir-2023
+% crowdsourced-respiratory-voice-large -> covid-19-sounds-xia-2021 / coswara-2020
+% clinical-solicited-cough-dataset-large -> coda-tb-dream-2024
+% ----------------------------------------------------------------------
+
+% ----------------------------------------------------------------------
+% SECTION 2.1.3 + TABLE 1 — dataset comparison
+% ----------------------------------------------------------------------
+
+@article{sonde-rrvb-jmir-2023,
+  author  = {Kaur, Savneet and Larsen, Erik and Harper, James and Purandare, Bharat and Uluer, Ahmet and Hasdianda, Mohammad Adrian and Umale, Nikita Arun and Killeen, James and Castillo, Edward and Jariwala, Sunit},
+  title   = {Development and Validation of a Respiratory-Responsive Vocal Biomarker--Based Tool for Generalizable Detection of Respiratory Impairment: Independent Case-Control Studies in Multiple Respiratory Conditions Including Asthma, Chronic Obstructive Pulmonary Disease, and {COVID-19}},
+  journal = {Journal of Medical Internet Research},
+  year    = {2023},
+  volume  = {25},
+  pages   = {e44410},
+  doi     = {10.2196/44410},
+  note    = {Validation cohort ~4,936 (asthma 1,694 + COPD 625 + persistent cough 814 + ILD 98 + healthy 1,705); COVID-19 is a separate 283-analyzed/497-enrolled case-control study. 6-sec sustained vowel.}
+}
+
+@inproceedings{covid-19-sounds-xia-2021,
+  author    = {Xia, Tong and Spathis, Dimitris and Brown, Chlo{\"e} and Chauhan, Jagmohan and Grammenos, Andreas and Han, Jing and Hasthanasombat, Apinan and Bondareva, Erika and Dang, Ting and Floto, Andres and Cicuta, Pietro and Mascolo, Cecilia},
+  title     = {{COVID-19} Sounds: A Large-Scale Audio Dataset for Digital Respiratory Screening},
+  booktitle = {Proceedings of the 35th Conference on Neural Information Processing Systems (NeurIPS) Datasets and Benchmarks Track},
+  year      = {2021},
+  note      = {36,116 participants.},
+  url       = {https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/e2c0be24560d78c5e599c2a9c9d0bbd2-Abstract-round2.html}
+}
+
+@article{coda-tb-dream-2024,
+  author  = {Huddart, Sophie and Geocaniga-Gaviola, Dione Marella and Crowder, Rebecca and Ardrey, Alfred and Theron, Grant and others},
+  title   = {A Dataset of Solicited Cough Sound for Tuberculosis Triage Testing},
+  journal = {Scientific Data},
+  year    = {2024},
+  volume  = {11},
+  pages   = {1149},
+  doi     = {10.1038/s41597-024-03972-z},
+  note    = {733,756 cough sounds / 2,143 participants / 565 longitudinal. Verify full author list at DOI.}
+}
+
+@article{coswara-2020,
+  author  = {Bhattacharya, Debarpan and Sharma, Neeraj Kumar and Dutta, Debottam and Chetupalli, Srikanth Raj and Mote, Pravin and Ganapathy, Sriram and Chandrakiran, C. and Nori, Sahiti and Suhail, K. K. and Gonuguntla, Sadhana and Alagesan, Murali},
+  title   = {Coswara: A Respiratory Sounds and Symptoms Dataset for Remote Screening of {SARS-CoV-2} Infection},
+  journal = {Scientific Data},
+  year    = {2023},
+  volume  = {10},
+  pages   = {397},
+  doi     = {10.1038/s41597-023-02266-0},
+  note    = {2,635 subjects (2023 Scientific Data paper; cited per author decision Q3).}
+}
+
+@article{coughvid-2020,
+  author  = {Orlandic, Lara and Teijeiro, Tomas and Atienza, David},
+  title   = {The {COUGHVID} Crowdsourcing Dataset, a Corpus for the Study of Large-Scale Cough Analysis Algorithms},
+  journal = {Scientific Data},
+  year    = {2021},
+  volume  = {8},
+  pages   = {156},
+  doi     = {10.1038/s41597-021-00937-4},
+  note    = {Over 25,000 crowdsourced cough recordings.}
+}
+
+@article{nococoda-2020,
+  author  = {Cohen-McFarlane, Madison and Goubran, Rafik and Knoefel, Frank},
+  title   = {Novel Coronavirus Cough Database: {NoCoCoDa}},
+  journal = {IEEE Access},
+  year    = {2020},
+  volume  = {8},
+  pages   = {154087--154094},
+  doi     = {10.1109/ACCESS.2020.3018028},
+  note    = {73 cough events (workflow-confirmed); coughs segmented from public media interviews.}
+}
+
+@misc{virufy-open-cough-2020,
+  author       = {Chaudhari, Gunvant and Jiang, Xinyi and Fakhry, Ahmed and Han, Asriel and Xiao, Jaclyn and Shen, Sabrina and Khanzada, Amil},
+  title        = {Virufy: Global Applicability of Crowdsourced and Clinical Datasets for {AI} Detection of {COVID-19} from Cough},
+  year         = {2020},
+  eprint       = {2011.13320},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.SD},
+  doi          = {10.48550/arXiv.2011.13320},
+  note         = {Open cough subset = 121 recordings. https://github.com/virufy/virufy-data}
+}
+
+@inproceedings{dicova-1-2021,
+  author    = {Muguli, Ananya and Pinto, Lancelot and Nirmala, R. and Sharma, Neeraj and Krishnan, Prashant and Ghosh, Prasanta Kumar and Kumar, Rohit and Bhat, Shrirama and Chetupalli, Srikanth Raj and Ganapathy, Sriram and Ramoji, Shreyas and Nanda, Viral},
+  title     = {{DiCOVA} Challenge: Dataset, Task, and Baseline System for {COVID-19} Diagnosis Using Acoustics},
+  booktitle = {Proc. Interspeech 2021},
+  year      = {2021},
+  doi       = {10.21437/Interspeech.2021-74},
+  eprint    = {2103.09148},
+  archivePrefix = {arXiv}
+}
+
+@article{pahar-tb-cough-2021,
+  author  = {Pahar, Madhurananda and Klopper, Marisa and Reeve, Byron and Warren, Rob and Theron, Grant and Niesler, Thomas},
+  title   = {Automatic Cough Classification for Tuberculosis Screening in a Real-World Environment},
+  journal = {Physiological Measurement},
+  year    = {2021},
+  volume  = {42},
+  number  = {10},
+  pages   = {105014},
+  doi     = {10.1088/1361-6579/ac2fb8},
+  note    = {51 subjects / 1,358 forced cough recordings.}
+}
+
+@inproceedings{dicova-2-2022,
+  author    = {Sharma, Neeraj Kumar and Chetupalli, Srikanth Raj and Bhattacharya, Debarpan and Dutta, Debottam and Mote, Pravin and Ganapathy, Sriram},
+  title     = {The Second {DiCOVA} Challenge: Dataset and Performance Analysis for Diagnosis of {COVID-19} Using Acoustics},
+  booktitle = {Proc. IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year      = {2022},
+  pages     = {556--560},
+  doi       = {10.1109/ICASSP43922.2022.9747188},
+  eprint    = {2110.01177},
+  archivePrefix = {arXiv},
+  note      = {1,436 subjects (965 development + 471 evaluation).}
+}
+
+@article{tbscreen-2024,
+  author  = {Sharma, Manuja and Nduba, Nicholas and Bishai, William and Tahamont, Sarah and others},
+  title   = {{TBscreen}: A Passive Cough Classifier for Tuberculosis Screening with a Controlled Dataset},
+  journal = {Science Advances},
+  year    = {2024},
+  volume  = {10},
+  number  = {1},
+  pages   = {eadi0282},
+  doi     = {10.1126/sciadv.adi0282},
+  note    = {195 subjects; ~34,600 cough events (33k passive + 1.6k forced). Verify full author list at DOI.}
+}
+
+@article{botha-tb-cough-2018,
+  author  = {Botha, G. H. R. and Theron, G. and Warren, R. M. and Klopper, M. and Dheda, K. and van Helden, P. and Niesler, T. R.},
+  title   = {Detection of Tuberculosis by Automatic Cough Sound Analysis},
+  journal = {Physiological Measurement},
+  year    = {2018},
+  volume  = {39},
+  number  = {4},
+  pages   = {045005},
+  doi     = {10.1088/1361-6579/aab6d0},
+  note    = {38 patients.}
+}
+
+% ----------------------------------------------------------------------
+% SECTION 2.2.1 — per-binary biological mechanism (B00-B10)
+% ----------------------------------------------------------------------
+
+% B00 — umbrella review of voice-biomarker disease mechanisms.
+@article{voice-acoustics-acute-resp-mechanisms,
+  author  = {Sara, Jaskanwal Deep Singh and Orbelo, Diana and Maor, Elad and Lerman, Lilach O. and Lerman, Amir},
+  title   = {Guess What We Can Hear---Novel Voice Biomarkers for the Remote Detection of Disease},
+  journal = {Mayo Clinic Proceedings},
+  year    = {2023},
+  volume  = {98},
+  number  = {9},
+  pages   = {1353--1375},
+  doi     = {10.1016/j.mayocp.2023.03.007},
+  note    = {Review of voice-biomarker disease mechanisms incl. infectious/respiratory disease (B00 umbrella).}
+}
+
+% B01 — copd-asthma-voice-acoustics: reuse lri-breath-support-prosody (Weglarz) + asthma exemplar below.
+@article{copd-asthma-voice-acoustics,
+  author  = {Lyu, Yi and Jiang, Quan-Cheng and Yuan, Shuai and Hong, Jing and Chen, Chun-Feng and Wu, Hai-Mei and Wang, Yi-Qin and Shi, Yu-Jing and Yan, Hai-Xia and Xu, Jin},
+  title   = {Non-invasive acoustic classification of adult asthma using an {XGBoost} model with vocal biomarkers},
+  journal = {Scientific Reports},
+  year    = {2025},
+  volume  = {15},
+  number  = {1},
+  pages   = {28682},
+  doi     = {10.1038/s41598-025-14645-1},
+  note    = {Asthma vocal-biomarker classification; pair with lri-breath-support-prosody (COPD).}
+}
+
+% B02 — cite for the non-infectious arm only; reword to avoid implying head-to-head discriminator.
+@article{infection-noninfection-voice-distinction,
+  author  = {Ko{\c{c}}, Eltaf Ay{\c{c}}a {\"O}zbal and Ko{\c{c}}, B{\"u}lent and Erbek, Selim},
+  title   = {Comparison of Acoustic and Stroboscopic Findings and Voice Handicap Index between Allergic Rhinitis Patients and Controls},
+  journal = {Balkan Medical Journal},
+  year    = {2014},
+  volume  = {31},
+  number  = {4},
+  pages   = {340--344},
+  doi     = {10.5152/balkanmedj.2014.14511},
+  note    = {Non-infectious (allergic rhinitis) upper-airway disease produces measurable voice change.}
+}
+
+% B03 — uri-lri-voice-contrast: no head-to-head study; reuse nasal-coupling-spectral (upper) +
+% lri-breath-support-prosody (lower). No standalone entry.
+
+% B04 — pneumonia-vs-bronchitis: prior cough-acoustic work EXISTS (deep search). Cite + narrow novelty.
+@article{pneumonia-vs-bronchitis-acoustic,
+  author  = {Liao, Lin and Song, Wei and Wang, Sai and Wang, Xiao},
+  title   = {A classification framework for identifying bronchitis and pneumonia in children based on a small-scale cough sounds dataset},
+  journal = {PLOS ONE},
+  year    = {2022},
+  volume  = {17},
+  number  = {10},
+  pages   = {e0275479},
+  doi     = {10.1371/journal.pone.0275479},
+  note    = {Cough-acoustic bronchitis-vs-pneumonia in 173 children, 86\% accuracy. PMC9612535.}
+}
+@article{pneumonia-vs-bronchitis-acoustic-2,
+  author  = {Porter, Paul and Abeyratne, Udantha and Swarnkar, Vinayak and Tan, Jamie and Ng, Ti-wan and Brisbane, Joanna M. and Speldewinde, Deirdre and Choveaux, Jennifer and Sharan, Roneel and Kosasih, Keegan and Della, Phillip},
+  title   = {A prospective multicentre study testing the diagnostic accuracy of an automated cough sound centred analytic system for the identification of common respiratory disorders in children},
+  journal = {Respiratory Research},
+  year    = {2019},
+  volume  = {20},
+  pages   = {81},
+  doi     = {10.1186/s12931-019-1046-6},
+  note    = {Automated cough analysis identifying common respiratory disorders incl. pneumonia (pediatric).}
+}
+@article{pneumonia-vs-bronchitis-acoustic-3,
+  author  = {Sharan, Roneel V. and Qian, Kun and Yamamoto, Yoshiharu},
+  title   = {Automated Cough Sound Analysis for Detecting Childhood Pneumonia},
+  journal = {IEEE Journal of Biomedical and Health Informatics},
+  year    = {2024},
+  volume  = {28},
+  number  = {1},
+  pages   = {193--203},
+  doi     = {10.1109/JBHI.2023.3327292},
+  note    = {Distinguishes pneumonia from other acute respiratory diseases via cough (pediatric).}
+}
+
+% B06 — sinusitis hyponasality: targeted nasalance-in-rhinosinusitis source (replaces FESS-F0 paper).
+@article{sinusitis-hyponasality-acoustic,
+  author  = {Jiang, Rong-San and Huang, Hui-Tsu},
+  title   = {Changes in nasal resonance after functional endoscopic sinus surgery},
+  journal = {American Journal of Rhinology},
+  year    = {2006},
+  volume  = {20},
+  number  = {4},
+  pages   = {432--437},
+  doi     = {10.2500/ajr.2006.20.2882},
+  note    = {Nasalance (hyponasality) measured in chronic rhinosinusitis (n=81). CAVEAT: chronic + prompted speech, not acute J01 spontaneous speech. PMID 16955774.}
+}
+
+% B07 — gas-pharyngitis-voice-articulation: mass-effect/resonance mechanism (severe-end caveat).
+@article{gas-pharyngitis-voice-articulation,
+  author  = {Finkelstein, Y. and Bar-Ziv, J. and Nachmani, A. and Berger, G. and Ophir, D.},
+  title   = {Peritonsillar abscess as a cause of transient velopharyngeal insufficiency},
+  journal = {The Cleft Palate-Craniofacial Journal},
+  year    = {1993},
+  volume  = {30},
+  number  = {4},
+  pages   = {421--428},
+  doi     = {10.1597/1545-1569_1993_030_0421_paaaco_2.3.co_2},
+  note    = {Tonsillar/pharyngeal mass effect on oropharyngeal resonance. CAVEAT: describes the severe (peritonsillar abscess) end.}
+}
+
+% B08 — influenza-systemic-voice-changes: NO direct study; framed as hypothesis grounded in
+% Behrman physiology (reuse behrman-speech-voice-science-2023). No dedicated entry.
+
+% B09 — covid19-voice-acoustic-prior-work: bundle of COVID acoustic anchors.
+@inproceedings{covid19-voice-acoustic-prior-work,
+  author    = {Brown, Chlo{\"e} and Chauhan, Jagmohan and Grammenos, Andreas and Han, Jing and Hasthanasombat, Apinan and Spathis, Dimitris and Xia, Tong and Cicuta, Pietro and Mascolo, Cecilia},
+  title     = {Exploring Automatic Diagnosis of {COVID-19} from Crowdsourced Respiratory Sound Data},
+  booktitle = {Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining (KDD '20)},
+  year      = {2020},
+  pages     = {3474--3484},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/3394486.3412865}
+}
+@article{covid19-voice-acoustic-prior-work-2,
+  author  = {Shimon, Carmi and Shafat, Gabi and Dangoor, Inbal and Ben-Shitrit, Asher},
+  title   = {Artificial intelligence enabled preliminary diagnosis for {COVID-19} from voice cues and questionnaires},
+  journal = {The Journal of the Acoustical Society of America},
+  year    = {2021},
+  volume  = {149},
+  number  = {2},
+  pages   = {1120--1124},
+  doi     = {10.1121/10.0003434},
+  note    = {Scripted-speech (vowel /a/) + cough COVID-19 classification, pre-Omicron.}
+}
+
+% B10 — bacterial-vs-viral: adjacent wet/dry-cough proxy exists (Renjini). Soften, do not claim "absent".
+@article{bacterial-vs-viral-voice-literature-absent,
+  author  = {Renjini, A. and Swapna, M. S. and Raj, Vimal and Sankararaman, S.},
+  title   = {Graph-based feature extraction and classification of wet and dry cough signals: a machine learning approach},
+  journal = {Journal of Complex Networks},
+  year    = {2021},
+  volume  = {9},
+  number  = {4},
+  pages   = {cnab039},
+  doi     = {10.1093/comnet/cnab039},
+  note    = {Wet-vs-dry cough classification, framed as bacterial-vs-viral proxy; classifies cough morphology, NOT validated etiology. Cite to acknowledge adjacent work; the validated bacterial-vs-viral acoustic gap (adults) remains.}
+}
+
+% ----------------------------------------------------------------------
+% SECTION 2.3 — feature extraction, model, statistics
+% ----------------------------------------------------------------------
+
+@article{eyben-egemaps-2016,
+  author  = {Eyben, Florian and Scherer, Klaus R. and Schuller, Bj{\"o}rn W. and Sundberg, Johan and Andr{\'e}, Elisabeth and Busso, Carlos and Devillers, Laurence Y. and Epps, Julien and Laukka, Petri and Narayanan, Shrikanth S. and Truong, Khiet P.},
+  title   = {The {Geneva} Minimalistic Acoustic Parameter Set ({GeMAPS}) for Voice Research and Affective Computing},
+  journal = {IEEE Transactions on Affective Computing},
+  year    = {2016},
+  volume  = {7},
+  number  = {2},
+  pages   = {190--202},
+  doi     = {10.1109/TAFFC.2015.2457417}
+}
+
+@inproceedings{eyben-opensmile-2010,
+  author    = {Eyben, Florian and W{\"o}llmer, Martin and Schuller, Bj{\"o}rn},
+  title     = {openSMILE: The Munich Versatile and Fast Open-Source Audio Feature Extractor},
+  booktitle = {Proceedings of the 18th ACM International Conference on Multimedia (MM '10)},
+  year      = {2010},
+  pages     = {1459--1462},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/1873951.1874246}
+}
+
+@inproceedings{librosa-mcfee-2015,
+  author    = {McFee, Brian and Raffel, Colin and Liang, Dawen and Ellis, Daniel P. W. and McVicar, Matt and Battenberg, Eric and Nieto, Oriol},
+  title     = {librosa: Audio and Music Signal Analysis in Python},
+  booktitle = {Proceedings of the 14th Python in Science Conference (SciPy 2015)},
+  year      = {2015},
+  pages     = {18--24},
+  doi       = {10.25080/Majora-7b98e3ed-003}
+}
+
+@inproceedings{wavlm-vad-odyssey-2024,
+  author    = {Goncalves, Lucas and Salman, Ali N. and Naini, Abinay Reddy and Moro-Vel{\'a}zquez, Laureano and Thebaud, Thomas and Garcia, Paola and Dehak, Najim and Sisman, Berrak and Busso, Carlos},
+  title     = {Odyssey 2024 - Speech Emotion Recognition Challenge: Dataset, Baseline Framework, and Results},
+  booktitle = {The Speaker and Language Recognition Workshop (Odyssey 2024)},
+  year      = {2024},
+  pages     = {247--254},
+  doi       = {10.21437/odyssey.2024-35}
+}
+
+@inproceedings{loshchilov-adamw-2019,
+  author    = {Loshchilov, Ilya and Hutter, Frank},
+  title     = {Decoupled Weight Decay Regularization},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2019},
+  eprint    = {1711.05101},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+@inproceedings{loshchilov-sgdr-2017,
+  author    = {Loshchilov, Ilya and Hutter, Frank},
+  title     = {{SGDR}: Stochastic Gradient Descent with Warm Restarts},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2017},
+  eprint    = {1608.03983},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}
+
+@article{benjamini-hochberg-1995,
+  author  = {Benjamini, Yoav and Hochberg, Yosef},
+  title   = {Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing},
+  journal = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year    = {1995},
+  volume  = {57},
+  number  = {1},
+  pages   = {289--300},
+  doi     = {10.1111/j.2517-6161.1995.tb02031.x}
+}
+
+% ----------------------------------------------------------------------
+% SECTION 4 — Discussion
+% ----------------------------------------------------------------------
+
+@misc{cdc-fluview-seasonal-pattern,
+  author       = {{Centers for Disease Control and Prevention}},
+  title        = {Flu Season},
+  institution  = {Centers for Disease Control and Prevention},
+  year         = {2024},
+  howpublished = {\url{https://www.cdc.gov/flu/about/season.html}},
+  note         = {Flu activity most often peaks December--February; modal peak month February (17 of 40 seasons).},
+  urldate      = {2026-05-29}
+}
+
+% icd-coding-fidelity-variation: peer-reviewed O'Malley review (primary) + Waxse 2025 (replaces Khera preprint).
+@article{icd-coding-fidelity-variation,
+  author  = {O'Malley, Kimberly J. and Cook, Karon F. and Price, Matt D. and Wildes, Kimberly Raiford and Hurdle, John F. and Ashton, Carol M.},
+  title   = {Measuring Diagnoses: {ICD} Code Accuracy},
+  journal = {Health Services Research},
+  year    = {2005},
+  volume  = {40},
+  number  = {5 Pt 2},
+  pages   = {1620--1639},
+  doi     = {10.1111/j.1475-6773.2005.00444.x},
+  note    = {Canonical review of ICD coding accuracy and its variation. PMID 16178999.}
+}
+@article{icd-coding-fidelity-variation-2,
+  author  = {Waxse, Bennett J. and Bustos Carrillo, Fausto Andres and Tran, Tam C. and Mo, Huan and Ricotta, Emily E. and Denny, Joshua C.},
+  title   = {Computable Phenotypes to Identify Respiratory Viral Infections in the {All of Us} Research Program},
+  journal = {Scientific Reports},
+  year    = {2025},
+  volume  = {15},
+  number  = {1},
+  pages   = {18680},
+  doi     = {10.1038/s41598-025-02183-9},
+  note    = {Sensitivity 8-67\%, PPV varies by virus -- code/setting variation.}
+}
+
+@article{clinical-coding-practice-pneumonia-strep,
+  author  = {Shulman, Stanford T. and Bisno, Alan L. and Clegg, Herbert W. and Gerber, Michael A. and Kaplan, Edward L. and Lee, Grace and Martin, Judith M. and Van Beneden, Chris},
+  title   = {Clinical Practice Guideline for the Diagnosis and Management of Group {A} Streptococcal Pharyngitis: 2012 Update by the {Infectious Diseases Society of America}},
+  journal = {Clinical Infectious Diseases},
+  year    = {2012},
+  volume  = {55},
+  number  = {10},
+  pages   = {e86--e102},
+  doi     = {10.1093/cid/cis629},
+  note    = {IDSA GAS guideline: RADT/culture confirmation for diagnosis.}
+}
+@article{clinical-coding-practice-pneumonia-strep-2,
+  author  = {Metlay, Joshua P. and Waterer, Grant W. and Long, Ann C. and Anzueto, Antonio and Brozek, Jan and Crothers, Kristina and Cooley, Laura A. and Dean, Nathan C. and Fine, Michael J. and Flanders, Scott A. and Griffin, Marie R. and Metersky, Mark L. and Musher, Daniel M. and Restrepo, Marcos I. and Whitney, Cynthia G.},
+  title   = {Diagnosis and Treatment of Adults with Community-Acquired Pneumonia: An Official Clinical Practice Guideline of the {American Thoracic Society} and {Infectious Diseases Society of America}},
+  journal = {American Journal of Respiratory and Critical Care Medicine},
+  year    = {2019},
+  volume  = {200},
+  number  = {7},
+  pages   = {e45--e67},
+  doi     = {10.1164/rccm.201908-1581ST},
+  note    = {IDSA/ATS CAP guideline: chest imaging for pneumonia diagnosis.}
+}
+
+% ics-dysphonia-laryngeal-deposition (Sec 4.4): three supporting papers.
+@article{ics-dysphonia-laryngeal-deposition,
+  author  = {Williamson, I. J. and Matusiewicz, S. P. and Brown, P. H. and Greening, A. P. and Crompton, G. K.},
+  title   = {Frequency of voice problems and cough in patients using pressurized aerosol inhaled steroid preparations},
+  journal = {European Respiratory Journal},
+  year    = {1995},
+  volume  = {8},
+  number  = {4},
+  pages   = {590--592},
+  doi     = {10.1183/09031936.95.08040590},
+  note    = {Classic prevalence study of ICS-related voice problems. PMID 7664859.}
+}
+@article{ics-dysphonia-laryngeal-deposition-2,
+  author  = {Naunheim, Matthew R. and Huston, Molly N. and Bhattacharyya, Neil},
+  title   = {Voice Disorders Associated With the Use of Inhaled Corticosteroids},
+  journal = {Otolaryngology--Head and Neck Surgery},
+  year    = {2023},
+  volume  = {168},
+  number  = {5},
+  pages   = {1034--1037},
+  doi     = {10.1002/ohn.198}
+}
+@article{ics-dysphonia-laryngeal-deposition-3,
+  author  = {Krishnan, Neethu V. and Pujary, Kailesh and Bhandarkar, Ajay M. and Devadas, Usha and Magazine, Rahul},
+  title   = {Videostroboscopy and Voice Profile in Long-Term Combination Inhaler Users With Obstructive Lower Airway Disease},
+  journal = {Otolaryngology--Head and Neck Surgery},
+  year    = {2022},
+  volume  = {166},
+  number  = {5},
+  pages   = {927--932},
+  doi     = {10.1177/01945998211031449}
+}
+
+% ----------------------------------------------------------------------
+% SUPPLEMENTARY MATERIAL — S1, S3 (B-binary statistics)
+% ----------------------------------------------------------------------
+
+@article{cdc-namcs-sex-pc-utilization,
+  author  = {{National Center for Health Statistics}},
+  title   = {QuickStats: Rate of Visits to Office-Based Physicians, by Patient Age and Sex --- National Ambulatory Medical Care Survey, United States, 2015},
+  journal = {MMWR. Morbidity and Mortality Weekly Report},
+  year    = {2017},
+  volume  = {66},
+  number  = {39},
+  pages   = {1060},
+  doi     = {10.15585/mmwr.mm6639a6},
+  note    = {Females 362 vs males 262 office visits per 100 persons.}
+}
+
+@misc{cdc-nhis-tobacco-prevalence,
+  author       = {Cornelius, Monica E. and Yelton, Brandi and Loretan, Caitlin G. and others},
+  title        = {Tobacco Product Use Among Adults --- United States, 2017--2023; and Cigarette Smoking (FastStats, 2024 NHIS)},
+  howpublished = {MMWR Morb Mortal Wkly Rep 2025;74(7):120--122; CDC FastStats},
+  year         = {2025},
+  doi          = {10.15585/mmwr.mm7407a3},
+  note         = {Any tobacco product use 19.5\% (2023); current cigarette smoking 9.9\% (2024 NHIS). Cite both figures per author decision Q4.}
+}
+
+@article{flu-icd-coding-sensitivity-26pct,
+  author  = {Mira-Iglesias, Ainara and L{\'o}pez-Lacort, M{\'o}nica and Bricout, H{\'e}l{\`e}ne and Loiacono, Matthew and Carballido-Fern{\'a}ndez, Mario and Mollar-Maseres, Joan and Tortajada-Girb{\'e}s, Miguel and Schwarz-Ch{\'a}varri, Germ{\'a}n and L{\'o}pez-Labrador, F. Xavier and Puig-Barber{\`a}, Joan and D{\'i}ez-Domingo, Javier and Orrico-S{\'a}nchez, Alejandro},
+  title   = {Accuracy of {ICD} Influenza Discharge Diagnosis Codes in Hospitalized Adults From the Valencia Region, Spain, 2012/2013 to 2017/2018},
+  journal = {Influenza and Other Respiratory Viruses},
+  year    = {2025},
+  volume  = {19},
+  number  = {2},
+  pages   = {e70069},
+  doi     = {10.1111/irv.70069},
+  note    = {HOSPITAL discharge data (relabel; not primary care). Adjusted sensitivity ~25.3\%; 61\% of lab-confirmed cases not ICD-coded.}
+}
+
+% flu-primary-care-coding-fidelity: same Mira-Iglesias source (61% under-coding, hospital).
+% Drop the unverified "PPV 60%/68.5%" claim per Q10.
+@article{flu-primary-care-coding-fidelity,
+  author  = {Mira-Iglesias, Ainara and L{\'o}pez-Lacort, M{\'o}nica and Bricout, H{\'e}l{\`e}ne and Loiacono, Matthew and Carballido-Fern{\'a}ndez, Mario and Mollar-Maseres, Joan and Tortajada-Girb{\'e}s, Miguel and Schwarz-Ch{\'a}varri, Germ{\'a}n and L{\'o}pez-Labrador, F. Xavier and Puig-Barber{\`a}, Joan and D{\'i}ez-Domingo, Javier and Orrico-S{\'a}nchez, Alejandro},
+  title   = {Accuracy of {ICD} Influenza Discharge Diagnosis Codes in Hospitalized Adults From the Valencia Region, Spain, 2012/2013 to 2017/2018},
+  journal = {Influenza and Other Respiratory Viruses},
+  year    = {2025},
+  volume  = {19},
+  number  = {2},
+  pages   = {e70069},
+  doi     = {10.1111/irv.70069},
+  note    = {61\% of lab-confirmed influenza not ICD-coded (HOSPITAL discharge). The "clinical-criteria PPV 60\%/68.5\%" claim was NOT verifiable and should be dropped.}
+}
+
+@article{gas-clinical-criteria-ceiling,
+  author  = {Fine, Andrew M. and Nizet, Victor and Mandl, Kenneth D.},
+  title   = {Large-Scale Validation of the {Centor} and {McIsaac} Scores to Predict Group {A} Streptococcal Pharyngitis},
+  journal = {Archives of Internal Medicine},
+  year    = {2012},
+  volume  = {172},
+  number  = {11},
+  pages   = {847--852},
+  doi     = {10.1001/archinternmed.2012.950},
+  note    = {Centor score AUC 0.72; McIsaac score AUC 0.71 (use exact values per Q12).}
+}
+
+@article{icd9-486-pneumococcal-sensitivity-14pct,
+  author  = {Guevara, Ramon E. and Butler, Jay C. and Marston, Barbara J. and Plouffe, Joseph F. and File, Thomas M. and Breiman, Robert F.},
+  title   = {Accuracy of {ICD-9-CM} Codes in Detecting Community-Acquired Pneumococcal Pneumonia for Incidence and Vaccine Efficacy Studies},
+  journal = {American Journal of Epidemiology},
+  year    = {1999},
+  volume  = {149},
+  number  = {3},
+  pages   = {282--289},
+  doi     = {10.1093/oxfordjournals.aje.a009804},
+  note    = {Sensitivity 14.2\% for code 486.0 (pneumonia, organism unspecified) vs lab-confirmed pneumococcal pneumonia.}
+}
+
+@article{j01-bacterial-sinusitis-fraction,
+  author  = {Chow, Anthony W. and Benninger, Michael S. and Brook, Itzhak and Brozek, Jan L. and Goldstein, Ellie J. C. and Hicks, Lauri A. and Pankey, George A. and Seleznick, Mitchel and Volturo, Gregory and Wald, Ellen R. and File, Thomas M.},
+  title   = {{IDSA} Clinical Practice Guideline for Acute Bacterial Rhinosinusitis in Children and Adults},
+  journal = {Clinical Infectious Diseases},
+  year    = {2012},
+  volume  = {54},
+  number  = {8},
+  pages   = {e72--e112},
+  doi     = {10.1093/cid/cis370},
+  note    = {Bacterial superinfection complicates 0.5-2.0\% of viral URIs (reword from "10-15\%" per Q11).}
+}
+
+% long-covid-voice-prevalence: voice prevalence (Lin) + separate seroprevalence (Clarke).
+@article{long-covid-voice-prevalence,
+  author  = {Lin, Chung-Wei and Wang, Yu-Han and Li, Yu-En and Chiang, Ting-Yi and Chiu, Li-Wen and Lin, Hsin-Ching and Chang, Chun-Tuan},
+  title   = {{COVID}-Related Dysphonia and Persistent Long-{COVID} Voice Sequelae: A Systematic Review and Meta-Analysis},
+  journal = {American Journal of Otolaryngology},
+  year    = {2023},
+  volume  = {44},
+  number  = {5},
+  pages   = {103950},
+  doi     = {10.1016/j.amjoto.2023.103950},
+  note    = {17.1\% post-recovery dysphonia; 20.1\% long-COVID dysphonia (drop the unsourced 5\% lower bound per Q13).}
+}
+@article{long-covid-voice-prevalence-2,
+  author  = {Clarke, Kristie E. N. and Jones, Jefferson M. and Deng, Yangyang and Nycz, Elise and Lee, Adam and Iachan, Ronaldo and Gundlapalli, Adi V. and Hall, Aron J. and MacNeil, Adam},
+  title   = {Seroprevalence of Infection-Induced {SARS-CoV-2} Antibodies --- United States, September 2021--February 2022},
+  journal = {MMWR. Morbidity and Mortality Weekly Report},
+  year    = {2022},
+  volume  = {71},
+  number  = {17},
+  pages   = {606--608},
+  doi     = {10.15585/mmwr.mm7117e3},
+  note    = {Infection-induced seroprevalence ~57.7\% (Feb 2022) -- source for prior-COVID-exposure claim (replaces unverified "60-80%").}
+}
+
+@article{u071-positive-predictive-value,
+  author  = {Lynch, Kristine E. and Viernes, Benjamin and Gatsby, Elise and DuVall, Scott L. and Jones, Barbara E. and Box, Tamara L. and Kreisler, Christian and Sterns, Jodie D. and Spuhl, Joseph and Suo, Ying and Hickey, Eddie and others},
+  title   = {Positive Predictive Value of {COVID-19} {ICD-10} Diagnosis Codes Across Calendar Time and Clinical Setting},
+  journal = {Clinical Epidemiology},
+  year    = {2021},
+  volume  = {13},
+  pages   = {1011--1018},
+  doi     = {10.2147/CLEP.S335621},
+  note    = {U07.1 PPV 77.7\% (outpatient) to 93.8\% (inpatient); overall 84.2\%. VA data.}
+}
+
+@article{centor-1981,
+  author  = {Centor, Robert M. and Witherspoon, J. M. and Dalton, H. P. and Brody, C. E. and Link, K.},
+  title   = {The Diagnosis of Strep Throat in Adults in the Emergency Room},
+  journal = {Medical Decision Making},
+  year    = {1981},
+  volume  = {1},
+  number  = {3},
+  pages   = {239--246},
+  doi     = {10.1177/0272989X8100100304}
+}
+
+@article{mcisaac-1998,
+  author  = {McIsaac, Warren J. and White, Donald and Tannenbaum, David and Low, Donald E.},
+  title   = {A Clinical Score to Reduce Unnecessary Antibiotic Use in Patients with Sore Throat},
+  journal = {CMAJ: Canadian Medical Association Journal},
+  year    = {1998},
+  volume  = {158},
+  number  = {1},
+  pages   = {75--83},
+  pmid    = {9475915},
+  url     = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1228750/}
+}
