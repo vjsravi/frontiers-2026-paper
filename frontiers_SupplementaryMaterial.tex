@@ -256,8 +256,7 @@ covering all subtypes including compound acute-on-chronic codes.
 A patient-level exclusion drops both arms when J96.x (acute respiratory
 failure) appears anywhere in history. A visit-level exclusion drops
 visits with both acute and chronic primary codes. Final cohort:
-280{,}471 positive and 11{,}530 negative visits (class ratio 24.3:1,
-handled by focal loss in training).
+280{,}471 positive and 11{,}530 negative visits (class ratio 24.3:1).
 
 \paragraph{Key review decisions.} The dominant residual limitation is
 inhaled-corticosteroid (ICS) dysphonia in the negative arm: long-term
@@ -614,7 +613,7 @@ class is defined by a primary ICD-10 code in URI (J00--J06), LRI
 (J12--J22), or COVID-19 (U07.1, U09, J12.81, J12.82), with the
 additional rule that no flu code appears anywhere on the visit. Final
 cohort: 13{,}248 influenza and 268{,}314 other-acute-respiratory
-visits (class ratio 1:20.3, handled by focal loss).
+visits (class ratio 1:20.3).
 
 \paragraph{Expected performance ceiling.} AUROC approximately
 0.70--0.75 against a hypothetical laboratory-confirmed gold standard.
@@ -665,8 +664,7 @@ by a primary ICD-10 code in URI (J00--J06), LRI (J12 excluding J12.81
 and J12.82, J13--J22), or influenza (J09--J11), with the additional
 rule that no COVID code (U07.1, U09, J12.81, J12.82) appears anywhere
 on the visit. Final cohort: $\sim$15{,}750 COVID and $\sim$264{,}933
-non-COVID-acute-respiratory visits (class ratio $\sim$1:16.8, handled
-by focal loss).
+non-COVID-acute-respiratory visits (class ratio $\sim$1:16.8).
 
 \paragraph{Key review decisions.} An ICD-10 taxonomic correction was
 applied: J12.81 (``pneumonia due to SARS-associated coronavirus'') is,
@@ -952,8 +950,7 @@ in California (48.6\% versus 55.2\%) and over-represented in
 New Jersey (24.0\% versus 18.6\%), pointing to a regional / seasonal
 coding pattern that is plausibly entangled with peak-flu-season
 timing in the dataset. Median clip duration is also shorter (20.8~s
-versus 25.4~s). The 1:20.3 class imbalance is handled by focal loss
-during training.
+versus 25.4~s).
 
 \subsection{B09 --- COVID-19 vs other acute respiratory infection}
 
