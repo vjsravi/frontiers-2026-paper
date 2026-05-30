@@ -196,8 +196,8 @@ for the stronger respiratory-specificity claim.
 \paragraph{Class definitions (final).} The positive class is
 defined by a primary ICD-10 code in J00, J01, J02, J03, J06 (with J04
 and J05 deliberately excluded for consistency with B03), J09--J11,
-J12--J22 with J12.81/J12.82/J18.2 removed, pneumonia sequelae
-(J85, J86, J90, J91.8, J98.11), and acute COVID-19 (U07.1, J12.81,
+J12--J22 with J12.82/J18.2 removed, pneumonia sequelae
+(J85, J86, J90, J91.8, J98.11), and acute COVID-19 (U07.1,
 J12.82). The negative class is defined by a primary ICD-10 code in
 acute gastrointestinal (A09, K52, K30, K59.0, K57, K35--K38, R10, R11),
 acute genitourinary (N30, N39.0, N20, N23), musculoskeletal (M54,
@@ -244,7 +244,7 @@ and cystic-fibrosis (E84) chronic disease.
 
 \paragraph{Class definitions (final).} The positive class is defined
 by a primary ICD-10 code in URI (J00--J06), LRI (J12--J22), influenza
-(J09--J11), or COVID-19 (U07.1, U09, J12.81, J12.82). The negative
+(J09--J11), or COVID-19 (U07.1, U09, J12.82). The negative
 class is defined by a primary ICD-10 code in J44, J45, J47, J84, E84,
 J67 (hypersensitivity pneumonitis, added during review), or J70
 (drug- or external-agent-induced lung disease, added during review),
@@ -299,7 +299,7 @@ and respiratory symptom codes without an infection diagnosis.
 
 \paragraph{Class definitions (final).} The positive class is defined
 by a primary ICD-10 code in J00--J06, J12--J22, J09--J11, or acute
-COVID-19 (U07.1, J12.81, J12.82). The negative class is defined by
+COVID-19 (U07.1, J12.82). The negative class is defined by
 a primary ICD-10 code in J30 (allergic rhinitis), J32 (chronic
 sinusitis), J33 (nasal polyp), R05 (cough family), R06 excluding
 R06.03 (dyspnoea, wheeze, stridor; acute respiratory distress R06.03
@@ -340,8 +340,8 @@ breath-support and cough-event differences associated with parenchymal
 or large-airway involvement.
 
 \paragraph{Class definitions (final).} The positive (LRI) class is
-defined by a primary ICD-10 code in pneumonia (J12 excluding J12.81
-and J12.82, J13--J17, J18 excluding J18.2), acute bronchitis (J20),
+defined by a primary ICD-10 code in pneumonia (J12 excluding J12.82,
+J13--J17, J18 excluding J18.2), acute bronchitis (J20),
 bronchiolitis (J21), unspecified acute LRI (J22), influenza with
 pneumonia (J09.X1, J10.00/.01/.08, J11.00/.08), or pneumonia sequelae
 (J85, J86, J90, J91.8, J98.11). The negative (URI) class is defined
@@ -404,7 +404,7 @@ in the panel.
 by a primary ICD-10 code in J12--J18 (any pneumonia). The negative
 class is defined by a primary ICD-10 code in J20 (acute bronchitis).
 A visit-level exclusion drops both arms when COVID-19 (U07.1, U09,
-J12.81, J12.82) or influenza (J09--J11) is primary, since those
+J12.82) or influenza (J09--J11) is primary, since those
 visits are handled by B09 and B08 respectively; visits with both
 pneumonia and acute bronchitis in primary are also dropped as
 ambiguous. Final cohort: 11{,}254 pneumonia and 9{,}076 acute
@@ -557,7 +557,7 @@ infection. It is the most imbalanced binary in the panel.
 \paragraph{Class definitions (final).} The positive class is defined
 by a primary ICD-10 code starting with J09, J10, or J11. The negative
 class is defined by a primary ICD-10 code in URI (J00--J06), LRI
-(J12--J22), or COVID-19 (U07.1, U09, J12.81, J12.82), with the
+(J12--J22), or COVID-19 (U07.1, U09, J12.82), with the
 additional rule that no flu code appears anywhere on the visit. Final
 cohort: 13{,}248 influenza and 268{,}314 other-acute-respiratory
 visits (class ratio 1:20.3).
@@ -594,19 +594,13 @@ infection. Performance is expected to be era-bimodal.
 \paragraph{Class definitions (final).} The positive class is defined
 by a primary ICD-10 code in U07.1 (COVID-19, virus identified) or
 J12.82 (pneumonia due to COVID-19). The negative class is defined
-by a primary ICD-10 code in URI (J00--J06), LRI (J12 excluding J12.81
-and J12.82, J13--J22), or influenza (J09--J11), with the additional
-rule that no COVID code (U07.1, U09, J12.81, J12.82) appears anywhere
+by a primary ICD-10 code in URI (J00--J06), LRI (J12 excluding J12.82,
+J13--J22), or influenza (J09--J11), with the additional
+rule that no COVID code (U07.1, U09, J12.82) appears anywhere
 on the visit. Final cohort: $\sim$15{,}750 COVID and $\sim$264{,}933
 non-COVID-acute-respiratory visits (class ratio $\sim$1:16.8).
 
-\paragraph{Key review decisions.} An ICD-10 taxonomic correction was
-applied: J12.81 (``pneumonia due to SARS-associated coronavirus'') is,
-in the ICD-10-CM 2026 taxonomy, the code for SARS-CoV-1 (the 2003
-SARS outbreak) and not for COVID-19; J12.82 is the actual COVID-19
-pneumonia code. J12.81 was therefore removed from the positive
-predicate (a documentation correction; zero visits were affected in
-the feature-available cohort). U09.x (``post-COVID-19 condition'') was
+\paragraph{Key review decisions.} U09.x (``post-COVID-19 condition'') was
 removed from the positive predicate as a chronic or post-acute
 sequela rather than acute infection, dropping 666 visits ($\sim$4\%)
 from the positive arm; U09.x visits are still excluded from the
@@ -639,7 +633,7 @@ influenzae} pneumonia), J15 (other bacterial pneumonia, including
 J15.7 Mycoplasma), J02.0 (GAS pharyngitis), J03.00 / J03.01 (GAS
 tonsillitis, acute and recurrent), A37 (pertussis), or A15
 (pulmonary tuberculosis). The negative (definite viral) class is
-defined by a primary ICD-10 code in J12 excluding J12.81 and J12.82
+defined by a primary ICD-10 code in J12 excluding J12.82
 (viral pneumonia, excluding COVID variants), J00 (common cold), or
 J09--J11 (influenza). Ambiguous codes (J06 unspecified URI, J20
 acute bronchitis, J01 acute sinusitis, J03.8 / J03.9 other or
@@ -651,7 +645,7 @@ bacterial and $\sim$16{,}899 viral visits (class ratio $\sim$1:1.1).
 
 \paragraph{Key review decisions.} U07.1 was removed from the viral
 predicate during review, restoring internal consistency with the
-existing J12.81 and J12.82 COVID exclusions and respecting B09's
+existing J12.82 COVID exclusion and respecting B09's
 jurisdiction over COVID-19. The change removed 15{,}723 visits from
 the viral arm (48\%), improving class balance
 from $\sim$1:2.1 to $\sim$1:1.1 and reframing B10 as a
