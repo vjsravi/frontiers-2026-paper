@@ -167,7 +167,7 @@ The acoustic respiratory triage system is decomposed into 11 binary classificati
 \label{sec:cohort-data-distribution}
 \label{sec:cohort-distribution}
 
-The source-pool cohort sizes for each of the 11 binary classification tasks are shown in Figure~\ref{fig_cohort_sizes}. Cohort sizes range from approximately 10{,}000 to 280{,}000 visits per class, and within each binary the positive and negative cohorts differ in size by factors that range from near unity (B04, 1.24 to 1) to more than 20 (B08, B09). These ratios reflect the natural prevalence of each clinical contrast in the source primary care population rather than any experimental choice; for example, influenza and COVID-19 confirmed primary diagnoses appear in roughly 1 of every 20 acute respiratory visits in the source extract, which is the structural reason B08 and B09 are highly imbalanced. Class balancing is applied prior to model training and is described in Section~\ref{sec:methods-training}. Summary statistics for age, sex, geography, and audio duration stratified by cohort and class are reported in the supplementary material.
+The source-pool cohort sizes for each of the 11 binary classification tasks are shown in Figure~\ref{fig_cohort_sizes}. Cohort sizes range from approximately 10{,}000 to 280{,}000 visits per class, and within each binary the positive and negative cohorts differ in size by factors that range from near unity (B04, 1.24 to 1) to over 20 to 1 in the most imbalanced binaries (B01 at 24.3 to 1, B08 at 1 to 20.3, B09 at 1 to 16.1). These ratios reflect the natural prevalence of each clinical contrast in the source primary care population rather than any experimental choice; for example, influenza and COVID-19 confirmed primary diagnoses appear in roughly 1 of every 20 (influenza) and 1 of every 16 (COVID-19) acute respiratory visits in the source extract, which is the structural reason B08 and B09 are highly imbalanced. Class balancing is applied prior to model training and is described in Section~\ref{sec:methods-training}. Summary statistics for age, sex, geography, and audio duration stratified by cohort and class are reported in the supplementary material.
 
 
 \subsection{Modeling and Evaluation}
@@ -501,7 +501,7 @@ B10 & date (month) & 0.703 & 0.719 & 0.683 \\
 \begin{center}
 \includegraphics[width=\linewidth]{fig_cohort_sizes}
 \end{center}
-\caption{Per-task cohort sizes for the 11 binary classification tasks. Each task has a positive (label=1) and negative (label=0) cohort; sizes range from approximately 10{,}000 to 280{,}000 visits per class. Imbalance ratios reflect the natural prevalence of each clinical contrast in the source population, from near unity (B04, 1.24:1) to over 20:1 for B08 and B09.}
+\caption{Per-task cohort sizes for the 11 binary classification tasks. Each task has a positive (label=1) and negative (label=0) cohort; sizes range from approximately 10{,}000 to 280{,}000 visits per class. Imbalance ratios reflect the natural prevalence of each clinical contrast in the source population, from near unity (B04, 1.24:1) to over 20:1 in the most imbalanced binaries (B01 at 24.3:1, B08 at 1:20.3, B09 at 1:16.1).}
 \label{fig_cohort_sizes}
 \end{figure}
 
