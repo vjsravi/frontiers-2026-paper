@@ -174,9 +174,8 @@ apnoea, depression, anxiety, gastro-oesophageal reflux disease, and
 smoking history --- for downstream matching and subgroup AUROC. These
 are carried as metadata only and are not used as exclusion criteria.
 
-Per-binary specifications, the final review decisions that shaped the
-SQL predicate, and pre-registered sensitivity analyses are summarised
-below.
+Per-binary specifications and the final review decisions that shaped
+the SQL predicate are summarised below.
 
 % ---------------------------------------------------------------------
 \subsection{B00 --- Acute respiratory illness vs acute non-respiratory illness}
@@ -232,10 +231,7 @@ preserve the acute-vs-acute symmetry.
 (undiagnosed depression presenting with somatic complaints coded
 under back pain or fatigue) imports a depression-prosody signal into
 the negative arm that cannot be ICD-isolated; this is reported as a
-methods limitation. Voice-quality stream overlap between acute
-laryngitis (positive) and dehydration / muscle tension (negative) is
-addressed via a pre-registered feature-family ablation in which the
-voice-quality stream is removed and AUROC is reported.
+methods limitation.
 
 % ---------------------------------------------------------------------
 \subsection{B01 --- Acute respiratory infection vs chronic respiratory management}
@@ -286,9 +282,7 @@ infections and acute exacerbations.
 Patient-level chronic-respiratory history was kept in the positive
 arm (with stratified subgroup AUROC by \texttt{pat\_has\_chronic\_resp})
 rather than excluded, both to preserve real-world prevalence and
-because cross-arm ICS exposure weakens the ICS-shortcut. Stratified
-AUROC by \texttt{chronic\_resp\_subclass} (J44 / J45 / J47 / J84+E84
-/ J67+J70) is pre-registered as a secondary endpoint.
+because cross-arm ICS exposure weakens the ICS-shortcut.
 
 \paragraph{Acknowledged limitations.} Smoking-status under-coding,
 and ICS-exposure unobservability, are documented as primary
@@ -323,9 +317,7 @@ and ensuring U09.x visits are excluded from B02 entirely; and R06.03
 dropping 28 visits, since it encodes a severe acute respiratory state
 rather than a non-infection symptom complaint. The negative class is
 explicitly heterogeneous (R05 cough $\sim$50\%, J30 allergic rhinitis
-$\sim$18\%, R06+R07.0 $\sim$24\%, J32+J33 $\sim$11\%), and four-by-four
-sub-cell AUROCs (four negative subclasses by four positive subclasses)
-are pre-registered alongside the pooled headline. R05.3 (chronic
+$\sim$18\%, R06+R07.0 $\sim$24\%, J32+J33 $\sim$11\%). R05.3 (chronic
 cough) was retained in the negative class under the real-world
 principle, despite the possibility that some R05.3 visits represent
 post-infectious cough.
@@ -400,11 +392,6 @@ the chronic-respiratory covariate flag rather than treated as
 exclusions, re-tagging 6{,}308 patients (2{,}020 LRI / 3{,}133 URI
 visits).
 
-\paragraph{Pre-registered analyses.} Subgroup AUROC by J22 versus
-specified-LRI; subgroup AUROC by J06.9-primary versus specified-URI;
-and the seven covariate-flag subgroup analyses are reported in the
-supplementary results.
-
 % ---------------------------------------------------------------------
 \subsection{B04 --- Pneumonia vs acute bronchitis}
 \label{sec:supp-b04}
@@ -430,10 +417,8 @@ ventilator-associated pneumonia history) was declined under the
 real-world cohort principle. J18.9 (unspecified pneumonia) was
 measured at 87\% of the positive class, raising the concern that
 imaging-unconfirmed clinical-suspicion pneumonia contaminates the
-positive arm. Rather than exclude J18.9, a J18.0/.1/.8-only sensitivity
-AUROC was pre-registered alongside the headline; a difference of
-$\geq 0.05$ AUROC between the strata is interpreted as evidence that
-J18.9 carries the contamination. Mycoplasma cross-coding between J20.0
+positive arm. J18.9 was retained under the real-world cohort principle.
+Mycoplasma cross-coding between J20.0
 and J15.7 across a single episode was declined as a patient-history
 mitigation under the same principle.
 
@@ -444,10 +429,6 @@ use disorder rather than chronic exposure --- the same coding-fidelity
 limitation that applies to smoking. J85.1 (lung abscess with pneumonia)
 and J18.2 (hypostatic pneumonia) were measured at zero visits in the
 feature-available cohort and required no action.
-
-\paragraph{Pre-registered analyses.} J18.0/.1/.8-only sensitivity
-AUROC; cough-pipeline pre-flight check verifying cough-event features
-are present in B04 manifest output before training.
 
 % ---------------------------------------------------------------------
 \subsection{B05 --- Pneumonia vs non-pneumonia lower respiratory infection}
@@ -471,27 +452,13 @@ noise. J22 (unspecified acute LRI) is less specific than J18.9, and
 literature on ancestor ICD-9 code 486 reports as low as 14.2\%
 sensitivity for laboratory-confirmed pneumococcal pneumonia \citep{icd9-486-pneumococcal-sensitivity-14pct}. With
 J22 at 66\% of the B05 negative class, an estimated 2{,}600--5{,}275
-visits in the negative arm may be unrecognised pneumonia. A
-J22-excluded sensitivity AUROC (pneumonia vs J20+J21 only,
-$\sim$9{,}169 negatives) was pre-registered alongside the
-J22-included headline; a difference of $\geq 0.05$ AUROC is interpreted
-as evidence that J22 is the dominant label-noise source. The B04 and
-B05 results are reported side-by-side: B04 is the cleaner pneumonia
-vs J20-only contrast, and the B04--B05 AUROC gap quantifies the J22
-noise impact.
+visits in the negative arm may be unrecognised pneumonia.
 
 J17 (pneumonia in diseases classified elsewhere), J18.2 (hypostatic
 pneumonia), J95.851 (ventilator-associated pneumonia history), and
 J69 (aspiration pneumonia history) were either measured at zero
 visits in the feature-available cohort or declined under the real-world
-cohort principle. Adult J21 (n=93) cleared the $\geq 30$-cell threshold
-for stratified reporting and is included in the supplementary results
-as a J21-only stratum AUROC.
-
-\paragraph{Pre-registered analyses.} J22-excluded sensitivity AUROC;
-B04 versus B05 side-by-side comparison; age-stratified AUROC to
-quantify age-correlated label-noise drift (since geriatric pneumonia
-is more often miscoded as J22).
+cohort principle.
 
 % ---------------------------------------------------------------------
 \subsection{B06 --- Acute sinusitis vs other upper respiratory infection}
@@ -534,18 +501,6 @@ a cohort exclusion. The odontogenic-maxillary-sinusitis sub-population
 ($\sim$10--30\% of unilateral J01.00/.01) has no separate ICD code
 and is reported as residual variance.
 
-A phone-class-conditioned feature analysis (nasal-consonant-windowed
-acoustic features) is pre-registered as a secondary investigation
-if per-visit feature aggregates underperform, since published
-nasometry and hyponasality literature uses standardised prompted
-stimuli rather than spontaneous conversation \citep{sinusitis-hyponasality-acoustic}.
-
-\paragraph{Pre-registered sub-strata.} Three sub-strata are reported:
-J01 vs J04.0 (acute laryngitis, the easier source/resonance contrast,
-treated as the primary headline candidate); J01 vs J00 (common cold,
-the hardest mechanism-fidelity probe); and J01 vs the pooled
-J02+J03+J04+J05+J06 negative.
-
 % ---------------------------------------------------------------------
 \subsection{B07 --- GAS pharyngitis vs other pharyngitis}
 \label{sec:supp-b07}
@@ -580,18 +535,10 @@ that B07 targets the \emph{milder} pharyngeal-cavity mass-effect
 signature (small F2 / F3 reductions on back vowels), not ``hot potato
 voice,'' which is severe-end only (peritonsillar abscess, severe
 tonsillitis) and is not in the Centor or McIsaac clinical scoring
-criteria \citep{centor-1981, mcisaac-1998}. A J02.9-without-J04.x sensitivity AUROC is pre-registered:
-if AUROC drops substantially when J04.x-co-coded cases are excluded
-from the negative arm, the model is detecting viral co-laryngitis
-rather than the intended pharyngitis contrast. B27.x (mononucleosis)
+criteria \citep{centor-1981, mcisaac-1998}. B27.x (mononucleosis)
 patient-history exclusion was reaffirmed, and under-coded mononucleosis
 within J02.9 is acknowledged as irreducible contamination of the
 negative arm.
-
-\paragraph{Pre-registered sub-strata.} J02.9-without-J04.x sensitivity
-AUROC; J02.0-with-A38.x (scarlet fever co-code) higher-fidelity GAS
-sub-stratum; J02.0-with-B95.0 (S. pyogenes etiologic confirmation)
-higher-fidelity sub-stratum.
 
 \paragraph{Acknowledged limitations.} J02.0 label fidelity in adult
 primary care without RADT or culture confirmation (20--40\% may be
@@ -626,15 +573,8 @@ is acoustically near-indistinguishable from influenza.
 \paragraph{Key review decisions.} J11.1 (unidentified influenza with
 other respiratory manifestations) is expected to dominate the positive
 arm ($\sim$60--70\% of primary-care flu) and is the lowest-fidelity
-flu label. A laboratory-confirmed-only sensitivity AUROC (positives
-restricted to J09 and J10 codes) is pre-registered alongside the
-all-flu headline; equivalence between the two indicates that J11.1
-is not the dominant noise source, while a substantial gap indicates
-that label noise is the bottleneck. Adult RSV in the negative arm is
-identifiable from J12.1, J20.5, J21.0, and the etiologic B97.4 code;
-a flu-vs-non-RSV-ARI sensitivity AUROC is pre-registered. J04.0
-co-coded cases in the negative arm are similarly pre-registered as
-a sub-stratum.
+flu label. Adult RSV in the negative arm is identifiable from J12.1,
+J20.5, J21.0, and the etiologic B97.4 code.
 
 A within-season pathogen-substitution effect (RSV peaking November--December,
 flu peaking January--February, COVID having its own winter wave)
@@ -643,12 +583,6 @@ and is reported as a methods limitation. Vaccination metadata is not
 available and the residual mild-systemic-symptoms-after-vaccination
 effect is reported as a methods limitation; Z23 (vaccination encounter)
 exclusion does not catch the illness-visit-after-Z23-encounter case.
-
-\paragraph{Pre-registered analyses.} Laboratory-confirmed-positive
-AUROC (J09 + J10 only); flu-vs-non-RSV-ARI AUROC; flu-vs-J04.0 AUROC;
-out-of-season AUROC (April--September window) as a critical
-falsification test (an out-of-season AUROC below 0.65 invalidates an
-``acoustic biomarker of flu'' claim); month-stratified AUROC.
 
 % ---------------------------------------------------------------------
 \subsection{B09 --- COVID-19 vs other acute respiratory infection}
@@ -687,13 +621,6 @@ limitation without serology data. Provider-level coding heterogeneity
 (U07.1 positive predictive value 77.7--93.8\% across clinical
 settings \citep{u071-positive-predictive-value}) is deferred to the fairness and robustness audit, where
 provider-stratified cross-validation is reported.
-
-\paragraph{Pre-registered analyses.} Era-stratified AUROC (pre-omicron,
-omicron-era, pre-pandemic-sensitivity-only). Pre-omicron AUROC is
-expected to be stronger; omicron-era AUROC is expected to be near
-chance (0.55--0.65) and is reported as a meaningful empirical result
-consistent with the loss of distinctive COVID acoustic features in
-the omicron era, rather than as a model failure.
 
 % ---------------------------------------------------------------------
 \subsection{B10 --- Definite bacterial vs definite viral respiratory infection}
@@ -737,28 +664,16 @@ measures URI-versus-LRI anatomy mix and entity-specific signals
 than generic bacterial-versus-viral host-response biology.
 
 A37 ($n=28$) and A15 ($n=14$) were retained under the real-world
-principle as bacterial-by-taxonomy entries, with the pre-registered
-provision that sub-classes below the $\geq 50$-cell threshold drop
-from primary stratum AUROC reporting and are reported as case-series
-or sensitivity strata only. J15.7 (Mycoplasma, $n=152$, $\sim$1\% of
-the bacterial arm) was retained despite its viral-like clinical
-phenotype (gradual onset, dry cough, low-grade fever, outpatient),
-with a J15.7-excluded sensitivity AUROC pre-registered. The expected
+principle as bacterial-by-taxonomy entries. J15.7 (Mycoplasma,
+$n=152$, $\sim$1\% of the bacterial arm) was retained despite its
+viral-like clinical phenotype (gradual onset, dry cough, low-grade
+fever, outpatient). The expected
 $\sim$5--15\% GAS-carrier-state false-positive rate on J02.0 is
 reported as an upper bound on the bacterial-URI sub-binary AUROC.
 Adult pertussis is acknowledged to typically present as prolonged
 cough without the classic pediatric whoop, and pertussis sub-class
 AUROC is reported separately rather than pooled into the bacterial
 arm.
-
-\paragraph{Pre-registered analyses.} Bacterial-URI (J02.0 / J03.00 /
-J03.01) versus viral-URI (J00) AUROC as an anatomy-matched sub-binary;
-bacterial-LRI (J13 / J14 / J15) versus viral-LRI (J12 non-COVID)
-AUROC as an anatomy-matched sub-binary; bacterial-versus-viral with
-J15.7 excluded; pertussis (A37) sub-class AUROC separate; TB (A15)
-case series only ($n=14$, below threshold); bacterial-versus-viral
-with U07.1 re-included as a sensitivity stratum that quantifies the
-COVID-inclusion impact.
 
 \paragraph{Acknowledged limitations.} No published pooled
 bacterial-vs-viral acoustic signature in adult primary-care spontaneous
@@ -884,7 +799,7 @@ The strongest demographic gap of the panel: LRI cases (positive)
 are roughly a decade older than URI cases (mean 49.8~y vs 40.0~y;
 median 48 vs 36; IQR 35--65 vs 27--50), with a lower female share
 (58.4\% vs 63.3\%). The age confound is well-documented in primary
-care and is pre-registered for age-stratified AUROC reporting. Both
+care. Both
 arms have similar California share ($\sim$55\%), but New Jersey is
 over-represented on the LRI side (21.8\% versus 18.2\%). Median
 clip duration is 28.3~s for LRI and 24.5~s for URI; the LRI arm
@@ -979,8 +894,7 @@ is short (19.3~s versus 21.3~s) given the pharyngitis dominance of
 the bacterial arm. The anatomy-mix dominance of this binary
 (\S\ref{sec:supp-b10}) is partly visible in these demographics: any
 above-chance separation could be driven by the age and clip-length
-differences alone, which is why anatomy-matched URI-vs-URI and
-LRI-vs-LRI sub-strata are pre-registered.
+differences alone.
 
 \bibliographystyle{Frontiers-Harvard}
 \bibliography{references}
