@@ -197,24 +197,24 @@ injury). Codes were neither added to inflate a class size nor removed
 to maximise discriminability.
 
 The same seven patient-level covariate flags are carried through every
-binary's manifest output --- heart failure, obesity, obstructive sleep
+binary's manifest output (heart failure, obesity, obstructive sleep
 apnoea, depression, anxiety, gastro-oesophageal reflux disease, and
-smoking history --- for downstream matching and subgroup AUROC. These
+smoking history) for downstream matching and subgroup AUROC. These
 are carried as metadata only and are not used as exclusion criteria.
 
 Per-binary specifications and the final review decisions that shaped
 the SQL predicate are summarised below.
 
 % ---------------------------------------------------------------------
-\subsection{B00 --- Acute respiratory illness vs acute non-respiratory illness}
+\subsection{B00: Acute respiratory illness vs acute non-respiratory illness}
 \label{sec:supp-b00}
 
 B00 is the panel's clinical-triage anchor. The contrast was reformulated
 during review from its original form (``acute respiratory infection
 vs healthy non-illness visit'') to its final form (``acute respiratory
 illness vs acute non-respiratory illness'') so that three structural
-confounds --- sick-affect envelope, conversation-length, and audio-quality
-/ recording-context skew --- cancel by construction. Both arms are
+confounds (sick-affect envelope, conversation length, and audio-quality
+or recording-context skew) cancel by construction. Both arms are
 acute primary-care visits; any above-chance separation is therefore,
 by design, respiratory-mechanism specific rather than generic-sick-voice.
 The price of this reformulation is a lower attainable AUROC ceiling
@@ -262,7 +262,7 @@ the negative arm that cannot be ICD-isolated; this is reported as a
 methods limitation.
 
 % ---------------------------------------------------------------------
-\subsection{B01 --- Acute respiratory infection vs chronic respiratory management}
+\subsection{B01: Acute respiratory infection vs chronic respiratory management}
 \label{sec:supp-b01}
 
 B01 contrasts an acute infectious presentation against a chronic
@@ -317,7 +317,7 @@ and ICS-exposure unobservability, are documented as primary
 limitations.
 
 % ---------------------------------------------------------------------
-\subsection{B02 --- Acute respiratory infection vs sick-but-no-infection}
+\subsection{B02: Acute respiratory infection vs sick-but-no-infection}
 \label{sec:supp-b02}
 
 B02 contrasts an acute respiratory infection against a respiratory
@@ -359,7 +359,7 @@ Post-COVID dysphonia carryover from U09.x history is acknowledged but
 not mitigated beyond the same-visit U09.x rule.
 
 % ---------------------------------------------------------------------
-\subsection{B03 --- Lower vs upper respiratory infection}
+\subsection{B03: Lower vs upper respiratory infection}
 \label{sec:supp-b03}
 
 B03 separates upper respiratory infection from lower respiratory
@@ -421,7 +421,7 @@ exclusions, re-tagging 6{,}308 patients (2{,}020 LRI / 3{,}133 URI
 visits).
 
 % ---------------------------------------------------------------------
-\subsection{B04 --- Pneumonia vs acute bronchitis}
+\subsection{B04: Pneumonia vs acute bronchitis}
 \label{sec:supp-b04}
 
 B04 separates pneumonia from acute bronchitis, the two most common
@@ -453,13 +453,13 @@ mitigation under the same principle.
 The chronic opioid confound (cough-reflex suppression and shallow
 breathing) was acknowledged as a methods limitation rather than
 addressed via a B04-only covariate, since F11.x captures only opioid
-use disorder rather than chronic exposure --- the same coding-fidelity
+use disorder rather than chronic exposure, the same coding-fidelity
 limitation that applies to smoking. J85.1 (lung abscess with pneumonia)
 and J18.2 (hypostatic pneumonia) were measured at zero visits in the
 feature-available cohort and required no action.
 
 % ---------------------------------------------------------------------
-\subsection{B05 --- Pneumonia vs non-pneumonia lower respiratory infection}
+\subsection{B05: Pneumonia vs non-pneumonia lower respiratory infection}
 \label{sec:supp-b05}
 
 B05 extends B04's contrast to the full non-pneumonia LRI population,
@@ -489,7 +489,7 @@ visits in the feature-available cohort or declined under the real-world
 cohort principle.
 
 % ---------------------------------------------------------------------
-\subsection{B06 --- Acute sinusitis vs other upper respiratory infection}
+\subsection{B06: Acute sinusitis vs other upper respiratory infection}
 \label{sec:supp-b06}
 
 B06 separates J01-coded acute sinusitis from other coded URI. It is
@@ -530,7 +530,7 @@ a cohort exclusion. The odontogenic-maxillary-sinusitis sub-population
 and is reported as residual variance.
 
 % ---------------------------------------------------------------------
-\subsection{B07 --- GAS pharyngitis vs other pharyngitis}
+\subsection{B07: GAS pharyngitis vs other pharyngitis}
 \label{sec:supp-b07}
 
 B07 separates Group A streptococcal pharyngitis (\textit{Streptococcus
@@ -576,7 +576,7 @@ non-GAS bacterial pharyngitis (\textit{F. necrophorum},
 complicating any downstream antibiotic-decision framing.
 
 % ---------------------------------------------------------------------
-\subsection{B08 --- Influenza vs other acute respiratory infection}
+\subsection{B08: Influenza vs other acute respiratory infection}
 \label{sec:supp-b08}
 
 B08 separates ICD-coded influenza from other acute respiratory
@@ -613,7 +613,7 @@ effect is reported as a methods limitation; Z23 (vaccination encounter)
 exclusion does not catch the illness-visit-after-Z23-encounter case.
 
 % ---------------------------------------------------------------------
-\subsection{B09 --- COVID-19 vs other acute respiratory infection}
+\subsection{B09: COVID-19 vs other acute respiratory infection}
 \label{sec:supp-b09}
 
 B09 separates ICD-coded acute COVID-19 from other acute respiratory
@@ -645,7 +645,7 @@ settings \citep{u071-positive-predictive-value}) is deferred to the fairness and
 provider-stratified cross-validation is reported.
 
 % ---------------------------------------------------------------------
-\subsection{B10 --- Definite bacterial vs definite viral respiratory infection}
+\subsection{B10: Definite bacterial vs definite viral respiratory infection}
 \label{sec:supp-b10}
 
 B10 is the panel's hardest binary by design. A literature check
@@ -775,27 +775,27 @@ B10 & neg &  16{,}068 &  15{,}680 & 39.9 (15.9) & 37 (27--49) & 58.7 & 50.2 &  6
 \end{table*}
 
 % ---------------------------------------------------------------------
-\subsection{B00 --- acute respiratory vs acute non-respiratory illness}
+\subsection{B00: acute respiratory vs acute non-respiratory illness}
 
-The two arms are well matched on age and sex --- positive class
+The two arms are well matched on age and sex: positive class
 mean age 41.9 years (SD 17.1) versus negative class 43.6 (SD 18.3),
 and female share 62.2\% versus 65.1\%. California contributes 54.6\%
 of positive visits and a higher 63.6\% of negative visits; New Jersey
 is correspondingly under-represented on the negative side (11.3\%
 versus 19.1\%). Both arms span 100+ states and 6{,}500+ cities,
 indicating broad geographic coverage with a California-dominant
-mode. The positive class is acoustically shorter on average --- median
+mode. The positive class is acoustically shorter on average, with median
 clip duration 24.9~s (IQR 14.0--41.3) versus 31.9~s (17.3--55.0) on
-the negative side --- consistent with the brevity of acute upper
+the negative side, consistent with the brevity of acute upper
 respiratory presentations relative to the heterogeneous acute
 non-respiratory complaint pool.
 
-\subsection{B01 --- acute respiratory infection vs chronic respiratory management}
+\subsection{B01: acute respiratory infection vs chronic respiratory management}
 
 Age and sex are tightly matched (positive 42.0~y, 62.6\% female;
 negative 43.8~y, 63.1\% female) despite the strong cohort imbalance
 (24.3:1 by visit). The negative class spans 58 states and 1{,}471
-cities --- noticeably narrower than the positive's 110 states and
+cities, noticeably narrower than the positive's 110 states and
 8{,}033 cities, reflecting both the smaller sample and the
 clinic-set bias toward locations with established chronic-respiratory
 patient panels (California share rises from 54.8\% to 56.8\% with
@@ -803,7 +803,7 @@ larger gains for Arizona, 5.3\% to 7.1\%). Median clip duration is
 again longer on the negative side (31.6~s versus 25.1~s), consistent
 with longer-format chronic-disease visits.
 
-\subsection{B02 --- acute respiratory infection vs sick-but-no-infection}
+\subsection{B02: acute respiratory infection vs sick-but-no-infection}
 
 The negative arm is slightly older on average (44.8 vs 42.0~y) and
 has a noticeably lower female share (59.0\% versus 62.6\%),
@@ -815,7 +815,7 @@ The clip-duration gap (negative median 31.7~s versus positive 25.1~s)
 matches the B00 and B01 pattern of longer recordings for non-acute
 or chronic-symptom presentations.
 
-\subsection{B03 --- lower vs upper respiratory infection}
+\subsection{B03: lower vs upper respiratory infection}
 
 The strongest demographic gap of the panel: LRI cases (positive)
 are roughly a decade older than URI cases (mean 49.8~y vs 40.0~y;
@@ -828,7 +828,7 @@ clip duration is 28.3~s for LRI and 24.5~s for URI; the LRI arm
 records slightly longer, consistent with more extensive cough-event
 content.
 
-\subsection{B04 --- pneumonia vs acute bronchitis}
+\subsection{B04: pneumonia vs acute bronchitis}
 
 Pneumonia patients are 4--5 years older on average (50.2 vs 45.9~y)
 and are less female-skewed (57.0\% versus 62.9\%). California is
@@ -840,10 +840,10 @@ LRI character of the two presentations. This is the panel's most
 balanced binary (1.24:1 by visit) and one of the better-matched on
 demographics.
 
-\subsection{B05 --- pneumonia vs non-pneumonia LRI}
+\subsection{B05: pneumonia vs non-pneumonia LRI}
 
 Age is closely matched (50.2 vs 49.1~y, IQRs overlap heavily),
-unlike the B03 URI-vs-LRI contrast --- both arms are LRI
+unlike the B03 URI-vs-LRI contrast, both arms are LRI
 populations and inherit a similar older-adult demographic. Sex is
 also more balanced (57.1\% vs 60.2\% female). California share is
 elevated on the pneumonia side (60.2\% versus 54.2\%) and New Jersey
@@ -852,7 +852,7 @@ the largest single-state geographic skew in the panel; this is
 plausibly a coding-practice signature of one or more high-volume
 clinic networks. Median clip duration is 29.5~s versus 28.3~s.
 
-\subsection{B06 --- acute sinusitis vs other URI}
+\subsection{B06: acute sinusitis vs other URI}
 
 J01-coded sinusitis patients are about 5 years older than the other
 URI pool (mean 44.0 vs 39.1~y) and have a higher female share
@@ -861,14 +861,14 @@ chronic-and-acute rhinosinusitis presentations. California share is
 slightly lower in the positive class (53.8\% versus 55.6\%) while
 Arizona rises (7.7\% versus 4.5\%). Median clip duration is
 substantially longer in the sinusitis arm (29.5~s versus 23.5~s),
-giving more material for nasal-coupling and resonance features ---
+giving more material for nasal-coupling and resonance features,
 which, given the dominant viral-URI fraction inside the J01 class,
 does not translate to expected high AUROC (see \S\ref{sec:supp-b06}).
 
-\subsection{B07 --- GAS pharyngitis vs other pharyngitis}
+\subsection{B07: GAS pharyngitis vs other pharyngitis}
 
-The pharyngitis cohort is the panel's youngest --- positive mean age
-33.3~y (SD 11.4), negative 35.5~y (SD 13.9) --- consistent with the
+The pharyngitis cohort is the panel's youngest (positive mean age
+33.3~y, SD 11.4; negative 35.5~y, SD 13.9), consistent with the
 young-adult skew of GAS-positive sore-throat presentations after
 pediatric exclusion. Sex is similar across arms (64.6\% vs 63.2\%
 female). California share is slightly lower on the positive side
@@ -877,7 +877,7 @@ female). California share is slightly lower on the positive side
 GAS versus 21.8~s other phyngitis), consistent with brief
 sore-throat visits in younger adults.
 
-\subsection{B08 --- influenza vs other acute respiratory infection}
+\subsection{B08: influenza vs other acute respiratory infection}
 
 The positive (flu) arm is slightly younger (mean 39.4 vs 42.2~y)
 and has a lower female share (58.4\% versus 62.8\%), consistent
@@ -889,7 +889,7 @@ coding pattern that is plausibly entangled with peak-flu-season
 timing in the dataset. Median clip duration is also shorter (20.8~s
 versus 25.4~s).
 
-\subsection{B09 --- COVID-19 vs other acute respiratory infection}
+\subsection{B09: COVID-19 vs other acute respiratory infection}
 
 The COVID-positive arm is roughly a decade older (mean 50.7 vs
 41.5~y; median 50 vs 38, IQR 35--67 vs 28--53), reflecting the
@@ -901,14 +901,14 @@ which combined with the era-bimodal performance expectation
 AUROC. Median clip duration is essentially identical (24.7~s versus
 25.2~s).
 
-\subsection{B10 --- definite bacterial vs definite viral respiratory infection}
+\subsection{B10: definite bacterial vs definite viral respiratory infection}
 
 The bacterial arm (dominated 92\% by J02.0 GAS pharyngitis) is much
 younger than the viral arm (mean 33.9~y, IQR 24--40 vs 39.9~y, IQR
 27--49), and has a higher female share (64.0\% versus 58.7\%). This
 demographic gap is a direct consequence of the bacterial arm
 collapsing to the GAS-pharyngitis demographic, while the viral arm
-spans common cold, viral pneumonia, and influenza --- older and more
+spans common cold, viral pneumonia, and influenza, and is older and more
 balanced by sex. Geography is similar (California 56.0\% versus
 50.2\%; New Jersey 11.9\% versus 22.2\%, the latter again reflecting
 the influenza-clinic regional pattern from B08). Median clip duration
