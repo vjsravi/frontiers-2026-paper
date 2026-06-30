@@ -1,0 +1,30 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{tikz}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{arrows.meta, positioning}
+\begin{document}
+\definecolor{boxfill}{RGB}{223,233,242}
+\definecolor{boxborder}{RGB}{74,122,155}
+\definecolor{termfill}{RGB}{28,61,82}
+\begin{tikzpicture}[
+  box/.style={rectangle, rounded corners=3pt, draw=boxborder, line width=1pt,
+              fill=boxfill, text width=66mm, align=center, inner sep=6pt, font=\small},
+  term/.style={rectangle, rounded corners=3pt, draw=termfill, line width=1pt,
+               fill=termfill, text=white, text width=66mm, align=center, inner sep=6pt, font=\small},
+  arr/.style={-{Stealth[length=3mm]}, line width=1pt, draw=boxborder}
+]
+\node[box] (input) {\textbf{Input}\\ 412-dimensional feature vector\\ (nine concatenated streams)};
+\node[box, below=12mm of input] (blk) {\textbf{Hidden block}\\ Linear $\rightarrow$ batch normalization\\ $\rightarrow$ GELU $\rightarrow$ dropout ($p = 0.5$)};
+\node[box, below=12mm of blk] (out) {\textbf{Output}\\ Linear projection $\rightarrow$ single logit};
+\node[term, below=12mm of out] (term) {Sigmoid at inference $\rightarrow$ probability};
+
+\draw[arr] (input) -- (blk);
+\draw[arr] (blk) -- (out);
+\draw[arr] (out) -- (term);
+
+% repetition loop on the hidden block
+\draw[arr, dashed] (blk.north east) .. controls +(16mm,7mm) and +(16mm,-7mm) .. (blk.south east);
+\node[right=16mm of blk, text width=38mm, align=left, font=\footnotesize\itshape] {two to four blocks; depth and per-block width selected per binary};
+\end{tikzpicture}
+\end{document}

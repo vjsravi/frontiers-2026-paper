@@ -1,0 +1,24 @@
+% shared preamble for case-study figures
+\usepackage{tikz}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{arrows.meta, positioning}
+\definecolor{boxfill}{RGB}{223,233,242}
+\definecolor{boxborder}{RGB}{74,122,155}
+\definecolor{termfill}{RGB}{28,61,82}
+\definecolor{failfill}{RGB}{248,224,220}
+\definecolor{failborder}{RGB}{178,55,42}
+\definecolor{qgray}{RGB}{120,120,120}
+\tikzset{
+  box/.style={rectangle, rounded corners=3pt, draw=boxborder, line width=1pt,
+              fill=boxfill, text width=74mm, align=center, inner sep=6pt, font=\small},
+  failbox/.style={rectangle, rounded corners=3pt, draw=failborder, line width=1pt,
+              fill=failfill, text width=74mm, align=center, inner sep=6pt, font=\small},
+  term/.style={rectangle, rounded corners=3pt, draw=termfill, line width=1pt,
+               fill=termfill, text=white, text width=74mm, align=center, inner sep=7pt, font=\small},
+  failterm/.style={rectangle, rounded corners=3pt, draw=failborder, line width=1pt,
+               fill=failborder, text=white, text width=74mm, align=center, inner sep=7pt, font=\small},
+  hdr/.style={text width=80mm, align=center, font=\small},
+  arr/.style={-{Stealth[length=3mm]}, line width=1pt, draw=boxborder}
+}
+\newcommand{\gate}[5]{\textbf{#1}\hfill\textcolor{qgray}{\textit{#2}}\\[2pt] P~=~#3\quad threshold~=~#4\\[2pt] \textbf{Result $\rightarrow$ #5}}

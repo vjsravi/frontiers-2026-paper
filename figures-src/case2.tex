@@ -1,0 +1,15 @@
+\documentclass[border=8pt]{standalone}
+\input{casebase}
+\begin{document}
+\begin{tikzpicture}[node distance=7mm]
+\node[hdr] (h) {\textbf{Case 2}\\ \textit{Male, age range 30--39}\\ \textit{ICD primary J02.0 $\cdot$ Streptococcal pharyngitis}};
+\node[box, below=5mm of h] (b0) {\gate{B00}{respiratory?}{0.819}{0.491}{respiratory condition}};
+\node[box, below=of b0] (b1) {\gate{B01}{acute?}{0.863}{0.503}{acute condition}};
+\node[box, below=of b1] (b2) {\gate{B02}{infection?}{0.696}{0.516}{Infection}};
+\node[box, below=of b2] (b3) {\gate{B03}{upper or lower?}{0.295}{0.517}{URI Infection}};
+\node[box, below=of b3] (b6) {\gate{B06}{sinusitis?}{0.265}{0.558}{not sinusitis}};
+\node[box, below=of b6] (b7) {\gate{B07}{strep?}{0.696}{0.457}{GAS strep}};
+\node[term, below=of b7] (t) {\textbf{GAS pharyngitis}\\ \textit{Recommended: rapid antigen or culture; antibiotic if positive}};
+\draw[arr] (b0)--(b1); \draw[arr] (b1)--(b2); \draw[arr] (b2)--(b3); \draw[arr] (b3)--(b6); \draw[arr] (b6)--(b7); \draw[arr] (b7)--(t);
+\end{tikzpicture}
+\end{document}

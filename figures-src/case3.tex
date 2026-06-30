@@ -1,0 +1,10 @@
+\documentclass[border=8pt]{standalone}
+\input{casebase}
+\begin{document}
+\begin{tikzpicture}[node distance=7mm]
+\node[hdr] (h) {\textbf{Case 3}\\ \textit{Female, age range 20--29}\\ \textit{ICD primary R10.10; K21.9 $\cdot$ Abdominal pain and reflux}};
+\node[box, below=5mm of h] (b0) {\gate{B00}{respiratory?}{0.293}{0.491}{non-respiratory}};
+\node[term, below=of b0] (t) {\textbf{Non-respiratory}\\ \textit{Cascade exits at gate}};
+\draw[arr] (b0)--(t);
+\end{tikzpicture}
+\end{document}
