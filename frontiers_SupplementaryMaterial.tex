@@ -940,6 +940,87 @@ B10 & 31.9 & 0.465/0.797 & 0.018/0.995 & 0.089/0.972 & 0.171/0.943 & 0.317/0.881
 }
 \end{table*}
 
+\section{Feature-family ablation}
+\label{sec:supp-ablation}
+
+This section reports the full per-family feature ablation summarized in
+the main text. For each binary, the model was retrained on the full set
+of nine feature streams, on each single stream alone, and on the full
+set with one family removed (leave-one-family-out). All ablation runs
+use a single cross-validation fold, so the full-set AUC is the
+single-fold counterpart of the cross-validated AUC reported in the main
+text, and differences below approximately 0.01 are within run-to-run
+variation. The families are pitch (openSMILE F0 descriptors), loudness,
+spectral, voice quality (jitter, shimmer, harmonics-to-noise ratio),
+formants, temporal (openSMILE timing descriptors), speech rate and
+pause (praat-parselmouth syllable and pause statistics), VAD (the
+valence-arousal-dominance affective stream), and librosa (Mel-frequency
+cepstral, spectral, chromagram, and rhythm features).
+
+Table~\ref{tab:supp-ablation-loo} reports the leave-one-family-out AUC
+change (full minus leave-one-out; positive means the family
+contributes). Table~\ref{tab:supp-ablation-only} reports the AUC of
+each family in isolation.
+
+\begin{table*}[t]
+\centering
+\caption{Leave-one-family-out AUC change per binary (full model AUC
+minus the AUC with that family removed; single fold). A positive value
+means removing the family lowers AUC, so the family contributes.}
+\label{tab:supp-ablation-loo}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l c c c c c c c c c c@{}}
+\toprule
+Binary & Full AUC & Pitch & Loud. & Spec. & Voice qual. & Form. & Temp. & Speech rate/pause & VAD & librosa \\
+\midrule
+B00 & 0.747 & 0.002 & 0.002 & 0.006 & 0.002 & 0.006 & 0.002 & 0.001 & 0.007 & 0.025 \\
+B01 & 0.638 & 0.005 & 0.001 & $-0.006$ & $-0.004$ & $-0.003$ & $-0.004$ & $-0.004$ & $-0.002$ & 0.014 \\
+B02 & 0.626 & 0.004 & 0.004 & 0.003 & 0.004 & 0.004 & 0.003 & 0.005 & 0.007 & 0.009 \\
+B03 & 0.656 & 0.002 & 0.002 & 0.001 & 0.003 & 0.002 & 0.002 & 0.001 & 0.007 & 0.017 \\
+B04 & 0.604 & $-0.001$ & 0.010 & 0.001 & $-0.007$ & $-0.005$ & $-0.002$ & 0.003 & 0.005 & 0.023 \\
+B05 & 0.633 & 0.000 & $-0.001$ & 0.002 & 0.008 & 0.003 & 0.000 & $-0.003$ & 0.001 & 0.029 \\
+B06 & 0.649 & $-0.002$ & $-0.002$ & $-0.001$ & 0.001 & 0.003 & 0.001 & $-0.001$ & 0.000 & 0.011 \\
+B07 & 0.604 & $-0.002$ & 0.001 & 0.002 & 0.000 & 0.000 & 0.001 & 0.001 & 0.003 & 0.031 \\
+B08 & 0.657 & $-0.005$ & $-0.003$ & $-0.003$ & $-0.004$ & $-0.006$ & $-0.005$ & $-0.004$ & 0.000 & 0.017 \\
+B09 & 0.687 & 0.000 & 0.001 & 0.001 & 0.003 & 0.003 & $-0.001$ & 0.000 & 0.000 & 0.017 \\
+B10 & 0.703 & 0.002 & 0.002 & 0.002 & 0.001 & 0.010 & 0.008 & 0.001 & 0.007 & 0.046 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Single-family AUC per binary (each feature family evaluated in
+isolation; single fold).}
+\label{tab:supp-ablation-only}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l c c c c c c c c c@{}}
+\toprule
+Binary & Pitch & Loud. & Spec. & Voice qual. & Form. & Temp. & Speech rate/pause & VAD & librosa \\
+\midrule
+B00 & 0.575 & 0.578 & 0.659 & 0.599 & 0.632 & 0.604 & 0.600 & 0.620 & 0.719 \\
+B01 & 0.563 & 0.556 & 0.574 & 0.546 & 0.566 & 0.555 & 0.578 & 0.582 & 0.631 \\
+B02 & 0.551 & 0.554 & 0.566 & 0.544 & 0.548 & 0.545 & 0.592 & 0.588 & 0.612 \\
+B03 & 0.571 & 0.575 & 0.609 & 0.568 & 0.585 & 0.568 & 0.565 & 0.594 & 0.641 \\
+B04 & 0.548 & 0.544 & 0.571 & 0.545 & 0.555 & 0.572 & 0.526 & 0.553 & 0.597 \\
+B05 & 0.562 & 0.566 & 0.587 & 0.568 & 0.546 & 0.596 & 0.537 & 0.581 & 0.632 \\
+B06 & 0.564 & 0.567 & 0.589 & 0.554 & 0.593 & 0.561 & 0.587 & 0.595 & 0.638 \\
+B07 & 0.528 & 0.542 & 0.551 & 0.529 & 0.537 & 0.552 & 0.544 & 0.551 & 0.592 \\
+B08 & 0.574 & 0.558 & 0.593 & 0.577 & 0.574 & 0.570 & 0.581 & 0.585 & 0.650 \\
+B09 & 0.529 & 0.575 & 0.629 & 0.571 & 0.591 & 0.594 & 0.539 & 0.541 & 0.679 \\
+B10 & 0.545 & 0.559 & 0.622 & 0.580 & 0.608 & 0.599 & 0.532 & 0.566 & 0.689 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
 \bibliographystyle{Frontiers-Harvard}
 \bibliography{references}
 
