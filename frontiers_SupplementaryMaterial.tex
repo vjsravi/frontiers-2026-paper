@@ -199,7 +199,7 @@ to maximise discriminability.
 The same seven patient-level covariate flags are carried through every
 binary's manifest output (heart failure, obesity, obstructive sleep
 apnoea, depression, anxiety, gastro-oesophageal reflux disease, and
-smoking history) for downstream matching and subgroup AUROC. These
+smoking history) for downstream matching and subgroup AUC. These
 are carried as metadata only and are not used as exclusion criteria.
 
 Per-binary specifications and the final review decisions that shaped
@@ -217,7 +217,7 @@ confounds (sick-affect envelope, conversation length, and audio-quality
 or recording-context skew) cancel by construction. Both arms are
 acute primary-care visits; any above-chance separation is therefore,
 by design, respiratory-mechanism specific rather than generic-sick-voice.
-The price of this reformulation is a lower attainable AUROC ceiling
+The price of this reformulation is a lower attainable AUC ceiling
 (estimated 0.72--0.80 versus the original framing's 0.85--0.92), accepted
 for the stronger respiratory-specificity claim.
 
@@ -300,15 +300,15 @@ pre-registering two analysis paths. In Path A the pooled negative
 class (compound acute-on-chronic plus pure stable chronic) is reported
 as the primary endpoint; in Path B the negative class is restricted
 to \texttt{pure\_stable\_chronic} visits only ($n=3{,}457$), and the
-AUROC is reported alongside Path A. The interpretation is pre-specified:
-similar AUROC across paths indicates a true respiratory-mechanism
+AUC is reported alongside Path A. The interpretation is pre-specified:
+similar AUC across paths indicates a true respiratory-mechanism
 contrast independent of acute symptoms, whereas a substantially higher
-Path A AUROC indicates that the contrast is being carried by the
+Path A AUC indicates that the contrast is being carried by the
 acute-event signature (cough, dyspnoea) shared between pure acute
 infections and acute exacerbations.
 
 Patient-level chronic-respiratory history was kept in the positive
-arm (with stratified subgroup AUROC by \texttt{pat\_has\_chronic\_resp})
+arm (with stratified subgroup AUC by \texttt{pat\_has\_chronic\_resp})
 rather than excluded, both to preserve real-world prevalence and
 because cross-arm ICS exposure weakens the ICS-shortcut.
 
@@ -510,7 +510,7 @@ that are clinically indistinguishable from a regular cold at the
 bedside. The contrast measured by B06 is therefore ``ICD-coded acute
 sinusitis (predominantly viral URI with sinus-symptom presentation)
 vs other ICD-coded URI,'' not ``bacterial sinusitis vs cold.'' An
-AUROC near chance (0.55--0.65) is reported as a meaningful empirical
+AUC near chance (0.55--0.65) is reported as a meaningful empirical
 negative result demonstrating that ICD-coded acute sinusitis is not
 acoustically separable from other ICD-coded URI in spontaneous
 primary-care conversation.
@@ -554,8 +554,8 @@ primary care), \textit{Mycoplasma pneumoniae}, and \textit{Chlamydophila
 pneumoniae}. The clinically more useful binary (bacterial vs viral
 pharyngitis) is not implementable with available ICD coding. The
 expected performance ceiling against a hypothetical RADT- or
-culture-confirmed gold standard is AUROC 0.65--0.70 \citep{gas-clinical-criteria-ceiling} per the brief's
-self-audit; an AUROC closer to chance is reported as a meaningful
+culture-confirmed gold standard is AUC 0.65--0.70 \citep{gas-clinical-criteria-ceiling} per the brief's
+self-audit; an AUC closer to chance is reported as a meaningful
 empirical result rather than a model failure.
 
 \paragraph{Key review decisions.} The manuscript explicitly states
@@ -590,7 +590,7 @@ additional rule that no flu code appears anywhere on the visit. Final
 cohort: 13{,}248 influenza and 268{,}314 other-acute-respiratory
 visits (class ratio 1:20.3).
 
-\paragraph{Expected performance ceiling.} AUROC approximately
+\paragraph{Expected performance ceiling.} AUC approximately
 0.70--0.75 against a hypothetical laboratory-confirmed gold standard.
 Documented primary-care flu coding shows 61\% under-coding of
 laboratory-confirmed cases and a clinical-criteria positive predictive
@@ -691,10 +691,10 @@ $n=152$, $\sim$1\% of the bacterial arm) was retained despite its
 viral-like clinical phenotype (gradual onset, dry cough, low-grade
 fever, outpatient). The expected
 $\sim$5--15\% GAS-carrier-state false-positive rate on J02.0 is
-reported as an upper bound on the bacterial-URI sub-binary AUROC.
+reported as an upper bound on the bacterial-URI sub-binary AUC.
 Adult pertussis is acknowledged to typically present as prolonged
 cough without the classic pediatric whoop, and pertussis sub-class
-AUROC is reported separately rather than pooled into the bacterial
+AUC is reported separately rather than pooled into the bacterial
 arm.
 
 \paragraph{Acknowledged limitations.} No published pooled
@@ -704,7 +704,7 @@ bacterial superinfection in the viral arm (irreducible without
 antibiotic-prescription metadata); GAS pharyngeal carrier-state
 false-positives on J02.0; uncertain pediatric-to-adult pertussis
 transfer; Mycoplasma bacterial-by-taxonomy / viral-by-phenotype. An
-AUROC near chance is reported as a meaningful empirical result
+AUC near chance is reported as a meaningful empirical result
 consistent with the literature null.
 
 
@@ -863,7 +863,7 @@ Arizona rises (7.7\% versus 4.5\%). Median clip duration is
 substantially longer in the sinusitis arm (29.5~s versus 23.5~s),
 giving more material for nasal-coupling and resonance features,
 which, given the dominant viral-URI fraction inside the J01 class,
-does not translate to expected high AUROC (see \S\ref{sec:supp-b06}).
+does not translate to expected high AUC (see \S\ref{sec:supp-b06}).
 
 \subsection{B07: GAS pharyngitis vs other pharyngitis}
 
@@ -898,7 +898,7 @@ factors. Female share is slightly lower (59.5\% versus 62.8\%).
 Arizona is over-represented on the COVID side (11.0\% versus 4.9\%),
 which combined with the era-bimodal performance expectation
 (\S\ref{sec:supp-b09}) is reported through the era-stratified
-AUROC. Median clip duration is essentially identical (24.7~s versus
+AUC. Median clip duration is essentially identical (24.7~s versus
 25.2~s).
 
 \subsection{B10: definite bacterial vs definite viral respiratory infection}
