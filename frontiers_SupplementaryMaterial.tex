@@ -132,7 +132,7 @@ One stream contains 281 features derived from librosa (version 0.11.0), summariz
 
 One stream contains 24 features derived from a valence, arousal, and dominance predictor (WavLM-VAD-Odyssey2024), computed as per-clip distribution statistics of the three predicted axes. One stream contains 19 features from a temporal-analysis extractor that combines praat-parselmouth syllable-and-pause detection (yielding total syllables, total pauses, total file duration, phonation time, speech rate, articulation rate, average syllable duration, total pause duration, and maximum, minimum, and mean pause durations) with librosa tempo statistics (mean, median, standard deviation, minimum, maximum, interquartile range, coefficient of variation, and range).
 
-Non-numeric columns and extraction-metadata columns are dropped at the consolidation step, and visits whose source feature parquet is missing one or more required columns are dropped at compact-build time; this affects approximately three to five percent of the visits per binary and is recorded in a sidecar audit file.
+Non-numeric columns and extraction-metadata columns are dropped at the consolidation step, and visits whose source feature parquet is missing one or more required columns are dropped at compact-build time; this affects approximately 3 to 5\% of the visits per binary and is recorded in a sidecar audit file.
 
 \subsection{Model architecture details}
 \label{supp:model-architecture}
@@ -941,7 +941,7 @@ use these models support at their natural prevalence is rule-out.
 \caption{Positive and negative predictive values (reported as
 PPV/NPV) at each binary's natural cohort prevalence and across a
 prevalence grid, projected from the class-conditional sensitivity and
-specificity by Bayes' rule. The 50 percent column is the balanced
+specificity by Bayes' rule. The 50\% column is the balanced
 test-set operating point.}
 \label{tab:supp-prevalence}
 \footnotesize
