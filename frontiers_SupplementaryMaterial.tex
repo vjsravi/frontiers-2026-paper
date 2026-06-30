@@ -890,6 +890,59 @@ the bacterial arm. The anatomy-mix dominance of this binary
 above-chance separation could be driven by the age and clip-length
 differences alone.
 
+\section{Prevalence-projected predictive metrics}
+\label{sec:supp-prevalence}
+
+Sensitivity, specificity, and the likelihood ratios reported in the
+main text are computed within each true class and do not depend on
+prevalence. The positive and negative predictive values, in contrast,
+depend on the base rate. Because the test set is balanced at the
+patient level, the directly observed predictive values are at a 50
+percent base rate. Table~\ref{tab:supp-prevalence} re-projects the
+predictive values to each binary's natural cohort prevalence (the
+positive rate in the pre-balance clean manifest) and to a grid of
+prevalences, by applying Bayes' rule to the class-conditional
+sensitivity and specificity. For the low-prevalence pathogen contrasts
+B08 (influenza) and B09 (COVID-19), the natural-prevalence positive
+predictive value is 0.07 and 0.10 respectively, while the negative
+predictive value is 0.97 in both, indicating that the only operating
+use these models support at their natural prevalence is rule-out.
+
+Per-binary Brier scores on the balanced test set range from 0.205
+(B00) to 0.243 (B07).
+
+\begin{table*}[t]
+\centering
+\caption{Positive and negative predictive values (reported as
+PPV/NPV) at each binary's natural cohort prevalence and across a
+prevalence grid, projected from the class-conditional sensitivity and
+specificity by Bayes' rule. The 50 percent column is the balanced
+test-set operating point.}
+\label{tab:supp-prevalence}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l c c c c c c c@{}}
+\toprule
+Binary & Natural prev. (\%) & PPV/NPV at natural & 1\% & 5\% & 10\% & 20\% & 50\% \\
+\midrule
+B00 & 58.4 & 0.736/0.619 & 0.020/0.996 & 0.094/0.977 & 0.180/0.954 & 0.331/0.901 & 0.664/0.695 \\
+B01 & 96.1 & 0.972/0.063 & 0.014/0.994 & 0.070/0.969 & 0.136/0.936 & 0.262/0.867 & 0.587/0.620 \\
+B02 & 89.7 & 0.926/0.139 & 0.014/0.993 & 0.070/0.964 & 0.138/0.926 & 0.265/0.848 & 0.590/0.583 \\
+B03 & 13.8 & 0.209/0.904 & 0.016/0.993 & 0.080/0.966 & 0.155/0.931 & 0.292/0.858 & 0.622/0.602 \\
+B04 & 55.4 & 0.620/0.536 & 0.013/0.993 & 0.065/0.965 & 0.128/0.928 & 0.248/0.851 & 0.568/0.589 \\
+B05 & 29.3 & 0.368/0.773 & 0.014/0.993 & 0.069/0.964 & 0.135/0.927 & 0.260/0.849 & 0.585/0.585 \\
+B06 & 21.9 & 0.328/0.833 & 0.017/0.993 & 0.084/0.964 & 0.162/0.926 & 0.303/0.848 & 0.635/0.583 \\
+B07 & 19.2 & 0.228/0.858 & 0.012/0.993 & 0.061/0.965 & 0.121/0.928 & 0.236/0.852 & 0.553/0.589 \\
+B08 & 4.7 & 0.070/0.972 & 0.015/0.994 & 0.075/0.971 & 0.145/0.940 & 0.277/0.874 & 0.605/0.634 \\
+B09 & 5.8 & 0.098/0.968 & 0.017/0.995 & 0.085/0.972 & 0.163/0.943 & 0.305/0.881 & 0.637/0.649 \\
+B10 & 31.9 & 0.465/0.797 & 0.018/0.995 & 0.089/0.972 & 0.171/0.943 & 0.317/0.881 & 0.650/0.648 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
 \bibliographystyle{Frontiers-Harvard}
 \bibliography{references}
 

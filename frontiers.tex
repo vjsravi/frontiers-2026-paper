@@ -280,6 +280,15 @@ Calibration of predicted probabilities is uniformly strong across the panel. Exp
 
 Per-binary decision thresholds selected by Youden's J on the development partition lie between 0.457 (B07) and 0.558 (B06), close to but not at the prevalence-implied 0.5 (Table~\ref{tab:results_metrics}), reflecting the patient-level balancing applied prior to model training. At these thresholds, sensitivity and specificity show three patterns across the panel. Most binaries operate close to a sensitivity-specificity balance: B05 is exactly balanced (sensitivity 0.585, specificity 0.585), and B09 and B10 are within 0.05 (B09 sensitivity 0.664, specificity 0.622; B10 sensitivity 0.646, specificity 0.652). Two binaries show pronounced asymmetry in opposite directions. B06 (sinusitis versus other URI) trades sensitivity for specificity (sensitivity 0.484, specificity 0.722), reflecting an operating point where the model prefers to confirm sinusitis cautiously. B07 (GAS versus other pharyngitis) trades specificity for sensitivity (sensitivity 0.694, specificity 0.440), reflecting an operating point where the model prefers to flag GAS aggressively. F1 scores at the selected thresholds range from 0.546 (B06) to 0.698 (B00).
 
+\subsection{Operating-point and prevalence-projected metrics}
+\label{sec:results-clinical}
+
+Discrimination summarized by AUC does not by itself convey triage utility, so we report threshold-dependent predictive metrics at each binary's operating point and project them across clinically realistic prevalence (Table~\ref{tab:threshold_metrics}). Because the test set is balanced at the patient level (Section~\ref{sec:methods-training}), the directly observed positive and negative predictive values (PPV, NPV) are values at a 50 percent base rate, while sensitivity, specificity, and the likelihood ratios are computed within each true class and therefore do not depend on prevalence.
+
+Across the panel the likelihood ratios are modest. The positive likelihood ratio ranges from 1.24 (B07) to 1.98 (B00) and the negative likelihood ratio from 0.44 (B00) to 0.72 (B06). No binary reaches the conventional thresholds for a clinically decisive test (positive likelihood ratio above 5 or negative likelihood ratio below 0.2). At the balanced 50 percent operating point, PPV ranges from 0.555 (B07) to 0.675 (B00) and NPV from 0.573 (B02) to 0.685 (B00).
+
+The predictive values change substantially when projected to the natural prevalence of each contrast. For the low-prevalence pathogen contrasts, influenza (B08, natural prevalence 4.7 percent) projects to PPV 0.07 and NPV 0.97, and COVID-19 (B09, natural prevalence 5.8 percent) projects to PPV 0.10 and NPV 0.97. At these prevalences a positive acoustic call would require confirmatory testing, and the only plausible operating use is rule-out rather than rule-in. The full prevalence projection for all 11 binaries is reported in the supplementary material. Calibration is reported in Table~\ref{tab:results_metrics} (expected calibration error) and the supplementary material (Brier score).
+
 \subsection{Confounder analysis}
 \label{sec:results-confounder}
 
@@ -508,6 +517,32 @@ B07 & 0.602 [0.588, 0.614] & 0.589 & 0.617 & 0.694 & 0.440 & 0.019 & 0.015 & 0.4
 B08 & 0.658 [0.646, 0.669] & 0.625 & 0.634 & 0.679 & 0.557 & 0.011 & 0.006 & 0.478 \\
 B09 & 0.694 [0.683, 0.704] & 0.680 & 0.651 & 0.664 & 0.622 & 0.016 & 0.014 & 0.501 \\
 B10 & 0.703 [0.692, 0.714] & 0.679 & 0.643 & 0.646 & 0.652 & 0.021 & 0.021 & 0.510 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Operating-point predictive metrics on the balanced held-out test set. Sensitivity (Sens.) and specificity (Spec.) are at the per-binary Youden threshold. LR+ and LR$-$ are the positive and negative likelihood ratios. PPV and NPV are at the balanced 50\% test prevalence; prevalence-projected values for all 11 binaries are reported in the supplementary material.}
+\label{tab:threshold_metrics}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c c c c c@{}}
+\toprule
+\textbf{Binary} & \textbf{Sens.} & \textbf{Spec.} & \textbf{LR+} & \textbf{LR$-$} & \textbf{PPV@50\%} & \textbf{NPV@50\%} \\
+\midrule
+B00 & 0.722 & 0.635 & 1.98 & 0.44 & 0.675 & 0.685 \\
+B01 & 0.680 & 0.522 & 1.42 & 0.61 & 0.595 & 0.612 \\
+B02 & 0.567 & 0.606 & 1.44 & 0.71 & 0.600 & 0.573 \\
+B03 & 0.564 & 0.658 & 1.65 & 0.66 & 0.619 & 0.605 \\
+B04 & 0.642 & 0.512 & 1.32 & 0.70 & 0.567 & 0.591 \\
+B05 & 0.585 & 0.585 & 1.41 & 0.71 & 0.581 & 0.589 \\
+B06 & 0.484 & 0.722 & 1.74 & 0.72 & 0.626 & 0.593 \\
+B07 & 0.694 & 0.440 & 1.24 & 0.70 & 0.555 & 0.588 \\
+B08 & 0.679 & 0.557 & 1.53 & 0.58 & 0.595 & 0.644 \\
+B09 & 0.664 & 0.622 & 1.76 & 0.54 & 0.639 & 0.648 \\
+B10 & 0.647 & 0.652 & 1.86 & 0.54 & 0.640 & 0.658 \\
 \bottomrule
 \end{tabular}
 \end{table*}
