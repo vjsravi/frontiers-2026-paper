@@ -263,6 +263,11 @@ The leak-safe construction of the cascade evaluation cohort is given in Algorith
 \end{algorithmic}
 \end{algorithm}
 
+\subsection{Reproducibility}
+\label{sec:methods-reproducibility}
+
+The modeling pipeline uses only publicly available components, so the methods can be reproduced from comparable data without any proprietary tool. The acoustic features are produced by openSMILE eGeMAPSv02, librosa, a publicly available valence-arousal-dominance predictor, and praat-parselmouth, and the classifier is a standard feed-forward network. The specification needed to reproduce the work is provided across the paper and the supplementary material: the ICD-10 inclusion and exclusion rules and final cohort counts for all 11 binaries (Section~\ref{sec:cohort-design} and supplementary material), the diarization and audio-preprocessing parameters (Section~\ref{sec:methods-audio} and supplementary material), the feature-extraction configuration and stream definitions (Section~\ref{sec:methods-features} and supplementary material), the network architecture (Section~\ref{sec:methods-architecture} and supplementary material), and the full hyperparameter grid and training settings (supplementary material). Per-class aggregate distributions of all 412 features for each binary are provided as supplementary data. The items that cannot be shared are the raw audio and the visit-level derived feature tables, both of which are protected health information.
+
 
 \section{Results}
 \label{sec:results}

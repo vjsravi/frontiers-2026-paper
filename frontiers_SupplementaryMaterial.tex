@@ -1085,6 +1085,53 @@ B10 & 0.703 & 0.693 & 0.569 & 0.798 & 0.695 \\
 \end{tabular}
 \end{table*}
 
+\section{Per-class aggregate feature distributions}
+\label{sec:supp-feature-distributions}
+
+We provide, as supplementary data, the per-class aggregate distribution
+of every feature for every binary: for each of the 11 binaries and each
+of the 412 features, the per-class count, mean, standard deviation, and
+median, together with the mean difference, pooled standard deviation,
+and Cohen's d. The file contains $11 \times 412 = 4{,}532$ rows and
+carries no patient identifiers, no per-visit values, no dates, and no
+geography, so it can be released without disclosing protected health
+information. No single feature is strongly discriminative in any binary:
+the maximum absolute Cohen's d across the panel is approximately 0.34
+and no feature exceeds 0.5, consistent with the moderate AUCs. The
+largest single-feature effects include the speech-rate and pause family,
+which the ablation in Section~\ref{sec:supp-ablation} shows the trained
+models nonetheless rely on little. Table~\ref{tab:supp-topfeature}
+lists, for each binary, the feature with the largest absolute
+standardized effect.
+
+\begin{table*}[t]
+\centering
+\caption{Feature with the largest absolute Cohen's d in each binary,
+from the per-class aggregate feature distributions. Cohen's d is signed
+(positive means a higher mean in the positive class).}
+\label{tab:supp-topfeature}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l l c@{}}
+\toprule
+Binary & Feature (largest $|d|$) & Stream & Cohen's d \\
+\midrule
+B00 & total syllable count & speech rate/pause & $-0.340$ \\
+B01 & total syllable count & speech rate/pause & $-0.337$ \\
+B02 & total syllable count & speech rate/pause & $-0.322$ \\
+B03 & MFCC 9 minimum & librosa & $-0.191$ \\
+B04 & openSMILE MFCC3 mean & openSMILE & 0.176 \\
+B05 & MFCC 10, 75th percentile & librosa & 0.232 \\
+B06 & total syllable count & speech rate/pause & 0.249 \\
+B07 & phonation time & speech rate/pause & $-0.169$ \\
+B08 & phonation time & speech rate/pause & $-0.215$ \\
+B09 & spectral rolloff mean & librosa & $-0.267$ \\
+B10 & spectral rolloff mean & librosa & 0.297 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 \bibliographystyle{Frontiers-Harvard}
 \bibliography{references}
 
