@@ -146,7 +146,35 @@ For each binary, balancing reduces the analytic sample to twice the size of the 
 
 Each model is trained for up to 50 epochs with AdamW (weight decay 0.001), a cosine-annealing learning rate schedule with no warmup, and gradient norm clipping at 1.0. The minibatch size is 256. Training halts early when development loss has not improved for 10 consecutive epochs, and the checkpoint with the lowest development loss is retained as that fold's final model.
 
-The learning rate and the hidden-layer topology are chosen per binary by a grid search over four learning rates (1e-4, 3e-4, 1e-3, 3e-3) and four candidate topologies (two-block at 128 and 64; three-block at 256, 128, 64; four-block at 256, 128, 64, 32; three-block at 512, 256, 128), yielding 16 combinations per binary. Each combination is trained once on a single development split of the balanced cohort, and the combination achieving the lowest development loss is selected. The selected combination is then retrained under five-fold cross-validation, producing five fold-specific models.
+The learning rate and the hidden-layer topology are chosen per binary by a grid search over four learning rates (1e-4, 3e-4, 1e-3, 3e-3) and four candidate topologies (two-block at 128 and 64; three-block at 256, 128, 64; four-block at 256, 128, 64, 32; three-block at 512, 256, 128), yielding 16 combinations per binary. Each combination is trained once on a single development split of the balanced cohort, and the combination achieving the lowest development loss is selected. The selected combination is then retrained under five-fold cross-validation, producing five fold-specific models. Table~\ref{tab:supp-hyperparameters} summarizes these settings.
+
+\begin{table*}[t]
+\centering
+\caption{Training and hyperparameter settings for the single-stream feed-forward classifier, applied per binary.}
+\label{tab:supp-hyperparameters}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}l l@{}}
+\toprule
+Setting & Value \\
+\midrule
+Class balancing & minority class $\times 2$, patient-level downsampling, seeded \\
+Test hold-out & 30\% of unique patients (patient-level, stratified) \\
+Cross-validation & 5-fold, patient-level, stratified \\
+Optimizer & AdamW, weight decay 0.001 \\
+Learning-rate schedule & cosine annealing, no warmup \\
+Gradient clipping & maximum norm 1.0 \\
+Minibatch size & 256 \\
+Maximum epochs & 50 \\
+Early stopping & patience 10 on development loss \\
+Learning-rate grid & 1e-4, 3e-4, 1e-3, 3e-3 \\
+Architecture grid & [128, 64]; [256, 128, 64]; [256, 128, 64, 32]; [512, 256, 128] \\
+Hidden block & linear, batch normalization, GELU, dropout 0.5 \\
+Decision threshold & Youden's J on the development partition \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 
 % =====================================================================
