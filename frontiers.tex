@@ -309,6 +309,13 @@ First, the librosa stream (Mel-frequency cepstral, spectral, and rhythm features
 
 Second, the models do not behave as a recording-length or speech-density proxy. The speech-rate-and-pause family (total syllables, pauses, phonation time, articulation rate) has a leave-one-family-out delta between $-0.004$ and $+0.005$ across all 11 binaries and is among the weakest families in isolation (0.526 to 0.600). Speech density therefore contributes negligibly to the trained models, which argues against the concern that performance reflects a recording-length artifact rather than acoustic content.
 
+\subsection{Location-stratified generalization}
+\label{sec:results-location}
+
+The dataset does not carry clinic or site identifiers, so generalization across settings was assessed using the patient city and state of residence, the only location fields available. Two complementary analyses were run. In the first, entire cities were assigned to five disjoint folds so that no city appeared in both training and test, and the model was retrained and evaluated on the held-out cities (Table~\ref{tab:location_loco}). Across the panel the held-out-city AUC was close to the random-split AUC: the gap between the champion AUC and the mean held-out-city AUC was at most 0.020 on every binary (0.020 for B09, 0.018 for B08, 0.017 for B03) and was slightly negative for B00. Discrimination on entirely unseen cities therefore matches the random-split estimate, indicating that the models do not depend on city-specific patterns.
+
+In the second analysis, the model was trained on California visits and tested on the rest of the country, and the reverse. This coarse regional swap produced larger drops, concentrated in the binaries already flagged in the confounder analysis. B00 remained stable (0.723 and 0.722 against a champion AUC of 0.745), while B05 fell to 0.562 and 0.525, close to chance. The seasonal etiology binaries also dropped (B08 to 0.610 and 0.617, B09 to 0.640 and 0.669, B10 to 0.644 and 0.664). Per-city stratified AUC, reported in the supplementary material, showed the same pattern: the visit-weighted within-city AUC was close to the overall AUC for most binaries but lower for B05 (0.569 versus 0.629). The California-versus-rest results and the per-site stratified AUC are reported in full in the supplementary material.
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -328,6 +335,8 @@ The first category is structural demographic leakage. B03 (lower versus upper re
 The second category is seasonal and pandemic-wave temporal structure for the three pathogen-specific contrasts. B08 (influenza) fails on calendar month with a month-baseline AUC of 0.753 against the voice headline of 0.658, the largest baseline-versus-voice gap in the panel. B09 (COVID-19) and B10 (bacterial versus viral) also fail on month, with month-baseline AUCs of 0.700 and 0.719 respectively. The interpretation here is straightforward and clinically expected: influenza is overwhelmingly concentrated in the winter months, COVID-19 follows pandemic waves that are themselves temporal, and the bacterial-viral mix shifts seasonally because strep season and viral cold season do not coincide. Knowing the month is therefore strongly predictive of the diagnosis. Within-month analyses are informative: the median within-month voice-model AUC is 0.627 for B08 (range 0.545 to 0.672 across calendar months), 0.698 for B09 (range 0.669 to 0.723), and 0.683 for B10 (range 0.623 to 0.710). For B09 and B10, the within-month voice AUC is essentially indistinguishable from the headline AUC, potentially indicating that the voice model encodes the same temporal-pathogen signal that the month baseline does. For B08, the within-month AUC is meaningfully lower than the headline (0.627 versus 0.658), suggesting that the headline performance for influenza is more dependent on the seasonal prior than for B09 or B10. In all three cases some discriminatory power persists in the voice signal when month is held fixed, but the temporal prior remains a clinically important and operationally available piece of information that a deployed system would likely condition on rather than exclude.
 
 The third category is a cohort-level confound. B05 (pneumonia versus non-pneumonia LRI) fails on city and on state-by-city, with city-baseline AUC of 0.678 exceeding the voice-model AUC of 0.629. This is the only cell in the panel where a non-acoustic single-axis baseline outperforms the voice model. The most plausible explanation is the J22 unspecified-LRI label noise in the B05 negative cohort, which we flagged at cohort construction in Section~\ref{sec:cohort-design}. The J22 code is assigned in practice when the clinician documents a lower respiratory infection without committing to either pneumonia or bronchitis, and the choice of J22 versus a specific code is itself a clinician- and clinic-level habit, not a clinically meaningful disease distinction. A patient city baseline picks this up because clinics in a given city share documentation habits. Within-city analysis is therefore not informative as a rescue (the conditioning would remove the very variance the model would need to learn from), and we treat B05 as the one binary in the panel where the apparent acoustic discrimination is partly explained by a clinic-documentation artifact rather than by a clinical acoustic signal. The pneumonia signal itself is more cleanly assessed in B04 (pneumonia versus acute bronchitis, the same positive cohort with a cleaner negative cohort), where the AUC of 0.615 is lower but is not subject to the same confound.
+
+The location-stratified experiments in Section~\ref{sec:results-location} corroborate this reading. Fine-grained generalization holds: when whole cities are held out of training, discrimination stays within 0.020 of the random-split estimate on every binary. A coarse California-versus-rest swap, by contrast, degrades exactly the binaries flagged here, with B05 falling close to chance and the three seasonal etiology binaries (B08, B09, B10) dropping by 0.03 to 0.10. The city and month confounds are therefore visible not only in the prevalence-lookup baselines but also in how the acoustic models transfer across regions. We do not have clinic or site identifiers and so cannot stratify below the city level.
 
 We deliberately did not include demographic, geographic, or temporal variables as conditioning features in the acoustic models, since the goal of this pilot is to isolate the voice-only signal at each contrast; an ablation that fuses voice with these priors and quantifies the marginal contribution of each is left to future work.
 
@@ -576,6 +585,32 @@ B07 & 0.604 & 0.031 & 0.592 & 0.001 \\
 B08 & 0.657 & 0.017 & 0.650 & $-0.004$ \\
 B09 & 0.687 & 0.017 & 0.679 & 0.000 \\
 B10 & 0.703 & 0.046 & 0.689 & 0.001 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{City-grouped held-out generalization. Entire cities were assigned to five disjoint folds (no city in both training and test); the model was retrained on four folds and evaluated on the held-out cities. ``Held-out-city AUC'' is the mean and standard deviation across folds; ``Gap'' is the champion AUC minus the mean held-out-city AUC (positive means lower performance on unseen cities).}
+\label{tab:location_loco}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+\textbf{Binary} & \textbf{Champion AUC} & \textbf{Held-out-city AUC (mean $\pm$ SD)} & \textbf{Gap} \\
+\midrule
+B00 & 0.745 & $0.746 \pm 0.006$ & $-0.001$ \\
+B01 & 0.643 & $0.639 \pm 0.006$ & 0.004 \\
+B02 & 0.623 & $0.616 \pm 0.013$ & 0.007 \\
+B03 & 0.657 & $0.640 \pm 0.008$ & 0.017 \\
+B04 & 0.615 & $0.602 \pm 0.009$ & 0.013 \\
+B05 & 0.629 & $0.620 \pm 0.016$ & 0.008 \\
+B06 & 0.651 & $0.646 \pm 0.007$ & 0.005 \\
+B07 & 0.602 & $0.595 \pm 0.004$ & 0.007 \\
+B08 & 0.658 & $0.640 \pm 0.011$ & 0.018 \\
+B09 & 0.694 & $0.674 \pm 0.019$ & 0.020 \\
+B10 & 0.703 & $0.694 \pm 0.006$ & 0.009 \\
 \bottomrule
 \end{tabular}
 \end{table*}
