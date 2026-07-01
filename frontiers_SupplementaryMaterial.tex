@@ -262,7 +262,7 @@ the negative arm that cannot be ICD-isolated; this is reported as a
 methods limitation.
 
 % ---------------------------------------------------------------------
-\subsection{B01: Acute respiratory infection vs chronic respiratory management}
+\subsection{B01: Acute respiratory infection vs chronic respiratory disease management}
 \label{sec:supp-b01}
 
 B01 contrasts an acute infectious presentation against a chronic
@@ -790,7 +790,7 @@ the negative side, consistent with the brevity of acute upper
 respiratory presentations relative to the heterogeneous acute
 non-respiratory complaint pool.
 
-\subsection{B01: acute respiratory infection vs chronic respiratory management}
+\subsection{B01: acute respiratory infection vs chronic respiratory disease management}
 
 Age and sex are tightly matched (positive 42.0~y, 62.6\% female;
 negative 43.8~y, 63.1\% female) despite the strong cohort imbalance
@@ -925,8 +925,8 @@ Sensitivity, specificity, and the likelihood ratios reported in the
 main text are computed within each true class and do not depend on
 prevalence. The positive and negative predictive values, in contrast,
 depend on the base rate. Because the test set is balanced at the
-patient level, the directly observed predictive values are at a 50
-percent base rate. Table~\ref{tab:supp-prevalence} re-projects the
+patient level, the directly observed predictive values are at a 50\%
+base rate. Table~\ref{tab:supp-prevalence} re-projects the
 predictive values to each binary's natural cohort prevalence (the
 positive rate in the pre-balance clean manifest) and to a grid of
 prevalences, by applying Bayes' rule to the class-conditional
@@ -978,7 +978,7 @@ Decision-curve analysis evaluates whether acting on the model's predictions yiel
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{fig_decision_curves}
-\caption{Decision-curve analysis for the 11 binary classification tasks on the held-out test set at the balanced 50\% prevalence. Each panel plots net benefit against threshold probability for the voice model (solid), a treat-all strategy (dashed), and a treat-none strategy (net benefit zero). A model provides clinical value where its curve lies above both references.}
+\caption{Decision-curve analysis for the 11 binary classification tasks on the held-out test set at the balanced 50\% prevalence. Each panel plots net benefit against threshold probability for the voice model (solid), a treat-all strategy (dashed), and a treat-none strategy (net benefit zero). A model provides net benefit over the default strategies where its curve lies above both references; these curves are at the balanced 50\% test prevalence and do not by themselves establish deployment utility at each contrast's natural prevalence.}
 \label{fig_dca}
 \end{figure*}
 
