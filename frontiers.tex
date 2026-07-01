@@ -203,21 +203,21 @@ The full per-binary procedure is given in Algorithm~\ref{alg:per-binary}.
 \caption{Per-binary preparation, training, and evaluation (binary $B$).}
 \label{alg:per-binary}
 \begin{algorithmic}[1]
-\State \textbf{Constants:} seed $=42$, test fraction $=0.30$, folds $K=5$
-\State \textbf{Input:} clean manifest $M_B$, one row per visit (patient identifier, label, 412 features, demographics)
+\State Constants: seed $=42$, test fraction $=0.30$, folds $K=5$
+\State Input: clean manifest $M_B$, one row per visit (patient identifier, label, 412 features, demographics)
 \Statex
-\State \textbf{Step 1. Class balancing, patient level, before any split}
+\State Step 1. Class balancing, patient level, before any split
 \State $n \gets \min(\#\,\text{positive visits},\ \#\,\text{negative visits})$ in $M_B$
 \For{class $c \in \{0,1\}$}
   \State sample patients of class $c$ without replacement until the visit count reaches $n$; if the realized count exceeds $n$, trim to $n$ at the visit level
 \EndFor
 \State $M_{\text{bal}} \gets$ union of sampled visits (approximately balanced)
 \Statex
-\State \textbf{Step 2. Patient-level test hold-out, frozen until Step 5}
+\State Step 2. Patient-level test hold-out, frozen until Step 5
 \State split unique patients of $M_{\text{bal}}$ into training and test patients by the test fraction, stratified on label
 \State $\text{TEST} \gets$ visits of the test patients (not used in Steps 1 to 4)
 \Statex
-\State \textbf{Step 3. $K$-fold cross-validation on the training pool, patient level}
+\State Step 3. $K$-fold cross-validation on the training pool, patient level
 \For{each fold $k$ of a stratified $K$-fold split of the training patients}
   \State $\text{TRAIN}_k,\ \text{DEV}_k \gets$ visits of the fold's training and development patients
   \State fit per-stream standardization on $\text{TRAIN}_k$ only
@@ -225,10 +225,10 @@ The full per-binary procedure is given in Algorithm~\ref{alg:per-binary}.
   \State $\text{thr}_k \gets$ Youden's J operating point on $\text{DEV}_k$
 \EndFor
 \Statex
-\State \textbf{Step 4. Model selection on development loss, never on test}
+\State Step 4. Model selection on development loss, never on test
 \State select the fold $k^\star$ with the lowest development loss, with its model, scaler, and threshold
 \Statex
-\State \textbf{Step 5. Single evaluation on the frozen test set}
+\State Step 5. Single evaluation on the frozen test set
 \State score $\text{TEST}$ once: AUC with bootstrap CI, AUPRC, and threshold metrics at $\text{thr}_{k^\star}$
 \end{algorithmic}
 \end{algorithm}
