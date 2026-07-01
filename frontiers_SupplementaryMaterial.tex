@@ -968,6 +968,18 @@ B10 & 31.9 & 0.465/0.797 & 0.018/0.995 & 0.089/0.972 & 0.171/0.943 & 0.317/0.881
 }
 \end{table*}
 
+\section{Decision-curve analysis}
+\label{sec:supp-dca}
+
+Decision-curve analysis evaluates whether acting on the model's predictions yields more net benefit than the default strategies of treating all patients or treating none, across the range of threshold probabilities a clinician might adopt. At a threshold probability $p_t$, a visit is called positive if its predicted probability is at least $p_t$, and the net benefit is $\text{TP}/N - (\text{FP}/N)\,[\,p_t/(1-p_t)\,]$, where $N$ is the number of test visits. The threshold probability encodes the weight placed on a false positive relative to a true positive. Figure~\ref{fig_dca} shows the net-benefit curves for all 11 binaries, computed on the balanced (approximately 50\%) held-out test set, so the curves and the treat-all reference are at a 50\% base rate; predictive values at each contrast's natural prevalence are given in Table~\ref{tab:supp-prevalence}. Across the panel, the voice model's net-benefit curve lies at or above both the treat-all and treat-none references over the lower and middle range of threshold probabilities.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{fig_decision_curves}
+\caption{Decision-curve analysis for the 11 binary classification tasks on the held-out test set at the balanced 50\% prevalence. Each panel plots net benefit against threshold probability for the voice model (solid), a treat-all strategy (dashed), and a treat-none strategy (net benefit zero). A model provides clinical value where its curve lies above both references.}
+\label{fig_dca}
+\end{figure*}
+
 \section{Feature-family ablation}
 \label{sec:supp-ablation}
 
