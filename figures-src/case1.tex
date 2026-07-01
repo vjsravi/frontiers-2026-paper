@@ -2,7 +2,7 @@
 \input{casebase}
 \begin{document}
 \begin{tikzpicture}[node distance=7mm]
-\node[hdr] (h) {\textbf{Case 1}\\ \textit{Female, age range 60--69}\\ \textit{ICD primary J01.91; J18.9 $\cdot$ Pneumonia}};
+\node[hdr] (h) {\textbf{Case 1}\\ \textit{Female, age range 60--69}\\ \textit{ICD primary J18.9 $\cdot$ Pneumonia}};
 \node[box, below=5mm of h] (b0) {\gate{B00}{respiratory?}{0.953}{0.491}{respiratory condition}};
 \node[box, below=of b0] (b1) {\gate{B01}{acute?}{0.785}{0.503}{acute condition}};
 \node[box, below=of b1] (b2) {\gate{B02}{infection?}{0.708}{0.516}{Infection}};
